@@ -1,0 +1,38 @@
+/*
+ * Split-text reveal styles (companion to text-split-reveal.js)
+ * ----------------------------------------------------------------------------
+ * Communicates: see text-split-reveal.js — one display line, words in order.
+ * Use: load with tokens.css. Nothing here applies until the script has split
+ *   the element (`.is-split`), so without JS the heading renders normally.
+ * Reduced motion: the script never splits, so these rules never match.
+ * Support: evergreen browsers.
+ */
+
+.split-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.is-split .split-word {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: top;
+  /* Keep descenders and accents inside the mask. */
+  padding-block: 0.1em;
+  margin-block: -0.1em;
+}
+
+.is-split .split-word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform var(--dur-deliberate, 700ms) var(--ease-emphasized, ease-out);
+  transition-delay: var(--d, 0ms);
+}
+
+.is-split.is-in .split-word > span {
+  transform: none;
+}

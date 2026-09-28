@@ -1,0 +1,78 @@
+/*
+ * Sticky stacking cards (position: sticky + subtle scroll-linked scale)
+ * ----------------------------------------------------------------------------
+ * Communicates: "these are steps/chapters, and each one builds on the last" —
+ *   each card pins below the header and the next slides over it, while the
+ *   covered card recedes slightly (scale 1 -> 0.92). Good for 3-5 process
+ *   steps, plans, case-study chapters. Not for more than ~6 cards, and not for
+ *   content people compare side by side.
+ * Use:
+ *   <ol class="stack" style="--n: 4">
+ *     <li class="stack__item" style="--i: 0"><article class="stack__card">…</article></li>
+ *     …
+ *   </ol>
+ *   --n = number of cards, --i = 0-based index (or rely on sibling-index() /
+ *   sibling-count() where supported). `--stack-top` sets where cards pin
+ *   (default: 5rem, below a sticky header); `--stack-peek` offsets each card
+ *   so the edges of earlier ones stay visible (default 0.75rem).
+ *   Cards must be shorter than the viewport minus --stack-top, or the bottom
+ *   of a card is never readable; below 40rem of viewport height the stack
+ *   turns into a normal list.
+ * How: stacking is plain `position: sticky` (layout, no animation). The scale
+ *   is a transform on the inner card, scrubbed by a view timeline on the list,
+ *   so each card shrinks during its own slice of the list's scroll.
+ * Reduced motion: cards still stick and stack (the user drives it; nothing
+ *   moves on its own), but no scaling.
+ * Support: sticky everywhere. Scale needs `animation-timeline` + named
+ *   `view-timeline` (Chrome/Edge 115+, Safari 26+); elsewhere cards stack
+ *   without the scale, which is a good fallback.
+ */
+
+.stack {
+  --stack-top: 5rem;
+  --stack-peek: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--stack-gap, 2rem);
+}
+
+.stack__item {
+  position: sticky;
+  inset-block-start: calc(var(--stack-top) + var(--i, 0) * var(--stack-peek));
+}
+
+.stack__card {
+  transform-origin: 50% 0;
+}
+
+@supports (order: sibling-index()) {
+  .stack__item { --i: calc(sibling-index() - 1); --n: sibling-count(); }
+}
+
+@media (max-height: 40rem) {
+  .stack__item { position: static; }
+}
+
+@keyframes ui-stack-recede {
+  from { transform: none; }
+  to   { transform: scale(var(--stack-scale, 0.92)); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-height: 40rem) {
+  @supports (animation-timeline: view()) {
+    .stack {
+      view-timeline: --ui-stack block;
+    }
+    /* The last card is never covered, so it does not recede. */
+    .stack__item:not(:last-child) .stack__card {
+      /* linear: scale maps 1:1 to scroll position. */
+      animation: ui-stack-recede linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --ui-stack;
+      animation-range:
+        contain calc(var(--i, 0) / var(--n, 4) * 100%)
+        contain calc((var(--i, 0) + 1) / var(--n, 4) * 100%);
+    }
+  }
+}

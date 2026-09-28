@@ -1,0 +1,4 @@
+id,display,body,mono,mood_tags,source,css_import,fallback_stack,notes,license
+editorial-serif,Fraunces,Source Serif 4,JetBrains Mono,editorial|serif|warm|literary,google,"@import url('https://fonts.googleapis.com/css2?family=Fraunces');","Georgia, serif",High-contrast display serif,OFL-1.1
+geometric-tech,Space Grotesk,IBM Plex Sans,IBM Plex Mono,tech|geometric|modern|startup,google,"@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk');","system-ui, sans-serif",Technical feel,OFL-1.1
+system-native,system-ui,system-ui,ui-monospace,native|fast|neutral,system,,"system-ui, sans-serif",Zero download,n/a

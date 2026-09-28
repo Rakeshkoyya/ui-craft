@@ -1,0 +1,48 @@
+/*
+ * Reveal on scroll — reveal ONCE (IntersectionObserver + CSS transition)
+ * ----------------------------------------------------------------------------
+ * Communicates: "this content is arriving as you reach it" — gives long pages
+ *   a sense of progress. Use for section-level blocks (a heading + its body,
+ *   a figure, a card group), NOT for every paragraph. Small travel, one reveal
+ *   per block, and it plays the first time only: scrolling back up does not
+ *   hide or replay anything. (For a deliberately scrubbed, scroll-linked
+ *   effect use scroll-scrubbed-reveal.css instead.)
+ * Use:
+ *   1. Put this inline script in <head> (before any stylesheet that paints):
+ *        <script>
+ *          (function (d) {
+ *            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ *            d.classList.add('reveal-ready');
+ *            setTimeout(function () {
+ *              if (!d.classList.contains('reveal-live')) d.classList.remove('reveal-ready');
+ *            }, 2500);
+ *          })(document.documentElement);
+ *        </script>
+ *   2. Add `data-reveal` to blocks (`data-reveal="scale"` for a subtle pop on
+ *      media/cards). Items inside `[data-reveal-group]` stagger (max 8).
+ *   3. Load tokens.css, this file, and call initReveal() from reveal-on-scroll.js.
+ * Never-invisible guarantee: content is hidden ONLY while <html> has
+ *   `.reveal-ready`. No JS -> never hidden. The observer script failed or was
+ *   blocked (e.g. type="module" on file://) -> the inline timeout removes the
+ *   class after 2.5 s. Printing -> the script reveals everything first.
+ * Reduced motion: nothing is hidden and nothing moves (the gate never opens).
+ * Support: IntersectionObserver + CSS transitions — every evergreen browser.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal]:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(var(--dist-lg, 32px));
+  }
+
+  .reveal-ready [data-reveal="scale"]:not(.is-revealed) {
+    transform: scale(var(--scale-in, 0.96));
+  }
+
+  .reveal-ready [data-reveal] {
+    transition:
+      opacity var(--dur-slow, 420ms) var(--ease-out, ease-out),
+      transform var(--dur-slow, 420ms) var(--ease-out, ease-out);
+    transition-delay: calc(var(--reveal-index, 0) * var(--stagger, 60ms));
+  }
+}

@@ -1,0 +1,10 @@
+id,name,stacks,kind,tags,description,install,setup_notes,license,docs_url,verified_at
+shadcn-ui,shadcn/ui,react|next,styled-kit,radix|tailwind|copy-paste|accessible,"Copy-paste accessible components built on Radix and Tailwind; pick it when you want to own the component code.",npx shadcn@latest init,Requires Tailwind CSS v4,MIT,https://ui.shadcn.com/docs,2026-09-01
+radix-ui,Radix Primitives,react|next,primitives,headless|unstyled|accessible,"Unstyled accessible React primitives for building your own design system.",npm install radix-ui,,MIT,https://www.radix-ui.com/primitives/docs,2026-09-01
+reka-ui,Reka UI,vue|nuxt,primitives,headless|unstyled|accessible,"Unstyled accessible Vue primitives (formerly Radix Vue).",npm install reka-ui,,MIT,https://reka-ui.com/docs,2025-01-10
+bits-ui,Bits UI,svelte,primitives,headless|unstyled|accessible,"Headless accessible Svelte components.",npm install bits-ui,,MIT,https://bits-ui.com/docs,2026-08-01
+web-awesome,Web Awesome,html,styled-kit,web components|framework free|themeable,"Framework-free web components that work in any stack.",npm install @awesome.me/webawesome,,MIT,https://webawesome.com/docs,2026-08-01
+magic-ui,Magic UI,react|next,animated-components,animated|marketing|landing|effects,"Animated marketing components for landing pages.",npx shadcn@latest init,Uses motion,MIT,https://magicui.design/docs,2026-09-01
+lenis,Lenis,html,smooth-scroll,smooth scroll|inertia|scrolling,"Lightweight smooth scrolling library.",npm install lenis,,MIT,https://lenis.darkroom.engineering,2026-09-01
+next-view-transitions,Next View Transitions,next,utility,page transition|router,"View Transitions API helpers for the Next.js App Router.",npm install next-view-transitions,,MIT,https://github.com/shuding/next-view-transitions,2026-09-01
+nuxt-ui,Nuxt UI,nuxt,styled-kit,tailwind|accessible|kit,"Nuxt module with styled accessible components.",npx nuxi module add ui,,MIT,https://ui.nuxt.com,2026-09-01

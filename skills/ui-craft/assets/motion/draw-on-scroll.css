@@ -1,0 +1,83 @@
+/*
+ * Draw on scroll — an SVG line, route or chart stroke drawn by scrolling
+ * ----------------------------------------------------------------------------
+ * Communicates: progression — a timeline, a route, a growth curve or a
+ *   process line that "draws" as the reader moves through the story. One per
+ *   section at most; it is an explanation device, not decoration.
+ * Use:
+ *   <figure data-draw>                       (scrubbed: follows scroll)
+ *     <svg viewBox="0 0 600 200" aria-hidden="true">
+ *       <path class="draw-path" pathLength="1" d="M0 180 C 200 170 …" />
+ *     </svg>
+ *   </figure>
+ *   - `pathLength="1"` normalises any path to length 1, so the same
+ *     dasharray/dashoffset (1 -> 0) works for every shape — no measuring.
+ *     Works on path, line, polyline, polygon, circle, ellipse and rect.
+ *   - `data-draw="once"`: draws once when it enters (timed, ~700 ms) — use for
+ *     charts that carry data, so they never sit half-drawn in a screenshot.
+ *   - `data-draw="wipe"`: clip-path wipe of the whole SVG, left to right.
+ *     Compositor-friendly; best for left-to-right lines and chart series.
+ *   - Load draw-on-scroll.js too: it drives `once` everywhere and the scrubbed
+ *     modes in engines without scroll-driven animations.
+ *   - Use `stroke-linecap: butt` (round caps leave a dot at length 0).
+ *   - Don't combine with `vector-effect: non-scaling-stroke`: dashes are then
+ *     measured in screen pixels, not pathLength units, and a scaled SVG
+ *     stops drawing part-way (verified: halfway at 2x scale).
+ * Performance: stroke-dashoffset repaints the SVG each frame (not composited),
+ *   so capture.mjs will flag it. Acceptable for one modest SVG in view; for a
+ *   big or many-path illustration use `wipe`, which animates clip-path.
+ * Reduced motion: the line is simply drawn in full; nothing animates.
+ * Support: `pathLength` + dash properties everywhere; `animation-timeline:
+ *   view()` Chrome/Edge 115+, Safari 26+ (Firefox: JS fallback). Without JS
+ *   and without scroll timelines the line is fully drawn.
+ */
+
+.draw-path {
+  fill: none;
+  stroke-linecap: butt;
+}
+
+@keyframes ui-draw-stroke {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes ui-draw-wipe {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Path 1: native scroll-driven scrub. The figure is the timeline subject. */
+  @supports (animation-timeline: view()) {
+    [data-draw=""],
+    [data-draw="wipe"] {
+      view-timeline: --ui-draw block;
+    }
+    [data-draw=""] .draw-path {
+      stroke-dasharray: 1 1;
+      /* linear: drawn length maps 1:1 to scroll position. */
+      animation: ui-draw-stroke linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --ui-draw;
+      animation-range: entry 30% cover 60%;
+    }
+    [data-draw="wipe"] > svg {
+      animation: ui-draw-wipe linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: --ui-draw;
+      animation-range: entry 30% cover 60%;
+    }
+  }
+
+  /* Path 2: JS-driven (draw-on-scroll.js adds .draw-js to <html> and writes
+     --draw-progress 0..1 on each figure). Hidden only once the script runs. */
+  .draw-js [data-draw][data-draw-js] .draw-path {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: calc(1 - var(--draw-progress, 0));
+  }
+  .draw-js [data-draw="wipe"][data-draw-js] > svg {
+    clip-path: inset(0 calc((1 - var(--draw-progress, 0)) * 100%) 0 0);
+  }
+  .draw-js [data-draw="once"][data-draw-js] .draw-path {
+    transition: stroke-dashoffset var(--dur-deliberate, 700ms) var(--ease-in-out, ease-in-out);
+  }
+}

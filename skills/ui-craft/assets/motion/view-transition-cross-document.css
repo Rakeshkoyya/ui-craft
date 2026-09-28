@@ -1,0 +1,29 @@
+/*
+ * Cross-document View Transitions (multi-page sites, zero JS)
+ * ----------------------------------------------------------------------------
+ * Communicates: the site is one continuous place — navigating between real
+ *   HTML pages cross-fades instead of flashing white, and elements that
+ *   exist on both pages (logo, product image, article title) morph.
+ * Use: include this file on EVERY page that should participate (both the
+ *   page you leave and the page you land on must opt in). Load
+ *   view-transition.css too for the animation styles. Give shared elements
+ *   the same `view-transition-name` on both pages, e.g.
+ *     .product-hero img { view-transition-name: product-42; }
+ *   Only same-origin navigations transition. Keep pages fast: the browser
+ *   waits for the new page's first render, so a slow server = a long freeze.
+ * Reduced motion: the opt-in itself is scoped to `no-preference`, so users
+ *   who reduce motion get ordinary instant navigations.
+ * Support: Chrome/Edge 126+, Safari 18.2+. Firefox: not in stable as of
+ *   Sept 2026 — navigations simply don't animate there (safe to ship).
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Tip: to stop the destination page from being snapshotted half-rendered, add
+     <link rel="expect" href="#main" blocking="render">
+   to its <head> (Chromium). Keep it pointed at content near the top of the page;
+   blocking render on something far below the fold delays first paint. */

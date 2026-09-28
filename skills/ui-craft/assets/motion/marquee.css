@@ -1,0 +1,79 @@
+/*
+ * Marquee (logo strip / ticker), pausable
+ * ----------------------------------------------------------------------------
+ * Communicates: "there is more of this than fits" — a band of client logos,
+ *   press quotes, or tags drifting past. Ambient motion: keep it slow, keep
+ *   it low-contrast relative to the headline, and never put essential
+ *   information (prices, CTAs) in it.
+ * Use:
+ *   <div class="marquee" data-marquee>
+ *     <button class="marquee__toggle" type="button" aria-pressed="false">Pause</button>
+ *     <div class="marquee__viewport">
+ *       <ul class="marquee__track"> <li>…</li> … </ul>
+ *       <ul class="marquee__track" aria-hidden="true"> (same items again) </ul>
+ *     </div>
+ *   </div>
+ *   The second list is a visual duplicate for a seamless loop; aria-hidden
+ *   keeps screen readers from hearing it twice (marquee.js also sets `inert`
+ *   so its links can't be tabbed). Speed: set --marquee-duration (default 40s).
+ * Pause: hover, keyboard focus inside, the toggle button (WCAG 2.2.2 — moving
+ *   content that lasts over 5s needs a pause control), and off-screen
+ *   (marquee.js pauses it when not visible to save battery).
+ * Reduced motion: no animation; the duplicate is hidden and the strip becomes
+ *   a wrapped row of items.
+ * Support: all evergreen browsers. `mask-image` is Baseline 2023.
+ */
+
+.marquee {
+  --marquee-gap: 3rem;
+  --marquee-duration: 40s;
+  position: relative;
+}
+
+.marquee__viewport {
+  display: flex;
+  overflow: clip;
+  /* Fade the edges so items don't hit a hard cut. */
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  flex: none;
+  gap: var(--marquee-gap);
+  padding-inline-end: var(--marquee-gap);
+  margin: 0;
+  list-style: none;
+  min-width: max-content;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="off"]) .marquee__track {
+    animation: ui-marquee var(--marquee-duration) linear infinite;
+  }
+  .marquee:hover .marquee__track,
+  .marquee:focus-within .marquee__track,
+  .marquee[data-paused] .marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes ui-marquee {
+  to { transform: translateX(-100%); }
+}
+
+/* Reduced motion (or JS-free with motion off): a static, wrapping row. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__viewport { flex-wrap: wrap; mask-image: none; }
+  .marquee__track { flex-wrap: wrap; min-width: 0; row-gap: 1rem; }
+  .marquee__track[aria-hidden="true"],
+  .marquee__toggle { display: none; }
+}
+
+.marquee__toggle {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 0;
+  translate: 0 -50%;
+  z-index: 1;
+}

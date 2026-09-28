@@ -1,0 +1,51 @@
+/*
+ * Scroll-scrubbed reveal (CSS scroll-driven, tied to scroll position)
+ * ----------------------------------------------------------------------------
+ * Communicates: "this moves with you" — the element's entrance is mapped to
+ *   scroll position, so it plays forward as you scroll down and REVERSES as
+ *   you scroll up, every time. That is the point: use it for deliberate
+ *   scrubbed moments (a figure assembling, a quote sliding into place in a
+ *   scroll story), not for ordinary section entrances. For entrances that
+ *   play once, use reveal-on-scroll.css.
+ * Use: add `data-scrub-reveal` (rise), `data-scrub-reveal="scale"` or
+ *   `data-scrub-reveal="clip"` (wipe up). Load tokens.css first. Tune where it
+ *   plays with `--scrub-range-start` / `--scrub-range-end`.
+ * Screenshot note: full-page captures do not grow the viewport, so blocks
+ *   below the fold may be photographed mid-scrub. Judge them from the scroll
+ *   filmstrip, and keep essential copy out of scrubbed elements.
+ * Reduced motion: nothing hidden, nothing moves.
+ * Support: `animation-timeline: view()` — Chrome/Edge 115+, Safari 26+;
+ *   Firefox stable still behind a flag (Sept 2026). Unsupported engines get
+ *   static, fully visible content — no JS fallback on purpose.
+ */
+
+@keyframes ui-scrub-up {
+  from { opacity: 0; transform: translateY(var(--dist-lg, 32px)); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes ui-scrub-scale {
+  from { opacity: 0; transform: scale(var(--scale-in, 0.96)); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes ui-scrub-clip {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-scrub-reveal] {
+      /* linear: progress maps 1:1 to scroll position (not a timed entrance). */
+      animation: ui-scrub-up linear both; /* ui-craft-ignore UC011 */
+      /* animation-timeline must come AFTER the shorthand, which resets it. */
+      animation-timeline: view();
+      animation-range:
+        entry var(--scrub-range-start, 0%)
+        cover var(--scrub-range-end, 35%);
+    }
+    [data-scrub-reveal="scale"] { animation-name: ui-scrub-scale; }
+    [data-scrub-reveal="clip"]  { animation-name: ui-scrub-clip; }
+  }
+}

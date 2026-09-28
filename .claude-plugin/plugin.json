@@ -1,0 +1,25 @@
+{
+  "name": "ui-craft",
+  "version": "0.1.0",
+  "description": "Build professional, distinctive website UI with smooth motion, a searchable catalog of real third-party components, and a screenshot-driven critique loop. Works on any stack.",
+  "author": {
+    "name": "Rakesh Koyya",
+    "url": "https://github.com/rakeshkoyya"
+  },
+  "repository": "https://github.com/rakeshkoyya/ui-craft",
+  "license": "MIT",
+  "keywords": [
+    "ui",
+    "frontend",
+    "design",
+    "motion",
+    "animation",
+    "components",
+    "screenshots",
+    "web-design"
+  ],
+  "skills": [
+    "./skills/"
+  ],
+  "homepage": "https://github.com/rakeshkoyya/ui-craft"
+}

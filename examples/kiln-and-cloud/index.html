@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiln &amp; Cloud — handmade tableware and wheel workshops in Porto</title>
+  <meta name="description" content="A two-person ceramics studio in Bonfim, Porto. Small batches of wheel-thrown stoneware tableware, and Saturday wheel-throwing workshops for six.">
+  <meta name="theme-color" content="#f3f4f8">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Hedvig+Letters+Sans&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Shared SVG paint: glaze gradients and the stoneware speckle used by every piece -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false" width="0" height="0">
+    <defs>
+      <filter id="speckle" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+        <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.18  0 0 0 0 0.14  0 0 0 0 0.12  0 0 0 -2.4 1.25" result="dots"/>
+        <feComposite in="dots" in2="SourceGraphic" operator="in" result="specks"/>
+        <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="specks"/></feMerge>
+      </filter>
+      <linearGradient id="g-celadon" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="oklch(0.86 0.05 170)"/><stop offset="1" stop-color="oklch(0.72 0.06 172)"/>
+      </linearGradient>
+      <linearGradient id="g-tenmoku" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="oklch(0.55 0.1 45)"/><stop offset="0.22" stop-color="oklch(0.32 0.06 40)"/><stop offset="1" stop-color="oklch(0.22 0.03 40)"/>
+      </linearGradient>
+      <linearGradient id="g-shino" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="oklch(0.94 0.03 75)"/><stop offset="0.7" stop-color="oklch(0.86 0.05 60)"/><stop offset="1" stop-color="oklch(0.72 0.09 45)"/>
+      </linearGradient>
+      <linearGradient id="g-cobalt" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="oklch(0.56 0.14 262)"/><stop offset="1" stop-color="oklch(0.36 0.13 264)"/>
+      </linearGradient>
+      <linearGradient id="g-ash" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="oklch(0.82 0.03 105)"/><stop offset="1" stop-color="oklch(0.66 0.04 100)"/>
+      </linearGradient>
+      <linearGradient id="g-iron" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="oklch(0.6 0.12 40)"/><stop offset="1" stop-color="oklch(0.42 0.1 35)"/>
+      </linearGradient>
+      <linearGradient id="g-clay" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="oklch(0.74 0.045 62)"/><stop offset="1" stop-color="oklch(0.6 0.05 55)"/>
+      </linearGradient>
+      <radialGradient id="g-shade" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stop-color="oklch(0.22 0.03 258 / 0.28)"/><stop offset="1" stop-color="oklch(0.22 0.03 258 / 0)"/>
+      </radialGradient>
+      <linearGradient id="g-sheen" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="white" stop-opacity="0"/><stop offset="0.3" stop-color="white" stop-opacity="0.32"/><stop offset="0.42" stop-color="white" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a class="wordmark" href="#top" aria-label="Kiln and Cloud, back to top">
+        <svg class="wordmark-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path d="M9 27h14l2-11c.4-2.3-1.2-4-3.4-4H10.4C8.2 12 6.6 13.7 7 16z" fill="currentColor"/>
+          <path d="M11 9c0-2.8 2.2-5 5-5s5 2.2 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>Kiln &amp; Cloud</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+        <span class="menu-toggle-label">Menu</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main" data-nav>
+        <ul>
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#process">How it’s made</a></li>
+          <li><a href="#workshops">Workshops</a></li>
+          <li><a href="#visit">Visit</a></li>
+        </ul>
+        <a class="button button-small" href="#workshops">Book a workshop</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-kicker" data-hero="eyebrow">A stoneware studio in Bonfim, Porto</p>
+          <h1 class="hero-title" id="hero-title" data-hero="title">
+            <span class="hero-line"><span>Everyday plates</span></span>
+            <span class="hero-line"><span>and bowls, thrown</span></span>
+            <span class="hero-line"><span>by hand in Porto.</span></span>
+          </h1>
+          <p class="hero-lede" data-hero="lede">
+            We are two potters making tableware in batches of about forty pieces, fired in our own
+            kiln at 1260&nbsp;°C. On Saturdays we open the wheels to six people at a time.
+          </p>
+          <div class="hero-actions" data-hero="cta">
+            <a class="button" href="#collection">See batch 14</a>
+            <a class="link-arrowless" href="#workshops">Book a Saturday on the wheel</a>
+          </div>
+        </div>
+
+        <figure class="hero-art" data-hero="media">
+          <svg viewBox="0 0 560 640" role="img" aria-labelledby="hero-art-title">
+            <title id="hero-art-title">Illustration: a cobalt pitcher, a stack of celadon bowls and a small cup on a studio shelf, in front of an arched window.</title>
+            <rect width="560" height="640" fill="var(--color-band)"/>
+            <!-- arched window, the “cloud” -->
+            <path d="M92 640V250C92 140 176 64 280 64s188 76 188 186v390z" fill="var(--color-accent-wash)"/>
+            <g class="hero-cloud" fill="var(--bisque)" opacity="0.9">
+              <circle cx="220" cy="210" r="46"/><circle cx="276" cy="186" r="60"/><circle cx="338" cy="214" r="42"/>
+              <rect x="176" y="210" width="206" height="46" rx="23"/>
+            </g>
+            <!-- shelf -->
+            <rect x="40" y="520" width="480" height="14" rx="3" fill="var(--clay-dark)"/>
+            <rect x="40" y="534" width="480" height="106" fill="var(--grog)"/>
+            <ellipse cx="300" cy="522" rx="190" ry="14" fill="url(#g-shade)"/>
+            <!-- pitcher -->
+            <g class="hero-piece">
+              <path d="M230 520c-26 0-34-10-36-40l-10-150c-2-30 6-50 20-66l-6-24h92l-6 24c14 16 22 36 20 66l-10 150c-2 30-10 40-36 40z" fill="url(#g-clay)" filter="url(#speckle)"/>
+              <g class="glaze-pour">
+                <path d="M198 240h92l-6 24c14 16 22 36 20 66l-6 96c-10 8-22 4-30 12-10 10-24 6-34 0-10-6-22-2-32-10l-8-98c-2-30 6-50 20-66z" fill="url(#g-cobalt)"/>
+                <path d="M198 240h92l-6 24c14 16 22 36 20 66l-6 96c-10 8-22 4-30 12-10 10-24 6-34 0-10-6-22-2-32-10l-8-98c-2-30 6-50 20-66z" fill="url(#g-sheen)"/>
+              </g>
+              <path d="M300 290c34-6 50 14 44 48-5 30-24 50-48 58" fill="none" stroke="url(#g-cobalt)" stroke-width="14" stroke-linecap="round"/>
+              <path d="M200 241c-8-6-16-9-26-10 6 6 14 13 24 20z" fill="url(#g-cobalt)"/>
+            </g>
+            <!-- stacked bowls -->
+            <g class="hero-piece">
+              <path d="M338 520c-4-22 2-34 12-38h96c10 4 16 16 12 38z" fill="url(#g-clay)" filter="url(#speckle)"/>
+              <path d="M330 486c0 0 6 30 68 30s68-30 68-30z" fill="url(#g-celadon)"/>
+              <path d="M326 452c0 0 6 34 72 34s72-34 72-34z" fill="url(#g-celadon)"/>
+              <path d="M322 416c0 0 6 38 76 38s76-38 76-38z" fill="url(#g-celadon)"/>
+              <ellipse cx="398" cy="416" rx="76" ry="9" fill="oklch(0.66 0.06 172)"/>
+            </g>
+            <!-- small cup -->
+            <g class="hero-piece">
+              <path d="M112 520c-6-40-8-64-6-82h62c2 18 0 42-6 82z" fill="url(#g-shino)" filter="url(#speckle)"/>
+              <ellipse cx="137" cy="438" rx="31" ry="5" fill="oklch(0.8 0.05 60)"/>
+            </g>
+          </svg>
+        </figure>
+      </div>
+
+      <div class="container">
+        <div class="glaze-strip" data-hero="cta" aria-labelledby="glaze-strip-label">
+          <p class="glaze-strip-label" id="glaze-strip-label">Six glazes in this batch. Each piece carries its test-tile code.</p>
+          <ul class="tiles" role="list">
+            <li><a class="tile-link" href="#piece-douro"><span class="tile" style="--glaze: var(--glaze-celadon)"></span><span class="tile-code">C-04</span><span class="visually-hidden">Celadon, Douro dinner plate</span></a></li>
+            <li><a class="tile-link" href="#piece-rain"><span class="tile" style="--glaze: var(--glaze-tenmoku)"></span><span class="tile-code">T-11</span><span class="visually-hidden">Tenmoku, Rain bowl</span></a></li>
+            <li><a class="tile-link" href="#piece-ribeira"><span class="tile" style="--glaze: var(--glaze-shino)"></span><span class="tile-code">S-02</span><span class="visually-hidden">Shino, Ribeira cup</span></a></li>
+            <li><a class="tile-link" href="#piece-azulejo"><span class="tile" style="--glaze: var(--glaze-cobalt)"></span><span class="tile-code">B-07</span><span class="visually-hidden">Cobalt, Azulejo pitcher</span></a></li>
+            <li><a class="tile-link" href="#piece-fog"><span class="tile" style="--glaze: var(--glaze-ash)"></span><span class="tile-code">A-03</span><span class="visually-hidden">Wood ash, Fog serving dish</span></a></li>
+            <li><a class="tile-link" href="#piece-bud"><span class="tile" style="--glaze: var(--glaze-iron)"></span><span class="tile-code">R-09</span><span class="visually-hidden">Iron red, Bud vase</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section class="section collection" id="collection" aria-labelledby="collection-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <h2 id="collection-title">Batch 14, out of the kiln on 19&nbsp;September</h2>
+          <p>Six shapes, forty-two pieces. Every glaze pools and breaks a little differently, so no two
+            are the same. When a batch sells out, it’s gone; the next one opens in late November.</p>
+        </header>
+
+        <ul class="pieces" role="list" data-stagger-group>
+          <li class="piece piece-wide" id="piece-douro" style="--i: 0">
+            <figure class="piece-art" style="--ground: var(--color-band)">
+              <svg viewBox="0 0 400 300" role="img" aria-labelledby="t-douro">
+                <title id="t-douro">A wide celadon dinner plate seen from slightly above, speckled clay showing at the rim.</title>
+                <rect width="400" height="300" fill="var(--ground)"/>
+                <ellipse cx="200" cy="176" rx="160" ry="60" fill="url(#g-shade)"/>
+                <ellipse cx="200" cy="158" rx="150" ry="70" fill="url(#g-clay)" filter="url(#speckle)"/>
+                <ellipse cx="200" cy="156" rx="140" ry="63" fill="url(#g-celadon)"/>
+                <ellipse cx="200" cy="160" rx="92" ry="38" fill="oklch(0.76 0.055 172)"/>
+                <ellipse cx="200" cy="156" rx="140" ry="63" fill="url(#g-sheen)"/>
+              </svg>
+            </figure>
+            <div class="piece-meta">
+              <h3>Douro dinner plate</h3>
+              <p class="piece-detail"><span class="tile tile-sm" style="--glaze: var(--glaze-celadon)"></span> C-04 celadon · 27&nbsp;cm</p>
+              <p class="piece-note">Wide, low rim that holds a sauce. Green pools where the glaze is thickest.</p>
+              <p class="piece-buy"><span class="price">€38</span> <span class="stock">9 left</span></p>
+            </div>
+          </li>
+
+          <li class="piece" id="piece-rain" style="--i: 1">
+            <figure class="piece-art" style="--ground: var(--color-surface)">
+              <svg viewBox="0 0 400 400" role="img" aria-labelledby="t-rain">
+                <title id="t-rain">A deep tenmoku bowl, near-black body breaking to rust brown at the rim.</title>
+                <rect width="400" height="400" fill="var(--ground)"/>
+                <ellipse cx="200" cy="300" rx="120" ry="16" fill="url(#g-shade)"/>
+                <path d="M200 300c-40 0-54-6-58-24h116c-4 18-18 24-58 24z" fill="url(#g-clay)" filter="url(#speckle)"/>
+                <path d="M84 168c0 60 44 110 116 110s116-50 116-110z" fill="url(#g-tenmoku)"/>
+                <ellipse cx="200" cy="168" rx="116" ry="20" fill="oklch(0.28 0.05 42)"/>
+                <ellipse cx="200" cy="168" rx="116" ry="20" fill="none" stroke="oklch(0.58 0.11 48)" stroke-width="5"/>
+              </svg>
+            </figure>
+            <div class="piece-meta">
+              <h3>Rain bowl</h3>
+              <p class="piece-detail"><span class="tile tile-sm" style="--glaze: var(--glaze-tenmoku)"></span> T-11 tenmoku · 15&nbsp;cm</p>
+              <p class="piece-note">Deep enough for caldo verde. The rim thins the glaze to rust.</p>
+              <p class="piece-buy"><span class="price">€32</span> <span class="stock">12 left</span></p>
+            </div>
+          </li>
+
+          <li class="piece" id="piece-ribeira" style="--i: 2">
+            <figure class="piece-art" style="--ground: var(--color-band)">
+              <svg viewBox="0 0 400 400" role="img" aria-labelledby="t-ribeira">
+                <title id="t-ribeira">A small handleless cup in cream shino glaze that blushes orange toward the foot.</title>
+                <rect width="400" height="400" fill="var(--ground)"/>
+                <ellipse cx="200" cy="308" rx="84" ry="12" fill="url(#g-shade)"/>
+                <path d="M142 118h116c4 40 2 120-10 176-2 10-10 14-48 14s-46-4-48-14c-12-56-14-136-10-176z" fill="url(#g-shino)" filter="url(#speckle)"/>
+                <ellipse cx="200" cy="118" rx="58" ry="10" fill="oklch(0.84 0.04 65)"/>
+                <path d="M142 118h116c4 40 2 120-10 176-2 10-10 14-48 14s-46-4-48-14c-12-56-14-136-10-176z" fill="url(#g-sheen)"/>
+              </svg>
+            </figure>
+            <div class="piece-meta">
+              <h3>Ribeira cup</h3>
+              <p class="piece-detail"><span class="tile tile-sm" style="--glaze: var(--glaze-shino)"></span> S-02 shino · 250&nbsp;ml</p>
+              <p class="piece-note">No handle, so it warms your hands. Sized for a galão.</p>
+              <p class="piece-buy"><span class="price">€24</span> <span class="stock">3 left</span></p>
+            </div>
+          </li>
+
+          <li class="piece" id="piece-azulejo" style="--i: 3">
+            <figure class="piece-art" style="--ground: var(--color-accent-wash)">
+              <svg viewBox="0 0 400 400" role="img" aria-labelledby="t-azulejo">
+                <title id="t-azulejo">A tall cobalt-blue pitcher with a pulled spout and a loop handle, raw clay showing at the foot.</title>
+                <rect width="400" height="400" fill="var(--ground)"/>
+                <ellipse cx="196" cy="340" rx="96" ry="12" fill="url(#g-shade)"/>
+                <path d="M170 340c-22 0-28-8-30-32l-8-120c-2-24 4-40 16-52l-4-20h74l-4 20c12 12 18 28 16 52l-8 120c-2 24-8 32-30 32z" fill="url(#g-clay)" filter="url(#speckle)"/>
+                <path d="M144 116h74l-4 20c12 12 18 28 16 52l-5 90c-10 6-18 2-26 10-8 8-20 6-28 0-8-6-18-2-26-8l-6-92c-2-24 4-40 16-52z" fill="url(#g-cobalt)"/>
+                <path d="M226 158c28-6 42 12 38 40-4 24-20 40-40 46" fill="none" stroke="url(#g-cobalt)" stroke-width="12" stroke-linecap="round"/>
+                <path d="M146 117c-7-5-13-8-21-9 5 5 11 10 19 16z" fill="url(#g-cobalt)"/>
+              </svg>
+            </figure>
+            <div class="piece-meta">
+              <h3>Azulejo pitcher</h3>
+              <p class="piece-detail"><span class="tile tile-sm" style="--glaze: var(--glaze-cobalt)"></span> B-07 cobalt · 1&nbsp;litre</p>
+              <p class="piece-note">The blue of Porto’s tiled façades. Pours clean, no drip.</p>
+              <p class="piece-buy"><span class="price">€68</span> <span class="stock">5 left</span></p>
+            </div>
+          </li>
+
+          <li class="piece" id="piece-bud" style="--i: 4">
+            <figure class="piece-art" style="--ground: var(--color-band)">
+              <svg viewBox="0 0 400 400" role="img" aria-labelledby="t-bud">
+                <title id="t-bud">A small round bud vase with a narrow neck in a matte iron-red glaze, holding one dry stem.</title>
+                <rect width="400" height="400" fill="var(--ground)"/>
+                <path d="M204 176c6-40 20-80 44-112" stroke="var(--clay-dark)" stroke-width="3" fill="none"/>
+                <circle cx="248" cy="62" r="7" fill="var(--clay-dark)"/>
+                <ellipse cx="200" cy="318" rx="80" ry="11" fill="url(#g-shade)"/>
+                <path d="M186 150h28v26c40 12 64 44 60 82-4 40-34 60-74 60s-70-20-74-60c-4-38 20-70 60-82z" fill="url(#g-iron)" filter="url(#speckle)"/>
+                <ellipse cx="200" cy="150" rx="14" ry="4" fill="oklch(0.36 0.08 35)"/>
+              </svg>
+            </figure>
+            <div class="piece-meta">
+              <h3>Bud vase</h3>
+              <p class="piece-detail"><span class="tile tile-sm" style="--glaze: var(--glaze-iron)"></span> R-09 iron red · 11&nbsp;cm</p>
+              <p class="piece-note">For one stem from the market. Matte outside, glossy inside so it holds water.</p>
+              <p class="piece-buy"><span class="price">€29</span> <span class="stock">8 left</span></p>
+            </div>
+          </li>
+          <li class="piece piece-wide" id="piece-fog" style="--i: 5">
+            <figure class="piece-art" style="--ground: var(--color-surface)">
+              <svg viewBox="0 70 400 190" role="img" aria-labelledby="t-fog">
+                <title id="t-fog">A long oval serving dish in a pale green-grey wood ash glaze with a darker run down one side.</title>
+                <rect width="400" height="300" fill="var(--ground)"/>
+                <ellipse cx="200" cy="206" rx="186" ry="30" fill="url(#g-shade)"/>
+                <path d="M22 150c0 38 78 62 178 62s178-24 178-62z" fill="url(#g-clay)" filter="url(#speckle)"/>
+                <path d="M28 148c4 30 78 52 172 52s168-22 172-52z" fill="url(#g-ash)"/>
+                <ellipse cx="200" cy="148" rx="172" ry="40" fill="oklch(0.78 0.035 105)"/>
+                <path d="M120 128c10 20 6 44 18 60" stroke="oklch(0.58 0.05 100)" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.6"/>
+              </svg>
+            </figure>
+            <div class="piece-meta">
+              <h3>Fog serving dish</h3>
+              <p class="piece-detail"><span class="tile tile-sm" style="--glaze: var(--glaze-ash)"></span> A-03 wood ash · 38&nbsp;cm</p>
+              <p class="piece-note">Made with ash from a baker’s oven in Campanhã. For a whole roast fish.</p>
+              <p class="piece-buy"><span class="price">€74</span> <span class="stock">4 left</span></p>
+            </div>
+          </li>
+
+        </ul>
+
+        <p class="collection-foot" data-reveal>
+          To order, email <a href="mailto:loja@kilnandcloud.pt?subject=Batch%2014%20order">loja@kilnandcloud.pt</a>
+          with the pieces you’d like. We post within Portugal and the EU, or you can collect from the studio.
+        </p>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section process" id="process" aria-labelledby="process-title">
+      <div class="container">
+        <header class="section-head section-head-inverse" data-reveal>
+          <h2 id="process-title">Thirteen days from a bag of clay to your table</h2>
+          <p>Most of that time the piece is just waiting: to firm up, to dry, to cool. We don’t rush
+            it, because clay remembers every shortcut and cracks in the kiln.</p>
+        </header>
+
+        <figure class="kiln-curve" data-kiln-curve>
+          <svg viewBox="0 0 1000 300" role="img" aria-labelledby="kiln-title kiln-desc" preserveAspectRatio="xMidYMid meet">
+            <title id="kiln-title">Glaze firing curve</title>
+            <desc id="kiln-desc">Temperature rises slowly to 600 degrees, then faster to 1260 degrees at hour 11, holds for fifteen minutes, then cools for about 36 hours.</desc>
+            <g class="kiln-grid" stroke="currentColor" stroke-opacity="0.16">
+              <line x1="60" y1="40" x2="980" y2="40"/><line x1="60" y1="120" x2="980" y2="120"/>
+              <line x1="60" y1="200" x2="980" y2="200"/><line x1="60" y1="260" x2="980" y2="260"/>
+            </g>
+            <g class="kiln-axis" fill="currentColor" font-size="15">
+              <text x="0" y="45">1260°</text><text x="10" y="125" class="kiln-axis-minor">900°</text><text x="10" y="205">600°</text><text x="22" y="265">20°</text>
+              <text x="60" y="292">0 h</text><text x="340" y="292">11 h</text><text x="930" y="292">48 h</text>
+            </g>
+            <g class="kiln-line">
+              <path d="M60 260 L230 200 L352 40 L372 40 L520 150 L700 230 L980 256" fill="none" stroke="var(--color-data-heat)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="230" cy="200" r="7" fill="var(--color-data-heat)"/>
+              <circle cx="362" cy="40" r="9" fill="var(--color-data-heat)"/>
+              <circle cx="700" cy="230" r="7" fill="var(--color-data-heat)"/>
+              <g class="kiln-nums" fill="var(--color-data-heat)" font-size="28" aria-hidden="true">
+                <text x="192" y="186">1</text><text x="300" y="62">2</text><text x="716" y="214">3</text>
+              </g>
+              <g fill="currentColor" font-size="16">
+                <text x="244" y="226">573° quartz changes shape: go slow</text>
+                <text x="384" y="36">Cone 9 · hold 15 min</text>
+                <text x="712" y="212">we open the door here</text>
+              </g>
+            </g>
+          </svg>
+          <ol class="kiln-notes" role="list">
+            <li><span class="kiln-dot" aria-hidden="true">1</span>573&nbsp;°C: quartz in the clay changes shape, so we climb slowly</li>
+            <li><span class="kiln-dot" aria-hidden="true">2</span>1260&nbsp;°C at hour 11: cone 9 bends and we hold for 15 minutes</li>
+            <li><span class="kiln-dot" aria-hidden="true">3</span>Around 200&nbsp;°C, two days in: we open the door</li>
+          </ol>
+        </figure>
+
+        <ol class="steps" role="list">
+          <li class="step" data-reveal>
+            <p class="step-when">Day 1</p>
+            <h3>Wedge</h3>
+            <p>We knead each 1.2&nbsp;kg ball of stoneware sixty times to push the air out. An air pocket is a piece that bursts at 900&nbsp;°C.</p>
+          </li>
+          <li class="step" data-reveal>
+            <p class="step-when">Day 1</p>
+            <h3>Throw</h3>
+            <p>Centred and pulled up on the wheel in three passes. Every rim is thrown to the same 4&nbsp;mm, then left to firm overnight.</p>
+          </li>
+          <li class="step" data-reveal>
+            <p class="step-when">Days 2–8</p>
+            <h3>Trim and dry</h3>
+            <p>Turned upside down to carve the foot ring, then dried slowly under cloth. Porto’s damp winters add two days.</p>
+          </li>
+          <li class="step" data-reveal>
+            <p class="step-when">Day 9</p>
+            <h3>Bisque fire</h3>
+            <p>A first, gentle firing to 950&nbsp;°C. The clay stops being clay and becomes porous and ready to take glaze.</p>
+          </li>
+          <li class="step" data-reveal>
+            <p class="step-when">Day 10</p>
+            <h3>Glaze</h3>
+            <p>Dipped by hand for a three-second count. We mix all six glazes ourselves and keep a test tile from every bucket.</p>
+          </li>
+          <li class="step" data-reveal>
+            <p class="step-when">Days 11–13</p>
+            <h3>Glaze fire</h3>
+            <p>Eleven hours up to 1260&nbsp;°C, a short hold, then a day and a half of cooling with the door shut.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- WORKSHOPS -->
+    <section class="section workshops" id="workshops" aria-labelledby="workshops-title">
+      <div class="container workshops-grid">
+        <div class="workshops-intro" data-reveal>
+          <h2 id="workshops-title">Saturday mornings on the wheel</h2>
+          <p>Three hours, six people, one of us beside you the whole time. You’ll centre, throw and
+            shape two or three pieces, pick a glaze from this batch’s tiles, and we’ll fire them for you.</p>
+          <dl class="facts">
+            <div><dt>Time</dt><dd>10:00 to 13:00</dd></div>
+            <div><dt>Price</dt><dd>€65, clay, glaze and two firings included</dd></div>
+            <div><dt>Collect</dt><dd>Three weeks later, or we post them within Portugal for €6</dd></div>
+            <div><dt>Bring</dt><dd>Clothes you don’t mind muddy, short nails. Aprons are here.</dd></div>
+          </dl>
+        </div>
+
+        <div class="dates" data-reveal>
+          <h3 class="dates-title">Autumn dates</h3>
+          <ul class="date-list" role="list">
+            <li class="date-row">
+              <p class="date"><span class="date-day">Sat 10 Oct</span></p>
+              <p class="seats seats-low">2 seats left</p>
+              <button class="button button-small" type="button" data-book="Saturday 10 October 2026">Book</button>
+            </li>
+            <li class="date-row">
+              <p class="date"><span class="date-day">Sat 24 Oct</span></p>
+              <p class="seats">4 seats left</p>
+              <button class="button button-small" type="button" data-book="Saturday 24 October 2026">Book</button>
+            </li>
+            <li class="date-row is-full">
+              <p class="date"><span class="date-day">Sat 31 Oct</span></p>
+              <p class="seats">Full</p>
+              <button class="button button-small button-quiet" type="button" data-book="Saturday 31 October 2026" data-waitlist>Join waitlist</button>
+            </li>
+            <li class="date-row">
+              <p class="date"><span class="date-day">Sat 7 Nov</span></p>
+              <p class="seats">6 seats left</p>
+              <button class="button button-small" type="button" data-book="Saturday 7 November 2026">Book</button>
+            </li>
+            <li class="date-row">
+              <p class="date"><span class="date-day">Sat 21 Nov</span></p>
+              <p class="seats">5 seats left</p>
+              <button class="button button-small" type="button" data-book="Saturday 21 November 2026">Book</button>
+            </li>
+            <li class="date-row">
+              <p class="date"><span class="date-day">Sat 5 Dec</span></p>
+              <p class="seats seats-low">3 seats left</p>
+              <button class="button button-small" type="button" data-book="Saturday 5 December 2026">Book</button>
+            </li>
+          </ul>
+          <p class="dates-note">Gift a seat? Book it in their name and we’ll send a card.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRESS -->
+    <!-- PLACEHOLDER COPY: the three press quotes and their sources below are sample text written for
+         layout. Replace with real, approved quotes before launch. -->
+    <section class="section press" aria-labelledby="press-title" data-placeholder="press quotes need real sources">
+      <div class="container press-grid">
+        <h2 id="press-title" class="press-title" data-reveal>What people wrote after visiting</h2>
+        <figure class="quote quote-lead" data-reveal>
+          <blockquote>
+            <p>“The glazes do what Porto’s light does to the river in November: never quite one colour.
+              I left with a bowl and came back a week later for the other five.”</p>
+          </blockquote>
+          <figcaption>Ana Ribeiro, <cite>Casa &amp; Mesa</cite>, October 2025</figcaption>
+        </figure>
+        <figure class="quote" data-reveal>
+          <blockquote><p>“The calmest three hours I’ve spent in the city. You leave with clay on your
+            elbows and a cup you’d actually drink from.”</p></blockquote>
+          <figcaption>Tom Hayes, <cite>Weekend Porto</cite> newsletter</figcaption>
+        </figure>
+        <figure class="quote" data-reveal>
+          <blockquote><p>“Quietly some of the best everyday stoneware being made in the north of Portugal.”</p></blockquote>
+          <figcaption><cite>Norte Design Review</cite>, spring issue 2026</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- VISIT -->
+    <section class="section visit" id="visit" aria-labelledby="visit-title">
+      <div class="container visit-grid">
+        <div class="visit-copy" data-reveal>
+          <h2 id="visit-title">Come by the studio</h2>
+          <p>The shop shelf is by the door and the wheels are at the back. If the kiln is cooling, you can
+            watch us unload it.</p>
+        </div>
+        <dl class="visit-facts" data-reveal>
+          <div>
+            <dt>Address</dt>
+            <dd>Rua do Bonfim 214<br>4300-069 Porto</dd>
+          </div>
+          <div>
+            <dt>Open</dt>
+            <dd>Thursday to Saturday, 11:00–19:00<br>Other days by appointment</dd>
+          </div>
+          <div>
+            <dt>Getting here</dt>
+            <dd>Six minutes’ walk from Campo 24 de Agosto metro</dd>
+          </div>
+          <div>
+            <dt>Write to us</dt>
+            <dd><a href="mailto:ola@kilnandcloud.pt">ola@kilnandcloud.pt</a><br><a href="https://www.instagram.com/" rel="noopener">Instagram, where each batch is announced first</a></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-mark" aria-hidden="true">Kiln &amp; Cloud</p>
+      <p class="footer-small">Handmade in Porto by Inês Carvalho and Rui Mendes. Batch 15 opens in late November.</p>
+      <p class="footer-small">© 2026 Kiln &amp; Cloud, Lda.</p>
+    </div>
+  </footer>
+
+  <!-- Booking dialog (native <dialog>: focus trap, Esc and top layer from the platform) -->
+  <dialog class="booking" aria-labelledby="booking-title" data-booking>
+    <form class="booking-form" method="dialog" data-booking-form novalidate>
+      <div class="booking-head">
+        <h2 id="booking-title">Book a Saturday on the wheel</h2>
+        <button class="icon-button" type="button" data-close aria-label="Close booking form">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <p class="booking-date" data-booking-date>Saturday 10 October 2026, 10:00–13:00</p>
+      <div class="field">
+        <label for="b-name">Your name</label>
+        <input id="b-name" name="name" type="text" autocomplete="name" required>
+        <p class="field-error" id="b-name-error" hidden>Please add your name so we know who’s coming.</p>
+      </div>
+      <div class="field">
+        <label for="b-email">Email</label>
+        <input id="b-email" name="email" type="email" autocomplete="email" required>
+        <p class="field-error" id="b-email-error" hidden>That email doesn’t look complete. It should look like name@example.pt.</p>
+      </div>
+      <div class="field">
+        <label for="b-seats">Seats</label>
+        <select id="b-seats" name="seats">
+          <option value="1">1 seat, €65</option>
+          <option value="2">2 seats, €130</option>
+        </select>
+      </div>
+      <p class="booking-help">This opens your email app with the request filled in. We reply within a day with payment details; your seat is held for 48 hours.</p>
+      <div class="booking-actions">
+        <button class="button" type="submit" data-submit-label>Send booking request</button>
+        <button class="link-button" type="button" data-close>Cancel</button>
+      </div>
+      <p class="booking-status" role="status" aria-live="polite" data-booking-status></p>
+    </form>
+  </dialog>
+</body>
+</html>

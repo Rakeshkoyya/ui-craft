@@ -1,0 +1,91 @@
+/*
+ * Accordion / disclosure height animation, done right
+ * ----------------------------------------------------------------------------
+ * Communicates: "this content was folded here" — the panel opens from its
+ *   header, so the user sees where the new content lives and that the rest
+ *   of the page moved down because of their click.
+ * Why this is the one height exception: opening a panel MUST push the
+ *   content below it, which transforms can't do. So we animate the smallest
+ *   honest thing — a grid track or `interpolate-size` height — keep it short
+ *   (--dur-base), and never animate height anywhere else.
+ * Use, pattern A (native, preferred): <details class="disclosure"><summary>…
+ *   </summary><div class="disclosure__body">…</div></details>
+ *   Keyboard + semantics come free. Animation uses ::details-content and
+ *   interpolate-size; engines without them just open instantly.
+ * Use, pattern B (custom button + region, e.g. from a primitives library):
+ *   <button aria-expanded="false" aria-controls="p1">…</button>
+ *   <div class="collapse" id="p1" data-open="false"><div>…</div></div>
+ *   Toggle data-open (and aria-expanded) in your handler. The grid-rows trick
+ *   animates 0fr -> 1fr and works in every evergreen browser. Add `inert` to
+ *   the closed panel so hidden links can't be tabbed to.
+ * Reduced motion: transitions are removed; panels open instantly.
+ * Support: A — ::details-content is Baseline 2025, so the fade works in all
+ *   current browsers; the height part needs `interpolate-size` (Chromium
+ *   129+, not yet Baseline) — elsewhere the panel fades but snaps open. B — grid-template-rows transition:
+ *   Chrome 107+, Safari 16+, Firefox 66+.
+ */
+
+/* Pattern A: native <details>. */
+.disclosure {
+  interpolate-size: allow-keywords;
+}
+.disclosure::details-content {
+  block-size: 0;
+  overflow: clip;
+  opacity: 0;
+  /* Height is the documented exception for disclosures (see header). */
+  transition:
+    block-size var(--dur-base, 260ms) var(--ease-in-out, ease-in-out), /* ui-craft-ignore UC002 */
+    opacity var(--dur-base, 260ms) var(--ease-out, ease-out),
+    content-visibility var(--dur-base, 260ms) allow-discrete;
+}
+.disclosure[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+.disclosure > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.disclosure > summary::-webkit-details-marker { display: none; }
+.disclosure > summary::after {
+  content: "";
+  display: inline-block;
+  inline-size: 0.5em;
+  block-size: 0.5em;
+  margin-inline-start: 0.6em;
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  transform: translateY(-0.15em) rotate(45deg);
+  transition: transform var(--dur-base, 260ms) var(--ease-out, ease-out);
+}
+.disclosure[open] > summary::after {
+  transform: translateY(0.1em) rotate(225deg);
+}
+
+/* Pattern B: grid-rows collapse for custom disclosures. */
+.collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--dur-base, 260ms) var(--ease-in-out, ease-in-out), /* ui-craft-ignore UC002 */
+    opacity var(--dur-fast, 160ms) var(--ease-out, ease-out);
+}
+.collapse > * {
+  min-block-size: 0;
+  overflow: clip;
+}
+.collapse[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure::details-content,
+  .disclosure > summary::after,
+  .collapse {
+    transition: none;
+  }
+}

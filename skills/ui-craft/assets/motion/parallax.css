@@ -1,0 +1,49 @@
+/*
+ * Parallax layer (subtle, transform-only, scroll-driven)
+ * ----------------------------------------------------------------------------
+ * Communicates: depth — a background image or decorative layer moves a
+ *   little slower than the content over it, so the section feels layered.
+ *   Subtle means subtle: +/- 8% of the layer's height at most. Big parallax
+ *   and zoom-on-scroll are classic vestibular triggers.
+ * Use: <div class="parallax-frame"><img class="parallax-layer" data-depth="1" …></div>
+ *   The frame clips; the layer is oversized (inset: -10% 0) so the drift
+ *   never reveals an edge. data-depth="2" doubles the drift for a second
+ *   layer. Content (text) should NOT be a parallax layer — moving text is
+ *   harder to read.
+ * Reduced motion: no drift at all; the layer is static.
+ * Support: `animation-timeline: view()` — Chrome/Edge 115+, Safari 26+. In
+ *   Firefox stable (flag-only as of Sept 2026) the layer is simply static,
+ *   which is a fine fallback; don't add a scroll listener to "fix" it.
+ */
+
+.parallax-frame {
+  position: relative;
+  overflow: clip;
+}
+
+.parallax-layer {
+  position: absolute;
+  inset: -10% 0;
+  inline-size: 100%;
+  block-size: 120%;
+  object-fit: cover;
+  --parallax-shift: 8%;
+}
+
+.parallax-layer[data-depth="2"] { --parallax-shift: 14%; }
+
+@keyframes ui-parallax {
+  from { transform: translateY(calc(var(--parallax-shift) * -1)); }
+  to   { transform: translateY(var(--parallax-shift)); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .parallax-layer {
+      /* linear is correct here: position must track scroll 1:1 (not an entrance). */
+      animation: ui-parallax linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}

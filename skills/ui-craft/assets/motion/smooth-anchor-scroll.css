@@ -1,0 +1,37 @@
+/*
+ * Smooth in-page anchor scrolling (native, reduced-motion aware)
+ * ----------------------------------------------------------------------------
+ * Communicates: orientation — after clicking "Pricing" in the nav, the page
+ *   glides to the section so the reader sees where they went, and the target
+ *   lands BELOW the sticky header instead of hidden under it.
+ * Use: load once. Set `--anchor-offset` to your sticky header height plus a
+ *   little air (default 5rem). No library, no JS needed for links.
+ *   If you load tokens.css you already have the scroll-behavior rule; this
+ *   file adds the offset. For programmatic scrolling, respect the same
+ *   preference in JS:
+ *     const smooth = matchMedia('(prefers-reduced-motion: no-preference)').matches;
+ *     target.scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' });
+ *   Don't combine with Lenis (it handles anchors itself) and don't add a
+ *   JS scroll animation "for Safari" — native smooth scrolling is Baseline.
+ * Screenshot tools: with smooth scrolling on, `window.scrollTo(0, y)` animates,
+ *   so a capture can photograph mid-scroll. Scripts should pass
+ *   `{ top: y, behavior: 'instant' }`.
+ * Reduced motion: anchor jumps are instant (smooth is opt-in under
+ *   no-preference); the offset still applies.
+ * Support: scroll-behavior and scroll-margin are Baseline (widely available).
+ */
+
+:root {
+  --anchor-offset: 5rem;
+}
+
+/* Every anchor target clears the sticky header; :where() keeps specificity 0. */
+:where([id]) {
+  scroll-margin-block-start: var(--anchor-offset);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="off"]) {
+    scroll-behavior: smooth;
+  }
+}

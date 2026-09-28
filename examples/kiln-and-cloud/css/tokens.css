@@ -1,0 +1,122 @@
+/* Kiln & Cloud — tokens.
+   Primitives are named after the studio's materials; components only read the semantic roles.
+   Color world: porcelain slip, iron-oxide ink, Porto azulejo cobalt, kiln ember, glaze tests. */
+
+:root {
+  color-scheme: light;
+  --hue: 258; /* cobalt oxide */
+
+  /* ---------- Primitives: clay, slip, oxide, glaze ---------- */
+  --slip:        oklch(0.965 0.006 var(--hue));  /* porcelain slip, the page */
+  --bisque:      oklch(0.992 0.003 var(--hue));  /* unglazed bisque, raised surfaces */
+  --grog:        oklch(0.925 0.009 var(--hue));  /* grogged clay, quiet bands */
+  --seam:        oklch(0.86 0.012 var(--hue));   /* hairline rules */
+  --seam-strong: oklch(0.62 0.02 var(--hue));    /* input outlines (3:1) */
+  --ash:         oklch(0.47 0.022 var(--hue));   /* secondary text */
+  --iron:        oklch(0.22 0.028 var(--hue));   /* iron-oxide ink, body text */
+  --cobalt:      oklch(0.44 0.15 262);            /* azulejo cobalt, the one accent */
+  --cobalt-deep: oklch(0.37 0.14 262);
+  --cobalt-wash: oklch(0.9 0.035 262);
+
+  --kiln:        oklch(0.2 0.03 262);             /* inside the kiln at night */
+  --kiln-2:      oklch(0.25 0.035 262);
+  --kiln-text:   oklch(0.93 0.01 80);
+  --kiln-muted:  oklch(0.76 0.02 80);
+  --ember:       oklch(0.8 0.13 62);              /* 1260 °C cone glow; data only */
+
+  /* Glaze tests: used only for placeholder art and tile swatches, never for UI text */
+  --glaze-celadon: oklch(0.8 0.055 170);
+  --glaze-tenmoku: oklch(0.34 0.06 45);
+  --glaze-shino:   oklch(0.9 0.035 70);
+  --glaze-ash:     oklch(0.74 0.035 105);
+  --glaze-cobalt:  oklch(0.5 0.13 262);
+  --glaze-iron:    oklch(0.55 0.11 40);
+  --clay-raw:      oklch(0.7 0.045 60);
+  --clay-dark:     oklch(0.5 0.04 50);
+
+  /* ---------- Semantic roles ---------- */
+  --color-bg:           var(--slip);
+  --color-surface:      var(--bisque);
+  --color-band:         var(--grog);
+  --color-raised:       var(--bisque);
+  --color-text:         var(--iron);
+  --color-muted:        var(--ash);
+  --color-border:       var(--seam);
+  --color-border-strong: var(--seam-strong);
+  --color-accent:       var(--cobalt);
+  --color-accent-hover: var(--cobalt-deep);
+  --color-accent-text:  var(--bisque);
+  --color-accent-wash:  var(--cobalt-wash);
+  --color-focus:        var(--cobalt);
+  --color-inverse-bg:   var(--kiln);
+  --color-inverse-surface: var(--kiln-2);
+  --color-inverse-text: var(--kiln-text);
+  --color-inverse-muted: var(--kiln-muted);
+  --color-inverse-focus: var(--ember);
+  --color-data-heat:    var(--ember);
+  --color-success:      oklch(0.48 0.1 160);
+  --color-danger:       oklch(0.47 0.16 25);
+  --color-scrim:        oklch(0.2 0.03 262 / 0.45);
+  --color-rule-inverse: oklch(1 0 0 / 0.12);
+
+  /* ---------- Type ---------- */
+  --font-display: "Hedvig Letters Serif", "Display Fallback", Georgia, serif;
+  --font-body: "Hedvig Letters Sans", "Body Fallback", ui-sans-serif, system-ui, sans-serif;
+  /* Scale ratio ~1.333 (perfect fourth) on desktop, ~1.2 on phones */
+  --text-xs:   clamp(0.8rem, 0.78rem + 0.1vw, 0.85rem);
+  --text-sm:   clamp(0.9rem, 0.87rem + 0.12vw, 0.95rem);
+  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --text-lg:   clamp(1.15rem, 1.08rem + 0.35vw, 1.35rem);
+  --text-xl:   clamp(1.45rem, 1.25rem + 0.9vw, 2rem);
+  --text-2xl:  clamp(1.9rem, 1.5rem + 2vw, 3.1rem);
+  --text-3xl:  clamp(2.5rem, 1.7rem + 4vw, 5.25rem);
+  --leading-tight: 1.06;
+  --leading-snug: 1.25;
+  --leading-body: 1.6;
+
+  /* ---------- Space (4px base), density 3: sections use space-9/10 ---------- */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px; --space-10: 128px;
+  --section-pad: clamp(var(--space-8), 9vw, var(--space-10));
+
+  /* ---------- Shape & depth: soft radius, borders + one subtle shadow ---------- */
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 14px; --radius-full: 999px;
+  --shadow-1: 0 1px 2px oklch(0.22 0.03 var(--hue) / 0.07);
+  --shadow-2: 0 1px 2px oklch(0.22 0.03 var(--hue) / 0.06), 0 10px 28px oklch(0.22 0.03 var(--hue) / 0.1);
+  --shadow-3: 0 2px 4px oklch(0.22 0.03 var(--hue) / 0.08), 0 24px 60px oklch(0.22 0.03 var(--hue) / 0.22);
+
+  --z-raised: 10; --z-sticky: 100; --z-overlay: 200; --z-modal: 300;
+
+  --container: 1240px;
+  --measure: 62ch;
+  --gutter: clamp(16px, 4.5vw, 56px);
+  --header-h: 64px;
+
+  /* ---------- Motion (ui-craft names; tuned slower + softer for a calm studio) ---------- */
+  --dur-instant: 110ms;
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 560ms;
+  --dur-deliberate: 900ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-spring: var(--ease-out);
+  --dist-xs: 4px; --dist-sm: 8px; --dist-md: 16px; --dist-lg: 28px;
+  --scale-in: 0.97;
+  --stagger: 70ms;
+  --stagger-max: 8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dist-xs: 0px; --dist-sm: 0px; --dist-md: 0px; --dist-lg: 0px;
+    --scale-in: 1; --stagger: 0ms;
+    --dur-slow: 200ms; --dur-deliberate: 200ms;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root { scroll-behavior: smooth; }
+}

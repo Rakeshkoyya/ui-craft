@@ -1,0 +1,86 @@
+/*
+ * ui-craft motion tokens
+ * ----------------------------------------------------------------------------
+ * Communicates: nothing by itself. It is the shared vocabulary every other
+ *   snippet in assets/motion/ reads, so all motion on a page has one rhythm.
+ * Use: load once, before any other motion CSS. Override values in your own
+ *   :root block to tune the personality (slower + softer = calm/luxury,
+ *   faster + snappier = tool/productivity). Components read the tokens; they
+ *   never hardcode durations or curves.
+ * Reduced motion: under `prefers-reduced-motion: reduce` every travel distance
+ *   and scale offset collapses to zero, so entrances become short opacity
+ *   fades instead of movement; smooth anchor scrolling is switched off.
+ *   Add `data-motion="off"` on <html> to force the same behavior (e.g. a
+ *   site-level "reduce motion" toggle).
+ * Support: custom properties everywhere; `linear()` easing is Baseline 2023
+ *   (Chrome 113, Safari 17.2, Firefox 112). Older engines ignore the spring
+ *   declaration and keep the cubic-bezier fallback declared before it.
+ */
+
+:root {
+  /* Durations: pick by distance travelled and size of the element. */
+  --dur-instant: 90ms;     /* color/opacity feedback: hover, press, toggles */
+  --dur-fast: 160ms;       /* small UI: tooltips, menus closing, exits */
+  --dur-base: 260ms;       /* default: menus opening, tabs, cards */
+  --dur-slow: 420ms;       /* large surfaces: drawers, dialogs, page content */
+  --dur-deliberate: 700ms; /* one-off hero/page-load moments only */
+
+  /* Easings. Entrances decelerate (ease-out); exits accelerate away. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);         /* standard entrance */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);      /* element moving A -> B on screen */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);            /* leaving the screen */
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);      /* hero moments, long travel */
+  --ease-spring: var(--ease-out);                     /* fallback for engines without linear() */
+
+  /* Travel distances: small. Motion should hint at direction, not fly. */
+  --dist-xs: 4px;
+  --dist-sm: 8px;
+  --dist-md: 16px;
+  --dist-lg: 32px;
+  --scale-in: 0.96;   /* start scale for pop-in surfaces */
+
+  /* Choreography */
+  --stagger: 60ms;         /* gap between siblings in a group */
+  --stagger-max: 8;        /* cap: after 8 items, everything else arrives together */
+}
+
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    /* Damped spring (stiffness 170, damping 18): ~5% overshoot, settles in ~800ms.
+       Use with --dur-slow or --dur-deliberate; too short a duration makes it look jerky. */
+    --ease-spring: linear(0, 0.105, 0.323, 0.557, 0.754, 0.896, 0.986, 1.032, 1.049,
+      1.048, 1.038, 1.027, 1.016, 1.008, 1.002, 0.999, 0.998, 0.998, 0.998, 0.999, 1);
+  }
+}
+
+/* Smooth in-page anchor jumps, only when the user has not asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="off"]) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Reduced motion: keep feedback (opacity, color), remove travel and zoom. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dist-xs: 0px;
+    --dist-sm: 0px;
+    --dist-md: 0px;
+    --dist-lg: 0px;
+    --scale-in: 1;
+    --stagger: 0ms;
+    --dur-slow: 200ms;
+    --dur-deliberate: 200ms;
+  }
+}
+
+:root[data-motion="off"] {
+  --dist-xs: 0px;
+  --dist-sm: 0px;
+  --dist-md: 0px;
+  --dist-lg: 0px;
+  --scale-in: 1;
+  --stagger: 0ms;
+  --dur-slow: 200ms;
+  --dur-deliberate: 200ms;
+}

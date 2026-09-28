@@ -1,0 +1,46 @@
+/*
+ * Staggered entrance
+ * ----------------------------------------------------------------------------
+ * Communicates: "these items belong together, and this is their reading
+ *   order." Good for a nav list, a feature grid, search results appearing.
+ *   Bad for long lists (cap the stagger) and for content the user is waiting
+ *   to read (keep total sequence under ~600ms).
+ * Use: put `data-stagger` on the parent. Children animate on load. Set the
+ *   index yourself with `style="--i: 3"` (0-based, works everywhere); in
+ *   engines that support `sibling-index()` the index is computed automatically.
+ *   For a later trigger (menu opens, results load) use
+ *   `data-stagger="manual"` and add the class `is-in` when ready.
+ * Reduced motion: on page load, no animation (items are just there). In
+ *   manual mode (a menu or results appearing after an action) the tokens
+ *   zero travel and stagger, so items do one short fade together — enough to
+ *   perceive that the content changed.
+ * Support: CSS animations everywhere. `sibling-index()` became Baseline in
+ *   Aug 2026 (newly available); it is feature-detected so older browsers use
+ *   the inline --i values.
+ */
+
+@keyframes ui-stagger-in {
+  from { opacity: 0; transform: translateY(var(--dist-sm, 8px)); }
+  to   { opacity: 1; transform: none; }
+}
+
+[data-stagger] > * {
+  --_i: min(var(--i, 0), var(--stagger-max, 8));
+  animation: ui-stagger-in var(--dur-base, 260ms) var(--ease-out, ease-out) both;
+  animation-delay: calc(var(--_i) * var(--stagger, 60ms));
+}
+
+@supports (order: sibling-index()) {
+  [data-stagger] > * {
+    --_i: min(sibling-index() - 1, var(--stagger-max, 8));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-stagger]:not([data-stagger="manual"]) > * { animation: none; }
+}
+
+/* Manual trigger: hold the first frame until .is-in is added. */
+[data-stagger="manual"]:not(.is-in) > * {
+  animation-play-state: paused;
+}

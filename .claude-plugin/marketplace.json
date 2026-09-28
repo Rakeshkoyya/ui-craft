@@ -1,0 +1,31 @@
+{
+  "name": "ui-craft",
+  "owner": {
+    "name": "Rakesh Koyya",
+    "url": "https://github.com/rakeshkoyya"
+  },
+  "metadata": {
+    "description": "ui-craft: professional website UI, motion, components, and visual QA for coding agents"
+  },
+  "plugins": [
+    {
+      "name": "ui-craft",
+      "source": "./",
+      "description": "Build professional, distinctive website UI with smooth motion, a searchable catalog of real third-party components, and a screenshot-driven critique loop.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "category": "design",
+      "keywords": [
+        "ui",
+        "frontend",
+        "design",
+        "motion",
+        "components"
+      ],
+      "author": {
+        "name": "Rakesh Koyya"
+      },
+      "homepage": "https://github.com/rakeshkoyya/ui-craft"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focus fixture</title>
+<style>
+  body { margin: 0; padding: 1rem; font-family: Georgia, serif; }
+  button, a { display: inline-block; min-width: 44px; min-height: 44px; padding: 0.5rem 1rem; font: inherit; }
+  #no-ring:focus { outline: none; }
+  #custom:focus { outline: none; }
+  #custom:focus-visible { box-shadow: 0 0 0 3px #1d4ed8; }
+  #menu[hidden] { display: none; }
+</style>
+</head>
+<body>
+  <button type="button" id="ring">Default ring</button>
+  <button type="button" id="no-ring">No ring</button>
+  <a href="#x" id="custom">Custom ring</a>
+  <button type="button" id="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+  <ul id="menu" hidden><li><a href="#one">Menu item one</a></li></ul>
+  <script>
+    const btn = document.getElementById('menu-btn');
+    btn.addEventListener('click', () => {
+      const menu = document.getElementById('menu');
+      menu.hidden = !menu.hidden;
+      btn.setAttribute('aria-expanded', String(!menu.hidden));
+      document.title = menu.hidden ? 'Focus fixture' : 'Menu open';
+    });
+  </script>
+</body>
+</html>

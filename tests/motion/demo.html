@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ui-craft motion recipes — demo</title>
+  <meta name="description" content="Visual test page for the framework-free motion snippets in skills/ui-craft/assets/motion.">
+
+  <!-- reveal-on-scroll gate: hide reveal targets only while JS is running; release after 2.5 s
+       if the observer never starts (blocked module, script error). -->
+  <script>
+    (function (d) {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      d.classList.add('reveal-ready');
+      setTimeout(function () {
+        if (!d.classList.contains('reveal-live')) d.classList.remove('reveal-ready');
+      }, 2500);
+    })(document.documentElement);
+  </script>
+
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/tokens.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/reveal-on-scroll.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/stagger-entrance.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/hero-load-sequence.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/view-transition.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/view-transition-cross-document.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/marquee.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/text-split-reveal.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/spotlight-card.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/accordion.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/parallax.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/skeleton-shimmer.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/scroll-scrubbed-reveal.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/draw-on-scroll.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/scroll-progress-bar.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/sticky-stack-cards.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/image-reveal-clip.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/smooth-anchor-scroll.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/dialog-enter-exit.css">
+
+  <!-- Only used when the page is opened with ?libs=1 (loads GSAP and Lenis from jsDelivr). -->
+  <script type="importmap">
+    {
+      "imports": {
+        "gsap": "https://cdn.jsdelivr.net/npm/gsap@3/index.js",
+        "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3/ScrollTrigger.js",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1/+esm"
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --surface: #e9e4d8;
+      --text: #1d1b17;
+      --muted: #5c574d;
+      --accent: #b4532a;
+      --accent-text: #ffffff;
+      --radius-sm: 6px;
+      color-scheme: light;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 1.0625rem/1.6 Georgia, "Times New Roman", serif;
+    }
+    .site-header {
+      position: sticky; top: 0; z-index: 5;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      padding: 0.75rem clamp(1rem, 4vw, 3rem);
+      background: color-mix(in oklab, var(--bg) 92%, transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
+      font-family: ui-sans-serif, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+    }
+    main { padding-inline: clamp(1rem, 4vw, 3rem); }
+    section { max-width: 72rem; margin: 0 auto; padding-block: clamp(3rem, 8vw, 7rem); }
+    h1, h2 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; margin: 0 0 1rem; }
+    h1 { font-size: clamp(2.75rem, 7vw, 6rem); }
+    h2 { font-size: clamp(2rem, 4.5vw, 3.5rem); }
+    p { max-width: 60ch; color: var(--muted); }
+    .eyebrow { font: 600 0.8rem/1 ui-sans-serif, "Segoe UI", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .btn {
+      display: inline-block; padding: 0.9rem 1.4rem; border-radius: 999px; border: 0;
+      background: var(--accent); color: var(--accent-text); text-decoration: none;
+      font: 600 1rem/1 ui-sans-serif, "Segoe UI", sans-serif; cursor: pointer;
+    }
+    .btn:focus-visible, button:focus-visible, summary:focus-visible, a:focus-visible {
+      outline: 2px solid var(--accent); outline-offset: 3px;
+    }
+    .hero { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); align-items: end; min-height: 80dvh; }
+    .hero-media { aspect-ratio: 4 / 5; border-radius: 1rem; background: linear-gradient(160deg, #c9a27a, #7a4b2a); }
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); padding: 0; list-style: none; }
+    .tile { padding: 1.5rem; border-radius: 1rem; background: var(--surface); }
+    .dark { background: #1f1c18; color: #f4f1ea; border-radius: 1.25rem; padding: 2rem; }
+    .dark p { color: #cfc8ba; }
+    .stat { font-size: clamp(2.5rem, 6vw, 4rem); font-variant-numeric: tabular-nums; display: inline-block; min-width: 5ch; color: var(--text); }
+    .parallax-frame { height: 60dvh; border-radius: 1rem; }
+    .parallax-layer { background: linear-gradient(180deg, #8f6b4a, #3e2c1e); }
+    .marquee__track li { font: 600 1.25rem/1 ui-sans-serif, "Segoe UI", sans-serif; color: var(--muted); }
+    .marquee__toggle { padding: 0.4rem 0.8rem; border-radius: 999px; border: 1px solid var(--muted); background: var(--bg); color: var(--text); font: inherit; font-size: 0.85rem; }
+    [role="tablist"] { position: relative; display: flex; gap: 0.5rem; border-bottom: 1px solid color-mix(in oklab, var(--text) 15%, transparent); }
+    [role="tab"] { padding: 0.75rem 1rem; border: 0; background: none; color: var(--muted); font: inherit; cursor: pointer; }
+    [role="tab"][aria-selected="true"] { color: var(--text); }
+    .tab-indicator { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100px; transform-origin: 0 0; background: var(--accent); }
+    .disclosure { border-bottom: 1px solid color-mix(in oklab, var(--text) 15%, transparent); padding-block: 1rem; }
+    .vt-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); padding: 0; list-style: none; }
+    .vt-grid li { padding: 1rem; border-radius: 0.75rem; background: var(--surface); }
+    .skeleton-row { display: grid; gap: 0.6rem; max-width: 28rem; }
+    .site-header nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .site-header nav a { color: var(--text); padding-block: 0.4rem; }
+    .scroll-progress { --scroll-progress-color: var(--accent); }
+    .draw-figure { margin: 2rem 0; }
+    .draw-figure svg { display: block; inline-size: 100%; block-size: auto; overflow: visible; }
+    .draw-path { stroke: var(--accent); stroke-width: 3; }
+    .draw-axis { stroke: color-mix(in oklab, var(--text) 20%, transparent); stroke-width: 1; }
+    .stack__card { min-height: min(26rem, 60dvh); padding: 2rem; border-radius: 1.25rem; background: var(--surface); border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); }
+    .stack__item:nth-child(2) .stack__card { background: #dcd3c1; }
+    .stack__item:nth-child(3) .stack__card { background: #cfc3ab; }
+    .stack__item:nth-child(4) .stack__card { background: #1f1c18; color: #f4f1ea; }
+    .stack__item:nth-child(4) .stack__card p { color: #cfc8ba; }
+    .clip-reveal { margin: 0; border-radius: 1rem; max-width: 48rem; }
+    .clip-reveal img { max-width: 100%; height: auto; }
+    .motion-dialog { max-width: min(32rem, calc(100vw - 2rem)); border: 0; border-radius: 1rem; padding: 1.5rem; background: var(--bg); color: var(--text); }
+    .motion-popover { margin: 0; inset: auto; top: 4.5rem; right: 1rem; padding: 1rem; border: 1px solid color-mix(in oklab, var(--text) 15%, transparent); border-radius: 0.75rem; background: var(--bg); color: var(--text); }
+    .button-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn--ghost { background: transparent; color: var(--text); border: 1px solid var(--muted); }
+  </style>
+</head>
+<body>
+  <!-- scroll-progress-bar.css + .js -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- smooth-anchor-scroll.css: these links glide and land below the sticky header -->
+  <header class="site-header">
+    <strong>Fieldnotes Studio</strong>
+    <nav aria-label="Demo sections">
+      <a href="#work">Work</a><a href="#growth">Growth</a><a href="#process">Process</a><a href="#contact">Contact</a>
+    </nav>
+    <span>Motion recipe demo · <code>?libs=1</code> for GSAP + Lenis</span>
+  </header>
+
+  <main>
+    <!-- hero-load-sequence.css + magnetic-button.js -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow" data-hero="eyebrow">Landscape architecture</p>
+        <h1 id="hero-title" data-hero="title">
+          <span class="hero-line"><span>Gardens that</span></span>
+          <span class="hero-line"><span>outlast their makers</span></span>
+        </h1>
+        <p data-hero="lede">We design slow landscapes for public parks, schools and river edges — planted to be finished by the next generation.</p>
+        <div data-hero="cta"><a class="btn" href="#work" data-magnetic><span data-magnetic-label>See the work</span></a></div>
+      </div>
+      <div class="hero-media" data-hero="media" role="img" aria-label="Warm abstract gradient standing in for a project photo"></div>
+    </section>
+
+    <!-- marquee.css + marquee.js -->
+    <section aria-label="Clients">
+      <div class="marquee" data-marquee>
+        <button class="marquee__toggle" type="button" aria-pressed="false">Pause</button>
+        <div class="marquee__viewport">
+          <ul class="marquee__track">
+            <li>City of Aarhus</li><li>Rotterdam Waterboard</li><li>Kew Trust</li><li>Oslo Schools</li><li>Lyon Métropole</li>
+          </ul>
+          <ul class="marquee__track" aria-hidden="true">
+            <li>City of Aarhus</li><li>Rotterdam Waterboard</li><li>Kew Trust</li><li>Oslo Schools</li><li>Lyon Métropole</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- text-split-reveal + reveal-on-scroll + stagger-entrance -->
+    <section id="work">
+      <h2 data-split>Three decades of planting</h2>
+      <p data-reveal>Each project starts with a year of watching: where water sits, where people cut corners, what already grows.</p>
+      <p data-scrub-reveal>This line is scrubbed (scroll-scrubbed-reveal.css): it reverses if you scroll back up.</p>
+      <ul class="grid" data-stagger>
+        <li class="tile" style="--i: 0">River Aa meadows</li>
+        <li class="tile" style="--i: 1">Nørrebro schoolyard</li>
+        <li class="tile" style="--i: 2">Kew dry garden</li>
+        <li class="tile" style="--i: 3">Maas floodpark</li>
+      </ul>
+    </section>
+
+    <!-- spotlight-card -->
+    <section>
+      <div class="grid">
+        <article class="dark spotlight" data-spotlight data-reveal="scale">
+          <h3>Soil first</h3><p>We rebuild soil before we plant, which is why our trees are still standing.</p>
+        </article>
+        <article class="dark spotlight" data-spotlight data-reveal="scale">
+          <h3>Native mixes</h3><p>Seed mixes chosen for the site, not the catalogue.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- number-counter -->
+    <section aria-label="In numbers">
+      <p><span class="stat" data-count-to="12400" data-count-format="compact" data-count-decimals="1">12.4K</span> trees planted</p>
+      <p><span class="stat" data-count-to="0.94" data-count-format="percent">94%</span> still alive after ten years</p>
+    </section>
+
+    <!-- parallax -->
+    <section aria-label="Parallax example">
+      <div class="parallax-frame"><div class="parallax-layer" data-depth="1" aria-hidden="true"></div></div>
+    </section>
+
+    <!-- tab-indicator.js -->
+    <section aria-label="Tabs example">
+      <div role="tablist" aria-label="Project type" data-tab-indicator>
+        <button role="tab" aria-selected="true" tabindex="0">Parks</button>
+        <button role="tab" aria-selected="false" tabindex="-1">Schools</button>
+        <button role="tab" aria-selected="false" tabindex="-1">Riverbanks</button>
+        <span class="tab-indicator" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- accordion.css -->
+    <section aria-label="Questions">
+      <details class="disclosure"><summary>How long does a project take?</summary><div class="disclosure__body"><p>Design takes about a year; planting takes a season; the garden takes twenty.</p></div></details>
+      <details class="disclosure"><summary>Do you work outside Europe?</summary><div class="disclosure__body"><p>Rarely — we prefer sites we can visit through every season.</p></div></details>
+    </section>
+
+    <!-- view-transition-same-document.js -->
+    <section aria-label="View transition example">
+      <button class="btn" type="button" id="shuffle">Shuffle projects</button>
+      <ul class="vt-grid" id="vt-list">
+        <li style="view-transition-name: p1">Aa meadows</li>
+        <li style="view-transition-name: p2">Nørrebro</li>
+        <li style="view-transition-name: p3">Kew</li>
+        <li style="view-transition-name: p4">Maas</li>
+      </ul>
+    </section>
+
+    <!-- skeleton-shimmer.css -->
+    <section aria-label="Loading example" aria-busy="true">
+      <div class="skeleton-row" aria-hidden="true">
+        <div class="skeleton" style="inline-size: 60%; block-size: 1.5rem"></div>
+        <div class="skeleton" style="inline-size: 100%; block-size: 1rem"></div>
+        <div class="skeleton" style="inline-size: 85%; block-size: 1rem"></div>
+      </div>
+    </section>
+
+    <!-- image-reveal-clip.css (driven by reveal-on-scroll.js) -->
+    <section aria-label="Image reveal">
+      <figure class="clip-reveal" data-reveal-clip>
+        <img width="1200" height="675" alt="Illustrated river meadow: layered green hills under a pale sky with a winding blue river"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 675'%3E%3Crect width='1200' height='675' fill='%23dfe7e0'/%3E%3Cpath d='M0 420 C300 330 600 470 1200 360 V675 H0Z' fill='%238aa382'/%3E%3Cpath d='M0 520 C400 440 800 590 1200 480 V675 H0Z' fill='%23557a4f'/%3E%3Cpath d='M-20 640 C300 560 520 610 760 560 S1100 520 1220 540' stroke='%236f95b8' stroke-width='38' fill='none'/%3E%3C/svg%3E">
+      </figure>
+      <p data-reveal>River Aa meadows, year eight.</p>
+    </section>
+
+    <!-- draw-on-scroll.css + .js: scrubbed line, once-mode chart, wipe mode -->
+    <section id="growth" aria-labelledby="growth-title">
+      <h2 id="growth-title" data-reveal>Canopy cover, 2004–2026</h2>
+      <figure class="draw-figure" data-draw>
+        <svg viewBox="0 0 600 160" aria-hidden="true">
+          <path class="draw-path" pathLength="1" d="M0 150 C 80 148 120 140 180 120 S 300 60 360 58 S 480 30 600 12" />
+        </svg>
+        <figcaption>Scrubbed: the line follows the scrollbar.</figcaption>
+      </figure>
+      <figure class="draw-figure" data-draw="once">
+        <svg viewBox="0 0 600 160" role="img" aria-label="Canopy cover rose from 4 percent in 2004 to 31 percent in 2026">
+          <line class="draw-axis" x1="0" y1="159" x2="600" y2="159" />
+          <polyline class="draw-path" pathLength="1" points="0,150 100,140 200,118 300,96 400,70 500,44 600,22" />
+        </svg>
+        <figcaption>Once: a data chart draws a single time, then stays.</figcaption>
+      </figure>
+      <figure class="draw-figure" data-draw="wipe">
+        <svg viewBox="0 0 600 60" aria-hidden="true">
+          <path class="draw-path" d="M0 30 Q 50 0 100 30 T 200 30 T 300 30 T 400 30 T 500 30 T 600 30" />
+        </svg>
+        <figcaption>Wipe: clip-path reveal, compositor-friendly.</figcaption>
+      </figure>
+    </section>
+
+    <!-- sticky-stack-cards.css -->
+    <section id="process" aria-labelledby="process-title">
+      <h2 id="process-title">How a site becomes a garden</h2>
+      <ol class="stack" style="--n: 4">
+        <li class="stack__item" style="--i: 0"><article class="stack__card"><h3>1. Watch</h3><p>A full year on site before a single drawing.</p></article></li>
+        <li class="stack__item" style="--i: 1"><article class="stack__card"><h3>2. Soil</h3><p>Rebuild what is underneath; test it every season.</p></article></li>
+        <li class="stack__item" style="--i: 2"><article class="stack__card"><h3>3. Plant</h3><p>Small stock, dense planting, native mixes.</p></article></li>
+        <li class="stack__item" style="--i: 3"><article class="stack__card"><h3>4. Leave</h3><p>Hand it to the people who live there.</p></article></li>
+      </ol>
+    </section>
+
+    <!-- dialog-enter-exit.css: native dialog + popover -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Talk to us</h2>
+      <div class="button-row">
+        <button class="btn" type="button" id="open-dialog">Request a site visit</button>
+        <button class="btn btn--ghost" type="button" popovertarget="office-hours">Office hours</button>
+      </div>
+      <dialog class="motion-dialog" id="visit-dialog" aria-labelledby="visit-title">
+        <h3 id="visit-title">Request a site visit</h3>
+        <p>We visit sites within a day&rsquo;s train ride of Copenhagen, April to October.</p>
+        <form method="dialog"><button class="btn" type="submit">Close</button></form>
+      </dialog>
+      <div popover id="office-hours" class="motion-popover">
+        <p>Tuesday and Thursday, 9:00–12:00 CET.</p>
+      </div>
+    </section>
+
+    <!-- gsap-pinned-horizontal.js (only with ?libs=1) -->
+    <section class="h-scroll" aria-label="Process" style="overflow: clip; max-width: none">
+      <div class="h-scroll__track" style="display: flex; gap: 1rem; width: max-content">
+        <article class="h-scroll__panel tile" style="width: min(80vw, 40rem); flex: none"><h3>1. Watch</h3><p>A year on site.</p></article>
+        <article class="h-scroll__panel tile" style="width: min(80vw, 40rem); flex: none"><h3>2. Soil</h3><p>Rebuild what is underneath.</p></article>
+        <article class="h-scroll__panel tile" style="width: min(80vw, 40rem); flex: none"><h3>3. Plant</h3><p>Small stock, dense planting.</p></article>
+        <article class="h-scroll__panel tile" style="width: min(80vw, 40rem); flex: none"><h3>4. Leave</h3><p>Hand it to the people who live there.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    const base = '../../skills/ui-craft/assets/motion/';
+    const [{ initReveal }, { initSplitReveal }, { initMarquees }, { initMagnetic },
+      { initSpotlight }, { initCounters }, { initTabIndicator }, { withViewTransition },
+      { initDraw }, { initScrollProgress }] = await Promise.all([
+      import(base + 'reveal-on-scroll.js'),
+      import(base + 'text-split-reveal.js'),
+      import(base + 'marquee.js'),
+      import(base + 'magnetic-button.js'),
+      import(base + 'spotlight-card.js'),
+      import(base + 'number-counter.js'),
+      import(base + 'tab-indicator.js'),
+      import(base + 'view-transition-same-document.js'),
+      import(base + 'draw-on-scroll.js'),
+      import(base + 'scroll-progress-bar.js'),
+    ]);
+
+    initReveal();
+    initSplitReveal();
+    initMarquees();
+    initMagnetic();
+    initSpotlight();
+    initCounters();
+    initDraw();
+    initScrollProgress();
+
+    const dialog = document.getElementById('visit-dialog');
+    const opener = document.getElementById('open-dialog');
+    opener.addEventListener('click', () => dialog.showModal());
+    dialog.addEventListener('close', () => opener.focus());
+
+    const tablist = document.querySelector('[data-tab-indicator]');
+    const indicator = initTabIndicator(tablist);
+    tablist.addEventListener('click', (event) => {
+      const tab = event.target.closest('[role="tab"]');
+      if (!tab) return;
+      tablist.querySelectorAll('[role="tab"]').forEach((t) => {
+        const selected = t === tab;
+        t.setAttribute('aria-selected', String(selected));
+        t.tabIndex = selected ? 0 : -1;
+      });
+      indicator.update();
+    });
+
+    const list = document.getElementById('vt-list');
+    document.getElementById('shuffle').addEventListener('click', () => {
+      withViewTransition(() => {
+        const items = [...list.children];
+        const rotated = [...items.slice(1), items[0]];
+        list.replaceChildren(...rotated);
+      });
+    });
+
+    if (new URLSearchParams(location.search).has('libs')) {
+      const [{ gsap }, { ScrollTrigger }, lenisMod, horizontalMod] = await Promise.all([
+        import('gsap'), import('gsap/ScrollTrigger'),
+        import(base + 'lenis-gsap.js'), import(base + 'gsap-pinned-horizontal.js'),
+      ]);
+      lenisMod.initSmoothScroll({ gsap, ScrollTrigger });
+      horizontalMod.initHorizontalScroll(document.querySelector('.h-scroll'));
+    }
+  </script>
+</body>
+</html>

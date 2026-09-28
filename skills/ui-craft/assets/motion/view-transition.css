@@ -1,0 +1,69 @@
+/*
+ * View Transition styles (shared by same-document and cross-document)
+ * ----------------------------------------------------------------------------
+ * Communicates: a calm cross-fade for the page, a morph for named shared
+ *   elements, and a directional slide when the transition type says the user
+ *   went "forward" or "back".
+ * Use: load after tokens.css. Name shared elements with
+ *   `view-transition-name: <unique-name>` in both states. Add a type with
+ *   the JS helper (`types: ['forward']`) or, cross-document, via
+ *   `@view-transition { types: forward; }` / `pageswap`/`pagereveal` events.
+ *   Keep persistent chrome (site header) still by naming it `site-header`.
+ * Reduced motion: every transition pseudo-element loses its duration, so
+ *   state swaps instantly.
+ * Support: pseudo-elements with view transitions; `:active-view-transition-type()`
+ *   Chrome 125+/Safari 18.2+ (older engines get the plain cross-fade).
+ */
+
+/* Page-level: a quick, quiet cross-fade. The old page exits faster than the new enters. */
+::view-transition-old(root) {
+  animation: var(--dur-fast, 160ms) var(--ease-exit, ease-in) both ui-vt-fade-out;
+}
+::view-transition-new(root) {
+  animation: var(--dur-base, 260ms) var(--ease-out, ease-out) 60ms both ui-vt-fade-in;
+}
+
+/* Shared elements morph (size + position) with the standard curve. */
+::view-transition-group(*) {
+  animation-duration: var(--dur-slow, 420ms);
+  animation-timing-function: var(--ease-in-out, ease-in-out);
+}
+
+/* Directional navigation. */
+html:active-view-transition-type(forward)::view-transition-old(root) {
+  animation: var(--dur-fast, 160ms) var(--ease-exit, ease-in) both ui-vt-out-left;
+}
+html:active-view-transition-type(forward)::view-transition-new(root) {
+  animation: var(--dur-slow, 420ms) var(--ease-out, ease-out) both ui-vt-in-right;
+}
+html:active-view-transition-type(back)::view-transition-old(root) {
+  animation: var(--dur-fast, 160ms) var(--ease-exit, ease-in) both ui-vt-out-right;
+}
+html:active-view-transition-type(back)::view-transition-new(root) {
+  animation: var(--dur-slow, 420ms) var(--ease-out, ease-out) both ui-vt-in-left;
+}
+
+/* Persistent header: never slides, never double-draws. */
+.site-header { view-transition-name: site-header; }
+::view-transition-group(site-header) { animation: none; z-index: 10; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+
+/* Don't swallow clicks that land during a transition. */
+::view-transition { pointer-events: none; }
+
+@keyframes ui-vt-fade-out { to { opacity: 0; } }
+@keyframes ui-vt-fade-in  { from { opacity: 0; } }
+@keyframes ui-vt-out-left  { to   { opacity: 0; transform: translateX(calc(var(--dist-lg, 32px) * -1)); } }
+@keyframes ui-vt-out-right { to   { opacity: 0; transform: translateX(var(--dist-lg, 32px)); } }
+@keyframes ui-vt-in-right  { from { opacity: 0; transform: translateX(var(--dist-lg, 32px)); } }
+@keyframes ui-vt-in-left   { from { opacity: 0; transform: translateX(calc(var(--dist-lg, 32px) * -1)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

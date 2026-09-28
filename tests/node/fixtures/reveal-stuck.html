@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reveal never fires</title>
+<style>
+  body { margin: 0; font-family: Georgia, serif; }
+  section { min-height: 100vh; padding: 2rem 1rem; }
+  /* the reveal class is never added: the section below the fold stays invisible */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 400ms ease-out, transform 400ms ease-out; }
+  .reveal.is-in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+  <section><h1>Top of the page</h1><p>Visible intro copy.</p></section>
+  <section class="reveal" id="collection"><h2>Collection</h2><p>This text never becomes visible.</p></section>
+</body>
+</html>

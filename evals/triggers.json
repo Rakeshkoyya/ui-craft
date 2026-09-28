@@ -1,0 +1,28 @@
+{
+  "skill": "ui-craft",
+  "note": "Prompts that should and should not activate the skill. Near-misses are frontend-adjacent but not UI design or build work. Run with a skill-trigger eval tool (e.g. Anthropic skill-creator's run_eval).",
+  "should_trigger": [
+    "Build a landing page for my coffee subscription startup",
+    "Make this portfolio site look less generic and more premium",
+    "Add a smooth page transition between the blog list and the post pages in our Next.js app",
+    "The hero section feels flat — add some tasteful scroll animation",
+    "Review our pricing page UI for accessibility and anything that looks templated",
+    "Which component library should I use for a date picker in Nuxt, and set it up",
+    "Take screenshots of localhost:5173 and fix whatever looks off on mobile",
+    "Redesign the dashboard settings page so it matches the rest of the app",
+    "Create a one-page site for a ceramics studio with a calm, crafted feel",
+    "Polish the buttons and cards — hover states, focus rings, spacing"
+  ],
+  "should_not_trigger": [
+    "Fix the failing unit test in utils/date.test.ts",
+    "Why is my Next.js API route returning 500?",
+    "Set up ESLint and Prettier for this repo",
+    "Write a SQL migration adding an orders table",
+    "Optimize the webpack bundle size",
+    "Explain how React useEffect cleanup works",
+    "Add a GitHub Actions workflow that runs tests",
+    "Convert this Express server to Fastify",
+    "Write unit tests for the cart reducer",
+    "Generate a slide deck about our Q3 results"
+  ]
+}

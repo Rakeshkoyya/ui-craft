@@ -1,0 +1,50 @@
+/*
+ * Scroll progress bar (reading progress at the top of the page)
+ * ----------------------------------------------------------------------------
+ * Communicates: "how far through this am I" — for long articles, case
+ *   studies, docs pages and scroll stories. Not for short landing pages
+ *   (there is nothing to track) and never more than one per page.
+ * Use: <div class="scroll-progress" aria-hidden="true"></div> as the first
+ *   child of <body>. Load tokens.css (optional) and scroll-progress-bar.js for
+ *   the fallback. Color with `--scroll-progress-color`; height with
+ *   `--scroll-progress-size`. It is decorative, so it is aria-hidden; if
+ *   progress matters to the task, show it in text too ("6 min left").
+ * How: a scaleX(0 -> 1) bar (transform only, runs off the main thread) on
+ *   the root scroll timeline, `scroll(root block)`.
+ * Reduced motion: the bar still reports position — it only moves when the
+ *   user scrolls, which is feedback rather than autonomous motion — but it is
+ *   driven by the JS fallback (a transform write per frame, no running CSS
+ *   animation), so reduced-motion captures stay clean.
+ * Support: `animation-timeline: scroll()` Chrome/Edge 115+, Safari 26+;
+ *   Firefox stable behind a flag (Sept 2026) -> scroll-progress-bar.js sets
+ *   `--scroll-progress`. Without either, the bar stays empty (harmless).
+ */
+
+.scroll-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 50;
+  block-size: var(--scroll-progress-size, 3px);
+  background: var(--scroll-progress-color, currentColor);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--scroll-progress, 0));
+  pointer-events: none;
+}
+
+:root[dir="rtl"] .scroll-progress { transform-origin: 100% 50%; }
+
+@keyframes ui-scroll-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      /* linear: bar length maps 1:1 to scroll position. */
+      animation: ui-scroll-progress linear both; /* ui-craft-ignore UC011 */
+      animation-timeline: scroll(root block);
+    }
+  }
+}

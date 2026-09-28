@@ -1,0 +1,55 @@
+/*
+ * Image reveal (clip-path inset wipe on enter, plays once)
+ * ----------------------------------------------------------------------------
+ * Communicates: "look at this picture" — a photo or video is uncovered by a
+ *   wipe while it settles from a slight zoom, the way a print is pulled from
+ *   a tray. For 1-3 key media per page (case-study lead image, product shot,
+ *   section opener), not for every thumbnail in a grid.
+ * Use:
+ *   <figure class="clip-reveal" data-reveal-clip>          (wipe upward)
+ *     <img src="…" alt="…" width="1200" height="800">
+ *   </figure>
+ *   data-reveal-clip="left" (wipe from the left) | "center" (opens from a
+ *   smaller inset rectangle). Requires reveal-on-scroll.js (adds .is-revealed
+ *   once) and the inline <head> gate from reveal-on-scroll.css (the
+ *   `.reveal-ready` class). Load tokens.css first. Give the media
+ *   width/height (or aspect-ratio) so the frame reserves space: CLS stays 0.
+ * Why the clip is on the media, not the figure: IntersectionObserver takes
+ *   the target's own clip-path into account, so a fully clipped target never
+ *   "intersects" and would stay hidden forever. The observed figure stays
+ *   unclipped; its child is clipped and scaled (overflow: clip hides the zoom).
+ * Never-invisible: media is clipped only while <html> has `.reveal-ready`.
+ * Reduced motion: no clip and no zoom; the media is simply there.
+ * Support: clip-path inset() and transform — every evergreen browser; both
+ *   are compositor-friendly.
+ */
+
+.clip-reveal {
+  overflow: clip;
+}
+
+.clip-reveal > :is(img, video, picture, svg) {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal-clip] > * {
+    transition:
+      clip-path var(--dur-deliberate, 700ms) var(--ease-emphasized, ease-out),
+      transform var(--dur-deliberate, 700ms) var(--ease-out, ease-out);
+    transition-delay: calc(var(--reveal-index, 0) * var(--stagger, 60ms));
+  }
+
+  .reveal-ready [data-reveal-clip]:not(.is-revealed) > * {
+    clip-path: inset(100% 0 0 0);
+    transform: scale(1.08);
+  }
+  .reveal-ready [data-reveal-clip="left"]:not(.is-revealed) > * {
+    clip-path: inset(0 100% 0 0);
+  }
+  .reveal-ready [data-reveal-clip="center"]:not(.is-revealed) > * {
+    clip-path: inset(18% 18% 18% 18%);
+  }
+}

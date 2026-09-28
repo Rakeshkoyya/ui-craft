@@ -1,0 +1,52 @@
+/*
+ * Spotlight / cursor-glow card
+ * ----------------------------------------------------------------------------
+ * Communicates: "this surface is interactive and you are on it" — a soft
+ *   light follows the pointer across a card or bento tile. Works best on
+ *   darker surfaces with a thin border that picks up the glow.
+ * Use: `<article class="spotlight" data-spotlight>…</article>` and
+ *   spotlight-card.js (it writes --mx/--my in px). Tune --spotlight-color
+ *   and --spotlight-size. Keep text contrast checked WITHOUT the glow — it is
+ *   decoration, not a contrast aid.
+ * Performance: the glow is a pseudo-element whose opacity animates; the
+ *   gradient position updates via custom properties on pointer move, which
+ *   repaints only the card (not layout). Don't put this on dozens of large
+ *   cards at once.
+ * Reduced motion: the glow is still shown (it is position feedback, not
+ *   movement) but without the fade; on touch devices it never appears.
+ * Support: evergreen browsers.
+ */
+
+.spotlight {
+  --spotlight-color: color-mix(in oklab, var(--accent, #d8b26e) 35%, transparent);
+  --spotlight-size: 22rem;
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    var(--spotlight-size) circle at var(--mx, 50%) var(--my, 50%),
+    var(--spotlight-color),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--dur-base, 260ms) var(--ease-out, ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .spotlight:hover::before,
+  .spotlight:focus-within::before {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight::before { transition: none; }
+}

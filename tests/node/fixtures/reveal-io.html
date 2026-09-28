@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reveal on scroll</title>
+<style>
+  body { margin: 0; font-family: Georgia, serif; }
+  section { min-height: 100vh; padding: 2rem 1rem; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 300ms ease-out, transform 300ms ease-out; }
+  .reveal.is-in { opacity: 1; transform: none; }
+  /* scroll-linked reveal: invisible again when scrolled back up, visible while in view */
+  .scrub { animation: scrub linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  @keyframes scrub { from { opacity: 0; } to { opacity: 1; } }
+  /* legitimately hidden things that must NOT be reported */
+  .drawer { position: fixed; inset: 0 0 0 auto; width: 16rem; background: #eee; transform: translateX(100%); visibility: hidden; }
+  .panel { max-height: 0; overflow: hidden; opacity: 0; }
+  .skip, summary { display: inline-block; min-width: 44px; min-height: 44px; }
+  .skip { position: absolute; left: 0; top: 0; transform: translateY(-120%); }
+  .skip:focus { transform: none; }
+  .track { overflow: hidden; }
+  .slides { display: flex; transform: translateX(-100%); }
+  .slides > p { flex: 0 0 100%; margin: 0; }
+  .deco { opacity: 0; }
+</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="drawer" id="drawer"><ul><li><a href="#a">Menu link</a></li></ul></nav>
+  <main id="main">
+    <section><h1>Top of the page</h1><p>Visible intro copy.</p>
+      <div class="panel"><p>Collapsed accordion body.</p></div>
+      <p aria-hidden="true" class="deco">Decorative echo</p>
+      <dialog><p>Closed dialog text</p></dialog>
+      <details><summary>More</summary><p>Closed details text</p></details>
+      <p hidden>Hidden attribute text</p>
+      <div class="track"><div class="slides"><p>Slide one</p><p>Slide two</p></div></div>
+    </section>
+    <section class="reveal" id="collection"><h2>Collection</h2><p>Revealed by IntersectionObserver.</p></section>
+    <section><h2 class="scrub" id="scrubbed">Scroll-linked heading</h2><p>Plain text.</p></section>
+  </main>
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

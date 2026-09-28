@@ -1,0 +1,3 @@
+id,name,mood_tags,mode,bg,surface,text,muted,border,accent,accent_text,notes
+warm-editorial,Warm Editorial,warm|editorial|calm,light,#faf7f2,#ffffff,#1c1917,#57534e,#e7e5e4,#9a3412,#ffffff,Paper-like warmth
+midnight-cyan,Midnight Cyan,dark|tech|cool,dark,oklch(0.18 0.02 260),oklch(0.22 0.02 260),oklch(0.96 0.01 260),oklch(0.75 0.02 260),oklch(0.3 0.02 260),oklch(0.78 0.15 200),oklch(0.2 0.03 260),Dark product UI

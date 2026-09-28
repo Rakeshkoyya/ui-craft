@@ -1,0 +1,123 @@
+/*
+ * Dialog + popover enter/exit (native, no JS animation code)
+ * ----------------------------------------------------------------------------
+ * Communicates: "a layer opened on top of the page, and closed again" — the
+ *   surface rises a few pixels while fading in, the backdrop dims, and on
+ *   close it drops away faster than it arrived (exits are shorter).
+ * Use:
+ *   <dialog class="motion-dialog">…</dialog>        dialog.showModal() / .close()
+ *   <div popover id="menu" class="motion-popover">…</div>
+ *   <button popovertarget="menu">Menu</button>      (popover needs no JS)
+ *   Load tokens.css first. Keep your own sizing/visual styles on the same
+ *   classes; this file only owns opacity, transform and the discrete
+ *   display/overlay transitions.
+ * How: the closed state is the exit state; `@starting-style` gives the entry
+ *   start; `display` and `overlay` are transitioned with
+ *   `transition-behavior: allow-discrete` (via the `allow-discrete` keyword)
+ *   so the element stays rendered, and in the top layer, until the exit ends.
+ *   `@starting-style` must come after the rule it overrides (same
+ *   specificity).
+ * Reduced motion: tokens.css zeroes travel and scale, so both become a short
+ *   opacity fade — the open/close change stays perceptible. The travel is also
+ *   removed explicitly below in case tokens.css is not loaded.
+ * Support: @starting-style and transition-behavior are Baseline 2024.
+ *   `overlay` is not yet in every engine (Firefox lacks it): there the exit
+ *   still fades but the element can leave the top layer before the fade ends.
+ *   Engines without any of it simply open and close instantly.
+ */
+
+/* ---------- dialog ---------- */
+.motion-dialog {
+  opacity: 0;
+  transform: translateY(var(--dist-md, 16px)) scale(var(--scale-in, 0.96));
+  /* Exit (applies when [open] is removed): fast, accelerating away. */
+  transition:
+    opacity var(--dur-fast, 160ms) var(--ease-exit, ease-in),
+    transform var(--dur-fast, 160ms) var(--ease-exit, ease-in),
+    overlay var(--dur-fast, 160ms) allow-discrete,
+    display var(--dur-fast, 160ms) allow-discrete;
+}
+
+.motion-dialog[open] {
+  opacity: 1;
+  transform: none;
+  /* Enter: slower, decelerating. */
+  transition:
+    opacity var(--dur-base, 260ms) var(--ease-out, ease-out),
+    transform var(--dur-slow, 420ms) var(--ease-out, ease-out),
+    overlay var(--dur-slow, 420ms) allow-discrete,
+    display var(--dur-slow, 420ms) allow-discrete;
+}
+
+@starting-style {
+  .motion-dialog[open] {
+    opacity: 0;
+    transform: translateY(var(--dist-md, 16px)) scale(var(--scale-in, 0.96));
+  }
+}
+
+.motion-dialog::backdrop {
+  background-color: rgb(0 0 0 / 0%);
+  transition:
+    background-color var(--dur-fast, 160ms) var(--ease-exit, ease-in),
+    overlay var(--dur-fast, 160ms) allow-discrete,
+    display var(--dur-fast, 160ms) allow-discrete;
+}
+
+.motion-dialog[open]::backdrop {
+  background-color: var(--backdrop-color, rgb(0 0 0 / 45%));
+  transition:
+    background-color var(--dur-base, 260ms) var(--ease-out, ease-out),
+    overlay var(--dur-base, 260ms) allow-discrete,
+    display var(--dur-base, 260ms) allow-discrete;
+}
+
+/* Standalone block: @starting-style can't be nested inside a pseudo-element rule. */
+@starting-style {
+  .motion-dialog[open]::backdrop {
+    background-color: rgb(0 0 0 / 0%);
+  }
+}
+
+/* ---------- popover (menus, pickers, info panels) ---------- */
+.motion-popover {
+  opacity: 0;
+  transform: translateY(calc(var(--dist-sm, 8px) * -1)) scale(var(--scale-in, 0.96));
+  transform-origin: top center;   /* grow from the trigger side, not the middle */
+  transition:
+    opacity var(--dur-fast, 160ms) var(--ease-exit, ease-in),
+    transform var(--dur-fast, 160ms) var(--ease-exit, ease-in),
+    overlay var(--dur-fast, 160ms) allow-discrete,
+    display var(--dur-fast, 160ms) allow-discrete;
+}
+
+.motion-popover:popover-open {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--dur-base, 260ms) var(--ease-out, ease-out),
+    transform var(--dur-base, 260ms) var(--ease-out, ease-out),
+    overlay var(--dur-base, 260ms) allow-discrete,
+    display var(--dur-base, 260ms) allow-discrete;
+}
+
+@starting-style {
+  .motion-popover:popover-open {
+    opacity: 0;
+    transform: translateY(calc(var(--dist-sm, 8px) * -1)) scale(var(--scale-in, 0.96));
+  }
+}
+
+/* ---------- reduced motion: fade only ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .motion-dialog,
+  .motion-popover {
+    transform: none;
+  }
+  @starting-style {
+    .motion-dialog[open],
+    .motion-popover:popover-open {
+      transform: none;
+    }
+  }
+}
