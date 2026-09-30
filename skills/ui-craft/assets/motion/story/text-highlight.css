@@ -1,0 +1,24 @@
+/*
+ * Text highlight on scroll — styles (companion to text-highlight.js)
+ * ----------------------------------------------------------------------------
+ * Communicates: see text-highlight.js. The passage is set large; the
+ *   script dims words with opacity (compositor-only) and brightens them as
+ *   you scroll. Use a colour for the passage that passes AA at full opacity;
+ *   dimmed words are a transient reading state, not resting text.
+ * Tokens: --th-size (default clamp(1.75rem, 1rem + 3.2vw, 3.5rem)),
+ *   --th-measure (default 22ch).
+ * Reduced motion / no JS: plain, fully opaque text — nothing here hides it.
+ */
+
+.th {
+  font-size: var(--th-size, clamp(1.75rem, 1rem + 3.2vw, 3.5rem));
+  line-height: 1.18;
+  max-inline-size: var(--th-measure, 22ch);
+  text-wrap: pretty;
+  margin: 0;
+}
+
+.th__w {
+  /* inline spans keep the passage's natural wrapping and selection */
+  display: inline;
+}

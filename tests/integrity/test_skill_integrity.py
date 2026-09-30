@@ -25,6 +25,8 @@ SCHEMAS = {
                  "accent", "accent_text", "notes"],
     "fonts": ["id", "display", "body", "mono", "mood_tags", "source", "css_import",
               "fallback_stack", "notes", "license"],
+    "sections": ["id", "name", "beat", "tags", "description", "layout", "motion", "pairs_with",
+                 "avoid_when"],
 }
 ENUMS = {
     ("libraries", "kind"): {"primitives", "styled-kit", "animated-components", "motion-engine",
@@ -36,6 +38,9 @@ ENUMS = {
                               "lenis", "waapi", "js"},
     ("motion", "trigger"): {"load", "scroll", "hover", "click", "route", "state"},
     ("palettes", "mode"): {"light", "dark"},
+    ("sections", "beat"): {"opening", "origin", "tension", "voice", "method", "product",
+                           "catalogue", "proof", "place", "people", "transformation",
+                           "invitation", "utility"},
 }
 ID_RE = re.compile(r"^[a-z0-9]+(?:-{1,2}[a-z0-9]+)*$")
 
@@ -129,6 +134,22 @@ def test_motion_recipe_files_exist():
     missing = [row["file"] for _, _, row in _rows("motion")
                if not (SKILL / "assets" / "motion" / row["file"]).is_file()]
     assert not missing, f"motion recipes point to missing files: {missing}"
+
+
+def test_section_pairings_reference_motion_recipes():
+    motion_ids = {row["id"] for _, _, row in _rows("motion")}
+    unknown = sorted({pid for _, _, row in _rows("sections")
+                      for pid in row["pairs_with"].split("|") if pid} - motion_ids)
+    assert not unknown, f"sections pair with unknown motion recipes: {unknown}"
+
+
+def test_story_arcs_reference_known_sections():
+    section_ids = {row["id"] for _, _, row in _rows("sections")}
+    text = (SKILL / "references" / "structure.md").read_text(encoding="utf-8")
+    arc_rows = [line for line in text.splitlines() if line.startswith("| **")]
+    used = {tok for line in arc_rows for tok in re.findall(r"`([a-z0-9-]+)`", line)}
+    assert used, "structure.md arc table not found"
+    assert not used - section_ids, f"arcs use unknown sections: {sorted(used - section_ids)}"
 
 
 def test_no_research_content_is_packaged():

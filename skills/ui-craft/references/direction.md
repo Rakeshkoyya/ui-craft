@@ -4,6 +4,10 @@ How to turn a brief into a point of view before any code exists. Output of this 
 "Reading this as:" line, three dial values, a short domain exploration, and a named signature
 element. Everything later (tokens, type, layout, motion) is checked against it.
 
+For brand sites, run [story.md](story.md) and [structure.md](structure.md) first: most signals
+below then come from the Story brief, the signature element is the central metaphor in motion,
+and the motion dial is read together with the motion language. For app screens, start here.
+
 ## Contents
 
 1. Read the brief
@@ -42,7 +46,7 @@ readings as options. Otherwise declare your reading and proceed; the user can co
 Write one line, show it to the user, then continue working:
 
 > **Reading this as:** <page kind> for <audience>, <tone in 3–5 words> — <signature element>,
-> <motion character>. Dials: variance N · motion N · density N.
+> <motion character / motion language>. Dials: variance N · motion N · density N.
 
 Examples (the shape to copy, not the content — your brief's subject supplies its own signature):
 

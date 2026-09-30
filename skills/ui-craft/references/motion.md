@@ -3,7 +3,9 @@
 Motion is where a site stops looking like a template and starts feeling made. It is also where
 most generated UIs go wrong: everything fades up, everything takes the same 300 ms, nothing is
 honest about what changed. This file is the working guide. Snippets live in `assets/motion/`;
-find one with `python <skill>/scripts/search.py "<effect>" --domain motion`.
+find one with `python <skill>/scripts/search.py "<effect>" --domain motion`. Scroll storytelling —
+turning each chapter into a motion graphic, choosing the medium, and the scene engine in
+`assets/motion/story/` — is in [storytelling-motion.md](storytelling-motion.md).
 
 ## 1. Every animation needs a job
 
@@ -136,6 +138,8 @@ complex timelines and scroll storytelling.** Never add a library for something C
 | SPA route transitions | framework's View Transition hook (below) | Motion `AnimatePresence` (`motion-react-page-transition.tsx`) |
 | Parallax | CSS scroll-driven, transform only (`parallax.css`) | GSAP ScrollTrigger `scrub` if part of a larger story |
 | Pinned / horizontal scroll story | GSAP ScrollTrigger (`gsap-pinned-horizontal.js`) | — |
+| Sticky scene that builds as text scrolls (scrollytelling) | `story/story-scroll.js` + `story/scene.js` (declarative parts, scrub or play) | Motion `useScroll` (`story/sticky-steps-motion.tsx`) on Motion projects |
+| Pinned chapters, before/after, text highlight, zoom-through, route journey, image sequence | `story/chapters.js`, `before-after.js`, `text-highlight.js`, `zoom-through.js`, `path-journey.js`, `image-sequence.js` | Lottie / Rive / video / three.js stages via `story/adapters.js` |
 | Smooth wheel scrolling | usually **none** | Lenis on storytelling pages only (`lenis-gsap.js`) |
 | Split-text reveal | word split + CSS (`text-split-reveal.*`) | GSAP SplitText (`mask: 'lines'`, `autoSplit`) for line splits that survive resize |
 | Marquee | CSS keyframes, pausable (`marquee.*`) | — |
@@ -336,7 +340,7 @@ motion a page gets. Count per page, not per component.
 | 1–2 | still, utilitarian | state feedback only (hover/press/focus, ≤ 160 ms). No entrances, no scroll effects. |
 | 3–4 | calm, product | + menus/dialogs/accordions animate (`dialog-enter-exit`); smooth anchor scrolling; one subtle page-load fade; View Transitions for navigation; reading progress bar on long articles. |
 | 5–6 | polished marketing | + hero load sequence; section reveals, once (one per section); one staggered group per page; 1–2 image clip reveals; tab indicators; count-up on key stats. |
-| 7–8 | expressive brand | + one scroll story (pinned section, sticky card stack **or** a line drawn on scroll) **or** text-split headline; one delight effect (magnetic CTA or cursor glow); marquee; subtle parallax on 1–2 images. |
+| 7–8 | expressive brand | + one scroll story (a `story/` scene, pinned section, sticky card stack **or** a line drawn on scroll) **or** text-split headline; one delight effect (magnetic CTA or cursor glow); marquee; subtle parallax on 1–2 images. |
 | 9–10 | showcase / portfolio | + Lenis smooth scroll, multiple scroll chapters, WebGL/Lottie/Rive motion graphics, custom cursor — still one lead animation per viewport, still a reduced-motion path, still ≥ 50 fps. |
 
 Above 6, re-check: is each effect earning its job from §1? Removing one strong effect is usually

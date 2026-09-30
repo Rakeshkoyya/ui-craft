@@ -12,7 +12,7 @@
       "name": "ui-craft",
       "source": "./",
       "description": "Build professional, distinctive website UI with smooth motion, a searchable catalog of real third-party components, and a screenshot-driven critique loop.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "license": "MIT",
       "category": "design",
       "keywords": [

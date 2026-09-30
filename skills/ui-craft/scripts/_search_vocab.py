@@ -11,16 +11,17 @@ ROUTES = (  # checked in order; first hit wins
     ("fonts", frozenset("font typeface typography typographic serif sans monospace".split())),
     ("palettes", frozenset("palette color colour scheme swatch".split())),
     ("libraries", frozenset("library kit framework".split())),  # "smooth scroll library"
+    ("sections", frozenset("section chapter homepage sitemap archetype beat".split())),
     ("motion", frozenset("animation scroll transition parallax reveal motion stagger easing "
-                         "keyframe".split())),
+                         "keyframe scrollytelling".split())),
 )
 
 # words naming the kind of thing wanted; they score but aren't required to match
 GENERIC_WORDS = frozenset("animation animated motion effect component library kit framework "
                           "font typeface palette color colour ui element widget".split())
 
-# Domains searched with taste vocabulary: any matching word qualifies (score x coverage).
-TASTE_DOMAINS = ("palettes", "fonts")
+# Domains searched with taste / brief vocabulary: any matching word qualifies (score x coverage).
+TASTE_DOMAINS = ("palettes", "fonts", "sections")
 
 # One-way query expansion: a query word also matches these words (at a discount).
 # Keys and values are single tokens in singular form. Keep entries specific: a synonym widens
@@ -66,4 +67,17 @@ SYNONYMS = {
     "tooltip": ("hint",),
     "toast": ("notification",),
     "testimonial": ("quote", "review"),
+    # story / structure
+    "founder": ("origin", "letter", "personal"),
+    "history": ("heritage", "timeline", "archive"),
+    "construction": ("build", "building", "assemble"),
+    "building": ("build", "construction", "assemble"),
+    "architecture": ("build", "construction", "place"),
+    "journey": ("route", "path", "timeline"),
+    "supply": ("route", "sourcing", "origin"),
+    "team": ("people", "crew"),
+    "renovation": ("before", "transformation", "restore"),
+    "values": ("manifesto", "belief", "principle"),
+    "mission": ("manifesto", "belief"),
+    "portfolio": ("work", "project", "index"),
 }

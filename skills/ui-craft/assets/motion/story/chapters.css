@@ -1,0 +1,79 @@
+/*
+ * Pinned chapters — layout (companion to chapters.js)
+ * ----------------------------------------------------------------------------
+ * Communicates: see chapters.js. Default (no JS, reduced motion, phones):
+ *   panels are ordinary stacked blocks and the rail is a small table of
+ *   contents. Pinned mode (`.chapters--pinned`, added by the script) stacks
+ *   the panels in one viewport and shows the rail as a fixed index.
+ * Tokens: --chapters-bg (panel background, required for covering
+ *   transitions; default Canvas), --chapters-rail-text, --chapters-rail-active,
+ *   --chapters-rail-top.
+ * Reduced motion: the script never pins, so nothing here animates.
+ * Never-invisible: nothing is hidden unless `.chapters--pinned` is present.
+ */
+
+.chapters {
+  position: relative;
+}
+
+.chapters__panel {
+  min-block-size: 80vh;
+  min-block-size: 80svh;
+  display: grid;
+  align-content: center;
+  padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 5vw, 4rem);
+  background: var(--chapters-bg, Canvas);
+}
+
+.chapters__rail {
+  list-style: none;
+  margin: 0;
+  padding: 1rem clamp(1rem, 5vw, 4rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+.chapters__rail a {
+  color: var(--chapters-rail-text, inherit);
+  text-decoration: none;
+  display: inline-block;
+  padding-block: 0.25rem;
+  min-block-size: 24px;
+}
+
+.chapters__rail a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.chapters__rail a[aria-current] {
+  color: var(--chapters-rail-active, inherit);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* Pinned: one viewport, panels stacked on top of each other. */
+.chapters--pinned {
+  block-size: 100vh;
+  block-size: 100svh;
+  overflow: clip;
+}
+
+.chapters--pinned .chapters__panel {
+  position: absolute;
+  inset: 0;
+  min-block-size: 0;
+  will-change: transform, opacity;
+}
+
+.chapters--pinned .chapters__rail {
+  position: absolute;
+  z-index: 100;
+  inset-block-start: var(--chapters-rail-top, 1.5rem);
+  inset-inline-end: clamp(1rem, 3vw, 2.5rem);
+  flex-direction: column;
+  padding: 0;
+  text-align: end;
+}

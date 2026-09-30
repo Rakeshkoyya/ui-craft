@@ -120,3 +120,12 @@ Seed catalog (to be verified against live docs, not memory):
 | 3 | Done: 66 libraries, 421 components, 23 motion recipes, 31 palettes, 33 font pairings (verified 2026-09-27) |
 | 4 | Partial: search relevance suite; dogfood build (`examples/kiln-and-cloud`). Trigger evals TODO |
 | 5 | Partial: README, plugin manifests, CI. Needs GitHub repo + fresh-install test |
+
+## v0.2 — storytelling and motion graphics (2026-09-30)
+
+Driven by user feedback: three generations had different themes but near-identical home page
+layouts, and the founder's vision didn't show. Added a Story step (adaptive intake with a
+"generate one for me" option), a Structure step (sitemap, 14 story arcs, 55 section archetypes,
+banned default skeleton, pacing), a local structure history (`history.py`, advisory), the
+storytelling-motion reference, and the `assets/motion/story/` scene engine with a demo gallery.
+Next.js became the default stack for new sites.

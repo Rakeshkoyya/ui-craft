@@ -30,6 +30,10 @@ HITS = [
                                  "view-transition-cross-document"}),
     ("hero animation", None, {"hero-load-sequence"}),
     ("luxury quiet", None, {"gallery-graphite", "espresso-brass"}),
+    ("building assembles as you scroll", None, {"story-scroll", "story-scene"}),
+    ("scrollytelling sticky", "next", {"story-scroll", "story-react", "story-motion-react"}),
+    ("before after scroll wipe", None, {"story-before-after"}),
+    ("route journey map animation", None, {"story-path-journey"}),
 ]
 NATIVE = [
     ("dialog", "html", "native-html--dialog"),
@@ -48,6 +52,17 @@ MOODS = [
     ("luxury elegant", "fonts"),
     ("playful friendly", "palettes"),
     ("modern techy", "fonts"),
+]
+# brief-language structure queries -> section archetypes (domain sections)
+SECTIONS = [
+    ("founder origin story", {"founder-letter", "origin-timeline"}),
+    ("construction building process", {"sticky-build"}),
+    ("supply chain map", {"map-journey"}),
+    ("renovation results", {"before-after"}),
+    ("our values manifesto", {"manifesto"}),
+    ("customer testimonials", {"voices-montage"}),
+    ("hardware exploded view", {"exploded-anatomy"}),
+    ("team people", {"crew-portraits"}),
 ]
 MISSES = ["quantum blockchain widget", "tax filing wizard"]
 DOMAIN_MISSES = [("quantum blockchain widget", "palettes"), ("tax filing wizard", "fonts"),
@@ -94,3 +109,15 @@ def test_mood_queries_return_rows(query, domain):
 def test_junk_in_taste_domains_is_honest(query, domain):
     code, payload = _search(query, None, domain)
     assert code == 1 and not payload["results"]
+
+
+@pytest.mark.parametrize("query,expect_any", SECTIONS, ids=[s[0] for s in SECTIONS])
+def test_structure_queries_find_section_archetypes(query, expect_any):
+    code, payload = _search(query, None, "sections")
+    top = [r["id"] for r in payload["results"][:3]]
+    assert code == 0 and expect_any & set(top), f"{query!r} top-3 was {top}"
+
+
+def test_section_word_routes_to_sections():
+    code, payload = _search("homepage section for a renovation studio", None)
+    assert code == 0 and payload["domain"] == "sections"

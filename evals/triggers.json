@@ -11,7 +11,11 @@
     "Take screenshots of localhost:5173 and fix whatever looks off on mobile",
     "Redesign the dashboard settings page so it matches the rest of the app",
     "Create a one-page site for a ceramics studio with a calm, crafted feel",
-    "Polish the buttons and cards — hover states, focus rings, spacing"
+    "Polish the buttons and cards — hover states, focus rings, spacing",
+    "Build a website for my construction company that tells our story as you scroll",
+    "I want a site where the building assembles on the right while the text scrolls on the left",
+    "Make our brand site feel like the founder made it, not a template",
+    "Plan the pages and homepage sections for a specialty tea importer's new website"
   ],
   "should_not_trigger": [
     "Fix the failing unit test in utils/date.test.ts",
@@ -23,6 +27,8 @@
     "Add a GitHub Actions workflow that runs tests",
     "Convert this Express server to Fastify",
     "Write unit tests for the cart reducer",
-    "Generate a slide deck about our Q3 results"
+    "Generate a slide deck about our Q3 results",
+    "Write a blog post about our company history",
+    "Create a brand style guide PDF for the marketing team"
   ]
 }

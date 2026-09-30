@@ -73,7 +73,9 @@ The inner `min(100%, 18rem)` stops the minimum from overflowing a narrow phone.
 
 ## 3. Section rhythm
 
-A long page is a sequence of sections; its rhythm is how they vary.
+A long page is a sequence of sections; its rhythm is how they vary. *Which* sections exist and
+in what order is decided in [structure.md](structure.md); this section covers how they vary
+visually once chosen.
 
 - **Vary the layout families.** Alternate between full-bleed media, text-led, split (text +
   image), grid/list, and a single statement. A page where every section is "heading + three

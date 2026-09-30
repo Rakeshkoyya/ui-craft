@@ -81,6 +81,13 @@ accent meant only as a fill (buttons, badges) must say so in `notes` so agents d
 `fallback_stack` holds one stack per role separated by ` ; ` in the order display ; body [; mono],
 e.g. `Georgia, serif ; system-ui, sans-serif`.
 
+### data/sections/*.csv  (section archetypes for story-driven structure)
+`id, name, beat, tags, description, layout, motion, pairs_with, avoid_when`
+- `beat` is one of `opening`, `origin`, `tension`, `voice`, `method`, `product`, `catalogue`,
+  `proof`, `place`, `people`, `transformation`, `invitation`, `utility`.
+- `pairs_with` lists motion recipe ids (`data/motion`), `|`-separated, may be empty; a test checks
+  every id exists. The story arcs table in `references/structure.md` may only use section ids.
+
 ---
 
 ## 2. Scripts (Python 3.9+, stdlib only, unless stated)
@@ -90,7 +97,7 @@ Human-readable Markdown on stdout by default; `--json` for machine output.
 
 ### scripts/search.py
 ```
-python scripts/search.py QUERY [--domain auto|components|libraries|motion|palettes|fonts]
+python scripts/search.py QUERY [--domain auto|components|libraries|motion|palettes|fonts|sections]
                                [--stack STACK] [--limit N=5] [--json] [--min-score F]
 ```
 - BM25 over each row's text fields (weights: component/name ×3, tags ×2, category/kind ×2,
@@ -99,13 +106,14 @@ python scripts/search.py QUERY [--domain auto|components|libraries|motion|palett
   `scripts/_search_vocab.py` `SYNONYMS` (one-way, e.g. handmade → crafted|artisan|handcrafted,
   modal → dialog, dropdown → menu|select); a synonym hit scores ×0.7 of a literal hit.
 - Matching mode: components, libraries and motion are **strict** (a row must match more than
-  half of the query's specific words). Palettes and fonts are **partial** (taste vocabulary: any
-  matching word qualifies). Both multiply the score by coverage (matched words / query words),
+  half of the query's specific words). Palettes, fonts and sections are **partial** (taste and
+  brief vocabulary: any matching word qualifies). Both multiply the score by coverage (matched words / query words),
   and the `--min-score` floor applies to both. Auto-mode fallback to other domains is strict.
 - `--stack` keeps rows whose `stacks` contains STACK, or `html` (framework-free works anywhere);
   `next` also matches `react`, `nuxt` also matches `vue`.
 - `auto` domain: keyword routing (e.g. font/typeface/serif → fonts; palette/color → palettes;
-  animation/scroll/transition/parallax/reveal → motion; library/kit → libraries; else components),
+  library/kit → libraries; section/chapter/homepage/sitemap/archetype/beat → sections;
+  animation/scroll/transition/parallax/reveal/scrollytelling → motion; else components),
   and components results also append the top library matches.
 - Score floor: results below `--min-score` (default tuned by relevance tests) are dropped. With no
   result, print `No confident match for "<query>"` and exit 1 — never pad with weak results.
@@ -165,6 +173,24 @@ Inline suppression: a comment containing `ui-craft-ignore UCxxx` on the same or 
 | UC017 | med | scroll event listeners without `passive: true` |
 | UC018 | high | `user-scalable=no` or `maximum-scale=1` in viewport meta |
 
+### scripts/history.py
+```
+python scripts/history.py show [--limit 10] [--json]
+python scripts/history.py add --sections a,b,c [--brand B] [--arc A] [--signature S]
+                              [--palette P] [--language L] [--stack X]
+python scripts/history.py check --sections a,b,c [--arc A] [--signature S] [--palette P]
+                                [--language L] [--limit 10] [--json]
+```
+- File: `$UI_CRAFT_HISTORY` or `~/.ui-craft/history.json` →
+  `{"version": 1, "entries": [{"date": "YYYY-MM-DD", "brand", "arc", "sections": [...],
+  "signature", "palette", "language", "stack"}]}`; capped at the newest 50. Values other than
+  `brand` are slugged; `sections` are archetype ids in page order.
+- Similarity 0..1: sections 0.5 (half `SequenceMatcher` ratio, half set overlap), arc 0.15,
+  signature 0.15, palette 0.1, language 0.1; fields missing on either side are dropped and the
+  weights renormalised. `check` flags ≥ 0.7 and lists sections used by ≥ half of recent entries.
+- Exit: 0 ok/distinct, 1 `check` found a similar entry (advice, not a veto), 2 usage error
+  (including an unreadable history file).
+
 ### scripts/capture.mjs  (Node 18+, requires `playwright`)
 ```
 node scripts/capture.mjs URL [--out DIR] [--viewports 390x844,768x1024,1440x900]
@@ -213,3 +239,16 @@ node scripts/capture.mjs URL [--out DIR] [--viewports 390x844,768x1024,1440x900]
 
 - `.ui-craft/design.md` — design memory (template: `assets/design.template.md`).
 - `.ui-craft/shots/` — capture output (recommend adding to `.gitignore`).
+- `~/.ui-craft/history.json` — outside the project: structure fingerprints across projects
+  (`history.py`), written only with `add`.
+
+---
+
+## 4. Story scene engine (`assets/motion/story/`)
+
+Framework-agnostic ES modules; GSAP (and plugins) are injected through options, never imported at
+module top level. Every init returns a cleanup function; authored markup is the finished state.
+Motion language names (`weighty precise organic airy playful cinematic mechanical`) are shared by
+`languages.js`, `references/story.md` §7 and `references/storytelling-motion.md`. Scene verbs
+(`data-enter`) are listed in `references/storytelling-motion.md` §5 and implemented in `scene.js`;
+change both together.

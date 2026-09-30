@@ -1,4 +1,5 @@
-"""Search the ui-craft catalog (components, libraries, motion recipes, palettes, fonts).
+"""Search the ui-craft catalog (components, libraries, motion recipes, palettes, fonts,
+section archetypes).
 
 BM25 ranking over each CSV row, with stack filtering and an honest score floor: when nothing
 scores above --min-score it prints `No confident match for "<query>"` and exits 1, so the agent
@@ -10,13 +11,14 @@ Usage:
     python search.py "headless ui library" --domain libraries --stack svelte
     python search.py "editorial serif" --domain fonts
     python search.py "staggered scroll reveal"            # auto-routes to motion
+    python search.py "founder origin story" --domain sections
 
 Scoring: BM25 (k1=1.2, b=0.75) over weighted fields (name/component x3, tags x2,
 category/kind x2, description x1), multiplied by the fraction of query words the row matches.
 Query words expand through a small synonym map (_search_vocab.py; a synonym hit counts 0.7).
 Components, libraries and motion are strict: a row must match more than half of the query's
-specific words. Palettes and fonts (taste vocabulary) accept any matching word, still scored by
-coverage and labelled "partial match (k/n words)".
+specific words. Palettes, fonts and sections (brief vocabulary) accept any matching word, still
+scored by coverage and labelled "partial match (k/n words)".
 Exit codes: 0 results, 1 no confident match, 2 usage error.
 Env: UI_CRAFT_DATA_DIR overrides the data dir; UI_CRAFT_TODAY (YYYY-MM-DD) overrides "today".
 """
@@ -31,7 +33,7 @@ from datetime import date
 from _common import data_dir, fail_usage, read_csv_dir, setup_stdio
 from _search_vocab import GENERIC_WORDS, ROUTES, STOPWORDS, SYNONYMS, TASTE_DOMAINS
 
-DOMAINS = ("components", "libraries", "motion", "palettes", "fonts")
+DOMAINS = ("components", "libraries", "motion", "palettes", "fonts", "sections")
 STACKS = ("react", "next", "vue", "nuxt", "svelte", "solid", "angular", "astro", "html")
 STACK_ALIASES = {"next": {"react"}, "nuxt": {"vue"}}
 DEFAULT_MIN_SCORE = 1.0
@@ -42,7 +44,8 @@ K1, B = 1.2, 0.75
 FIELD_WEIGHTS = {
     "component": 3, "name": 3, "display": 3, "body": 2, "mono": 1,
     "tags": 2, "mood_tags": 2, "category": 2, "kind": 2, "technique": 2, "trigger": 2,
-    "mode": 2, "description": 1, "notes": 1, "library_id": 1,
+    "mode": 2, "beat": 2, "description": 1, "notes": 1, "library_id": 1, "layout": 1,
+    "motion": 1,
 }
 TITLE_FIELDS = ("component", "name", "display")
 SYNONYM_WEIGHT = 0.7  # a synonym hit counts less than the literal word

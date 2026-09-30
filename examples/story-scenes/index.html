@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Story scenes: one engine, six brands</title>
+  <meta name="description" content="Demo of the ui-craft scroll-storytelling scenes: sticky-stage stories, a route journey, a manifesto highlight, before/after, an exploded view and pinned cinematic chapters, each in a different fictional brand's motion language.">
+  <!-- Scenes never hide content with CSS: every stage below is authored in its finished state and
+       the scripts animate FROM hidden, so no reveal-ready gate is needed on this page. -->
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/tokens.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/story/story.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/story/chapters.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/story/before-after.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/story/text-highlight.css">
+  <link rel="stylesheet" href="../../skills/ui-craft/assets/motion/story/zoom-through.css">
+  <link rel="stylesheet" href="demo.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "gsap": "../../node_modules/gsap/index.js",
+        "gsap/ScrollTrigger": "../../node_modules/gsap/ScrollTrigger.js",
+        "gsap/MotionPathPlugin": "../../node_modules/gsap/MotionPathPlugin.js"
+      }
+    }
+  </script>
+  <script type="module" src="demo.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the scenes</a>
+  <header class="gallery-head">
+    <p class="gallery-kicker">ui-craft story scenes</p>
+    <h1>One scroll engine, six brands that move differently.</h1>
+    <p class="gallery-lede">Every company below is fictional. Each section uses the same story modules with a different motion language, so a builder feels heavy, a tea importer drifts, and a hardware brand clicks into place.</p>
+    <nav aria-label="Scenes">
+      <ul class="gallery-nav">
+        <li><a href="#build">Construction: building rises</a></li>
+        <li><a href="#tea">Tea importer: route journey</a></li>
+        <li><a href="#canopy">Nonprofit: manifesto</a></li>
+        <li><a href="#dovetail">Renovation: before and after</a></li>
+        <li><a href="#halden">Hardware: exploded view</a></li>
+        <li><a href="#northlight">Film festival: zoom and chapters</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="build" class="brand brand--build" aria-labelledby="build-title">
+      <div class="brand__intro">
+        <p class="brand__name">Stonebridge Builders</p>
+        <h2 id="build-title">Watch a six-storey block go up in the time it takes to read how.</h2>
+      </div>
+      <div class="story" data-layout="stage-right" id="build-story">
+        <div class="story__stage" aria-hidden="true">
+<svg class="scene-art" viewBox="0 0 600 720" preserveAspectRatio="xMidYMax meet" focusable="false">
+<defs>
+  <linearGradient id="b-dusk" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3a2c57"/><stop offset=".55" stop-color="#1c2a45" stop-opacity=".6"/><stop offset="1" stop-color="#0f1c2e" stop-opacity="0"/>
+  </linearGradient>
+  <pattern id="b-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+    <path d="M24 0H0V24" fill="none" stroke="#8fb0d6" stroke-width=".6"/>
+  </pattern>
+</defs>
+<rect width="600" height="720" fill="#0f1c2e"/>
+<rect width="600" height="640" fill="url(#b-grid)" opacity=".09"/>
+<rect width="600" height="640" fill="url(#b-dusk)" data-step="3" data-enter="fade"/>
+<g fill="#f4e7c3"><circle cx="60" cy="70" r="1.8" data-step="4" data-enter="pop" data-order="0"/><circle cx="140" cy="40" r="1.8" data-step="4" data-enter="pop" data-order="1"/><circle cx="210" cy="95" r="1.8" data-step="4" data-enter="pop" data-order="2"/><circle cx="300" cy="30" r="1.8" data-step="4" data-enter="pop" data-order="0"/><circle cx="380" cy="80" r="1.8" data-step="4" data-enter="pop" data-order="1"/><circle cx="70" cy="190" r="1.8" data-step="4" data-enter="pop" data-order="2"/><circle cx="250" cy="170" r="1.8" data-step="4" data-enter="pop" data-order="0"/><circle cx="420" cy="40" r="1.8" data-step="4" data-enter="pop" data-order="1"/></g>
+<rect y="640" width="600" height="80" fill="#15263d"/>
+<path d="M0 640H600" stroke="#5b7394" stroke-width="2"/>
+<g fill="#43597a"><rect x="170" y="618" width="14" height="78" rx="2" data-step="0" data-enter="grow" data-origin="50% 0%" data-order="0"/><rect x="228" y="618" width="14" height="78" rx="2" data-step="0" data-enter="grow" data-origin="50% 0%" data-order="0"/><rect x="286" y="618" width="14" height="78" rx="2" data-step="0" data-enter="grow" data-origin="50% 0%" data-order="0"/><rect x="344" y="618" width="14" height="78" rx="2" data-step="0" data-enter="grow" data-origin="50% 0%" data-order="0"/><rect x="402" y="618" width="14" height="78" rx="2" data-step="0" data-enter="grow" data-origin="50% 0%" data-order="0"/></g>
+<g data-step="0" data-enter="rise" data-order="1"><rect x="140" y="600" width="320" height="20" fill="#7d8a9c"/><polygon points="460,600 504,578 504,598 460,620" fill="#5f6c7e"/><polygon points="140,600 460,600 504,578 184,578" fill="#9aa6b6"/></g>
+<g fill="#8ea6c4"><rect x="150" y="244" width="9" height="356" data-step="1" data-enter="grow" data-order="0"/><rect x="247" y="244" width="9" height="356" data-step="1" data-enter="grow" data-order="0"/><rect x="344" y="244" width="9" height="356" data-step="1" data-enter="grow" data-order="0"/><rect x="441" y="244" width="9" height="356" data-step="1" data-enter="grow" data-order="0"/><rect x="150" y="539" width="300" height="5" data-step="1" data-enter="grow-x" data-order="1"/><rect x="150" y="481" width="300" height="5" data-step="1" data-enter="grow-x" data-order="1"/><rect x="150" y="423" width="300" height="5" data-step="1" data-enter="grow-x" data-order="1"/><rect x="150" y="365" width="300" height="5" data-step="1" data-enter="grow-x" data-order="1"/><rect x="150" y="307" width="300" height="5" data-step="1" data-enter="grow-x" data-order="1"/><rect x="150" y="249" width="300" height="5" data-step="1" data-enter="grow-x" data-order="1"/></g>
+<g fill="none" stroke="#e0a13a" stroke-width="2" data-step="1" data-enter="wipe" data-dir="bottom" data-order="2" data-exit-step="4" data-exit="fade"><path d="M110 640V244M144 640V244"/><path d="M108 600H146"/><path d="M108 542H146"/><path d="M108 484H146"/><path d="M108 426H146"/><path d="M108 368H146"/><path d="M108 310H146"/><path d="M108 252H146"/><path d="M110 600L144 542"/><path d="M110 542L144 484"/><path d="M110 484L144 426"/><path d="M110 426L144 368"/><path d="M110 368L144 310"/><path d="M110 310L144 252"/></g>
+<g data-step="2" data-enter="drop" data-order="0"><rect x="150" y="546" width="300" height="54" fill="#dfe5ec"/><polygon points="450,546 494,524 494,574 450,596" fill="#a7b3c3"/><rect x="166" y="559" width="40" height="28" fill="#2a3c55"/><rect x="222" y="559" width="40" height="28" fill="#2a3c55"/><rect x="278" y="559" width="40" height="28" fill="#2a3c55"/><rect x="334" y="559" width="40" height="28" fill="#2a3c55"/><rect x="390" y="559" width="40" height="28" fill="#2a3c55"/><rect x="166" y="559" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="0"/><rect x="222" y="559" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="0"/><rect x="278" y="559" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="0"/><rect x="390" y="559" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="0"/><polygon points="460,555.0 472,549.0 472,575.0 460,581.0" fill="#22324a"/><polygon points="478,546.0 490,540.0 490,566.0 478,572.0" fill="#22324a"/><rect x="150" y="596" width="300" height="4" fill="#8794a6"/><polygon points="450,596 494,574 494,578 450,600" fill="#6f7c8e"/></g>
+<g data-step="2" data-enter="drop" data-order="1"><rect x="150" y="488" width="300" height="54" fill="#dfe5ec"/><polygon points="450,488 494,466 494,516 450,538" fill="#a7b3c3"/><rect x="166" y="501" width="40" height="28" fill="#2a3c55"/><rect x="222" y="501" width="40" height="28" fill="#2a3c55"/><rect x="278" y="501" width="40" height="28" fill="#2a3c55"/><rect x="334" y="501" width="40" height="28" fill="#2a3c55"/><rect x="390" y="501" width="40" height="28" fill="#2a3c55"/><rect x="166" y="501" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="1"/><rect x="222" y="501" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="1"/><rect x="278" y="501" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="1"/><rect x="334" y="501" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="1"/><rect x="390" y="501" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="1"/><polygon points="460,497.0 472,491.0 472,517.0 460,523.0" fill="#22324a"/><polygon points="478,488.0 490,482.0 490,508.0 478,514.0" fill="#22324a"/><rect x="150" y="538" width="300" height="4" fill="#8794a6"/><polygon points="450,538 494,516 494,520 450,542" fill="#6f7c8e"/></g>
+<g data-step="2" data-enter="drop" data-order="2"><rect x="150" y="430" width="300" height="54" fill="#dfe5ec"/><polygon points="450,430 494,408 494,458 450,480" fill="#a7b3c3"/><rect x="166" y="443" width="40" height="28" fill="#2a3c55"/><rect x="222" y="443" width="40" height="28" fill="#2a3c55"/><rect x="278" y="443" width="40" height="28" fill="#2a3c55"/><rect x="334" y="443" width="40" height="28" fill="#2a3c55"/><rect x="390" y="443" width="40" height="28" fill="#2a3c55"/><rect x="222" y="443" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="2"/><rect x="278" y="443" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="2"/><rect x="334" y="443" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="2"/><rect x="390" y="443" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="2"/><polygon points="460,439.0 472,433.0 472,459.0 460,465.0" fill="#22324a"/><polygon points="478,430.0 490,424.0 490,450.0 478,456.0" fill="#22324a"/><rect x="150" y="480" width="300" height="4" fill="#8794a6"/><polygon points="450,480 494,458 494,462 450,484" fill="#6f7c8e"/></g>
+<g data-step="2" data-enter="drop" data-order="3"><rect x="150" y="372" width="300" height="54" fill="#dfe5ec"/><polygon points="450,372 494,350 494,400 450,422" fill="#a7b3c3"/><rect x="166" y="385" width="40" height="28" fill="#2a3c55"/><rect x="222" y="385" width="40" height="28" fill="#2a3c55"/><rect x="278" y="385" width="40" height="28" fill="#2a3c55"/><rect x="334" y="385" width="40" height="28" fill="#2a3c55"/><rect x="390" y="385" width="40" height="28" fill="#2a3c55"/><rect x="166" y="385" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="3"/><rect x="222" y="385" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="3"/><rect x="334" y="385" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="3"/><rect x="390" y="385" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="3"/><polygon points="460,381.0 472,375.0 472,401.0 460,407.0" fill="#22324a"/><polygon points="478,372.0 490,366.0 490,392.0 478,398.0" fill="#22324a"/><rect x="150" y="422" width="300" height="4" fill="#8794a6"/><polygon points="450,422 494,400 494,404 450,426" fill="#6f7c8e"/></g>
+<g data-step="2" data-enter="drop" data-order="4"><rect x="150" y="314" width="300" height="54" fill="#dfe5ec"/><polygon points="450,314 494,292 494,342 450,364" fill="#a7b3c3"/><rect x="166" y="327" width="40" height="28" fill="#2a3c55"/><rect x="222" y="327" width="40" height="28" fill="#2a3c55"/><rect x="278" y="327" width="40" height="28" fill="#2a3c55"/><rect x="334" y="327" width="40" height="28" fill="#2a3c55"/><rect x="390" y="327" width="40" height="28" fill="#2a3c55"/><rect x="166" y="327" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="4"/><rect x="222" y="327" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="4"/><rect x="278" y="327" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="4"/><rect x="334" y="327" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="4"/><polygon points="460,323.0 472,317.0 472,343.0 460,349.0" fill="#22324a"/><polygon points="478,314.0 490,308.0 490,334.0 478,340.0" fill="#22324a"/><rect x="150" y="364" width="300" height="4" fill="#8794a6"/><polygon points="450,364 494,342 494,346 450,368" fill="#6f7c8e"/></g>
+<g data-step="2" data-enter="drop" data-order="5"><rect x="150" y="256" width="300" height="54" fill="#dfe5ec"/><polygon points="450,256 494,234 494,284 450,306" fill="#a7b3c3"/><rect x="166" y="269" width="40" height="28" fill="#2a3c55"/><rect x="222" y="269" width="40" height="28" fill="#2a3c55"/><rect x="278" y="269" width="40" height="28" fill="#2a3c55"/><rect x="334" y="269" width="40" height="28" fill="#2a3c55"/><rect x="390" y="269" width="40" height="28" fill="#2a3c55"/><rect x="166" y="269" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="5"/><rect x="222" y="269" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="5"/><rect x="278" y="269" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="5"/><rect x="334" y="269" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="5"/><rect x="390" y="269" width="40" height="28" fill="#ffcf70" data-step="3" data-enter="light" data-order="5"/><polygon points="460,265.0 472,259.0 472,285.0 460,291.0" fill="#22324a"/><polygon points="478,256.0 490,250.0 490,276.0 478,282.0" fill="#22324a"/><rect x="150" y="306" width="300" height="4" fill="#8794a6"/><polygon points="450,306 494,284 494,288 450,310" fill="#6f7c8e"/></g>
+<g data-step="4" data-enter="rise" data-order="1"><rect x="146" y="238" width="308" height="14" fill="#c5cfdb"/><polygon points="454,238 498,216 498,230 454,252" fill="#8e9bad"/><polygon points="146,238 454,238 498,216 190,216" fill="#e3e9f0"/></g>
+<g data-step="4" data-enter="pop" data-origin="50% 100%" data-order="2"><rect x="194" y="222" width="4" height="16" fill="#6b5a45"/><circle cx="196" cy="216" r="13" fill="#5f9e6e"/></g><g data-step="4" data-enter="pop" data-origin="50% 100%" data-order="3"><rect x="234" y="222" width="4" height="16" fill="#6b5a45"/><circle cx="236" cy="216" r="10" fill="#5f9e6e"/></g><g data-step="4" data-enter="pop" data-origin="50% 100%" data-order="4"><rect x="402" y="222" width="4" height="16" fill="#6b5a45"/><circle cx="404" cy="216" r="12" fill="#5f9e6e"/></g>
+<g data-step="0" data-enter="rise" data-order="2" data-exit-step="4" data-exit="slide" data-dir="right"><g fill="none" stroke="#f2a93b" stroke-width="2.5"><path d="M528 140V640M548 140V640"/><path d="M528 150L548 170M548 150L528 170"/><path d="M528 170L548 190M548 170L528 190"/><path d="M528 190L548 210M548 190L528 210"/><path d="M528 210L548 230M548 210L528 230"/><path d="M528 230L548 250M548 230L528 250"/><path d="M528 250L548 270M548 250L528 270"/><path d="M528 270L548 290M548 270L528 290"/><path d="M528 290L548 310M548 290L528 310"/><path d="M528 310L548 330M548 310L528 330"/><path d="M528 330L548 350M548 330L528 350"/><path d="M528 350L548 370M548 350L528 370"/><path d="M528 370L548 390M548 370L528 390"/><path d="M528 390L548 410M548 390L528 410"/><path d="M528 410L548 430M548 410L528 430"/><path d="M528 430L548 450M548 430L528 450"/><path d="M528 450L548 470M548 450L528 470"/><path d="M528 470L548 490M548 470L528 490"/><path d="M528 490L548 510M548 490L528 510"/><path d="M528 510L548 530M548 510L528 530"/><path d="M528 530L548 550M548 530L528 550"/><path d="M528 550L548 570M548 550L528 570"/><path d="M528 570L548 590M548 570L528 590"/><path d="M528 590L548 610M548 590L528 610"/><path d="M528 610L548 630M548 610L528 630"/><path d="M250 131H594M250 143H594"/><path d="M252 131L266 143L280 131"/><path d="M280 131L294 143L308 131"/><path d="M308 131L322 143L336 131"/><path d="M336 131L350 143L364 131"/><path d="M364 131L378 143L392 131"/><path d="M392 131L406 143L420 131"/><path d="M420 131L434 143L448 131"/><path d="M448 131L462 143L476 131"/><path d="M476 131L490 143L504 131"/><path d="M504 131L518 143L532 131"/><path d="M538 96L250 131M538 96L594 131M528 131L538 96L548 131"/></g><rect x="564" y="143" width="28" height="18" fill="#c9861f"/><rect x="522" y="143" width="32" height="20" rx="2" fill="#f2a93b"/><rect x="530" y="148" width="12" height="9" fill="#0f1c2e"/><path d="M330 143V206" stroke="#cfd8e3" stroke-width="1.5"/><path d="M324 206h12l-6 8z" fill="#cfd8e3"/><rect x="296" y="214" width="68" height="7" fill="#8ea6c4"/></g>
+<g data-step="2" data-enter="fade"><text x="36" y="74" fill="#e8edf3" font-size="24" data-step="2" data-enter="count">6 floors</text></g>
+</svg>
+        </div>
+        <ol class="story__steps">
+          <li class="story__step"><div class="story__card"><h3>We start underground.</h3><p>Before a wall goes up, five rows of piles go down to rock. The slab is poured in one continuous day, so there is no cold joint for water to find.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>Then the skeleton.</h3><p>The steel frame is bolted, not welded on site. Scaffold rises with it, one lift at a time, so the crew never works more than a floor above a guardrail.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>A floor a week.</h3><p>Floors are cast in our yard and craned into place. Six weeks, six floors, and the site next door never hears a concrete mixer.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>Lights on before handover.</h3><p>Every circuit is switched on and every window tested at dusk, floor by floor, while we can still fix what we find.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>The crane leaves. You move in.</h3><p>Scaffold down, roof garden planted, keys handed over. Fourteen months from the first soil test.</p><p><a class="cta cta--build" href="#build">Book a site visit</a></p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="tea" class="brand brand--tea" aria-labelledby="tea-title">
+      <div class="brand__intro">
+        <p class="brand__name">Kettle Road Tea Co.</p>
+        <h2 id="tea-title">From a hillside in Nuwara Eliya to a kettle in Bristol, 9,000 km in four stops.</h2>
+      </div>
+      <div class="story" data-layout="stage-left" id="tea-story">
+        <div class="story__stage" aria-hidden="true">
+<svg class="scene-art journey" viewBox="0 0 700 760" preserveAspectRatio="xMidYMid meet" focusable="false">
+  <rect width="700" height="760" fill="#dde8e0"/>
+  <g fill="none" stroke="#b9cbbf" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round">
+    <path d="M0 300 C 160 260, 300 300, 700 250"/><path d="M60 760 C 120 560, 360 520, 700 470"/><path d="M0 460 C 120 420, 180 300, 330 250"/>
+  </g>
+  <path d="M0 0H300C288 58 232 96 184 86 140 78 104 140 46 160 26 166 0 176 0 176Z" fill="#c7d9bd"/>
+  <path d="M300 340C380 320 470 360 540 440 610 520 622 640 562 700 500 746 400 732 340 680 270 620 230 520 240 440 245 392 262 356 300 340Z" fill="#c7d9bd"/>
+  <g fill="#9cb98d"><polygon points="486,640 510,590 534,640"/><polygon points="520,650 548,596 576,650"/><polygon points="548,628 566,592 584,628"/></g>
+  <g fill="none" stroke="#86a67a" stroke-width="1"><path d="M420 600c40-30 90-30 150 10"/><path d="M430 560c30-24 80-26 130 4"/></g>
+  <path class="journey__route" d="M520 620 C 480 560, 470 510, 430 470 C 380 420, 300 420, 250 380 C 170 320, 260 220, 180 170 C 140 145, 120 130, 110 110" fill="none" stroke="#2f6b3f" stroke-width="4" stroke-linecap="round"/>
+  <g class="journey__stop" data-stop="0.01"><circle cx="520" cy="620" r="8" fill="#f3f5ee" stroke="#2f6b3f" stroke-width="3"/><text x="536" y="626">Estate, 1,900 m</text></g>
+  <g class="journey__stop" data-stop="0.249"><circle cx="430" cy="470" r="8" fill="#f3f5ee" stroke="#2f6b3f" stroke-width="3"/><text x="446" y="476">Withering shed</text></g>
+  <g class="journey__stop" data-stop="0.536"><circle cx="250" cy="380" r="8" fill="#f3f5ee" stroke="#2f6b3f" stroke-width="3"/><text x="234" y="408" text-anchor="end">Port of Colombo</text></g>
+  <g class="journey__stop" data-stop="0.99"><circle cx="110" cy="110" r="8" fill="#f3f5ee" stroke="#2f6b3f" stroke-width="3"/><text x="128" y="138">Blending room, Bristol</text></g>
+  <g class="journey__marker" transform="translate(110 110)"><circle r="11" fill="#9e2b25" stroke="#fff" stroke-width="3"/></g>
+  <g transform="translate(620 90)" fill="none" stroke="#4c5d4f" stroke-width="1.5"><circle r="22"/><path d="M0-30V30M-30 0H30"/><text y="-36" text-anchor="middle" fill="#4c5d4f" stroke="none" font-size="13">N</text></g>
+</svg>
+        </div>
+        <ol class="story__steps">
+          <li class="story__step"><div class="story__card"><h3>Picked at 1,900 metres.</h3><p>Two leaves and a bud, by hand, before the sun is high. Cold nights up here slow the leaf down and give it its bright, brisk cup.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>Withered overnight.</h3><p>The leaf rests on long troughs of warm air in the estate's own shed, then is rolled, oxidised and fired the same morning.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>Shipped from Colombo.</h3><p>Sealed chests leave port within a week of picking. We buy direct, so the estate is paid before the ship sails.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>Blended in Bristol.</h3><p>We taste every lot against last season's before it goes in a tin. If it isn't better, it isn't sold.</p><p><a class="cta cta--tea" href="#tea">Taste the current lot</a></p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="canopy" class="brand brand--canopy" aria-labelledby="canopy-title">
+      <p class="brand__name">Canopy Fund</p>
+      <h2 id="canopy-title" class="visually-hidden">Our promise</h2>
+      <p class="th">We don't count trees planted. We count trees alive twenty years later, and we pay local growers for every one of them, every year, until the forest can look after itself.</p>
+      <p class="canopy-note">Read slowly. That's the point.</p>
+    </section>
+
+    <section id="dovetail" class="brand brand--dovetail" aria-labelledby="dovetail-title">
+      <div class="brand__intro">
+        <p class="brand__name">Dovetail Renovations</p>
+        <h2 id="dovetail-title">Same walls. Same window wall. Eleven weeks.</h2>
+      </div>
+      <figure class="ba" data-ba-label="Compare the kitchen before and after renovation">
+        <div class="ba__before"><svg viewBox="0 0 1200 720" role="img" aria-label="Kitchen before: dark brown cabinets, a single bare bulb, a small grimy window and cracked tiles." focusable="false">
+  <rect width="1200" height="720" fill="#6d675c"/><rect y="620" width="1200" height="100" fill="#463e35"/>
+  <rect x="820" y="170" width="180" height="150" fill="#98a19c"/><path d="M910 170V320M820 245H1000" stroke="#5d564c" stroke-width="8"/>
+  <rect x="80" y="150" width="480" height="150" fill="#5a4938"/><path d="M200 150V300M320 150V300M440 150V300" stroke="#43362a" stroke-width="4"/>
+  <g stroke="#7d7669" stroke-width="2"><path d="M80 330H770M80 360H770M80 390H770"/><path d="M140 300V420M260 300V420M380 300V420M500 300V420M620 300V420M740 300V420"/><path d="M300 330l30 40-18 20" fill="none"/></g>
+  <rect x="70" y="420" width="700" height="16" fill="#3b3129"/><rect x="80" y="436" width="680" height="184" fill="#584636"/>
+  <path d="M250 436V620M420 436V620M590 436V620" stroke="#43362a" stroke-width="4"/>
+  <rect x="120" y="370" width="70" height="50" fill="#8a7c62"/><rect x="200" y="385" width="46" height="35" fill="#76705f"/><rect x="600" y="360" width="60" height="60" fill="#857b69"/>
+  <rect x="880" y="330" width="130" height="290" rx="8" fill="#8c8b83"/><path d="M890 440H1000" stroke="#6f6e67" stroke-width="3"/>
+  <path d="M640 0V112" stroke="#2f2a24" stroke-width="3"/><circle cx="640" cy="126" r="15" fill="#d8c98c"/>
+  <g transform="translate(1040 40)"><rect width="120" height="44" rx="22" fill="#1b2530"/><text x="60" y="29" text-anchor="middle" fill="#fff" font-size="20">Before</text></g>
+</svg></div>
+        <div class="ba__after"><svg viewBox="0 0 1200 720" role="img" aria-label="Kitchen after: deep blue cabinets, oak worktop, a wide daylight window, open shelves and two pendant lights." focusable="false">
+  <rect width="1200" height="720" fill="#f0efea"/><rect y="620" width="1200" height="100" fill="#c49f73"/>
+  <g stroke="#b58d62" stroke-width="2"><path d="M0 650H1200M0 685H1200"/></g>
+  <rect x="780" y="110" width="350" height="360" fill="#cfe5f1"/><path d="M955 110V470M780 290H1130" stroke="#fff" stroke-width="10"/>
+  <rect x="780" y="110" width="350" height="360" fill="none" stroke="#fff" stroke-width="12"/>
+  <g fill="#8fb98c"><circle cx="1070" cy="430" r="34"/><circle cx="1040" cy="410" r="26"/></g><rect x="1040" y="440" width="60" height="30" fill="#d9d4c9"/>
+  <g stroke="#b98b5a" stroke-width="10"><path d="M100 200H540M100 300H540"/></g>
+  <g fill="#6f8f8a"><rect x="130" y="160" width="30" height="40"/><rect x="170" y="170" width="24" height="30"/><rect x="420" y="260" width="40" height="40"/></g>
+  <g fill="#d9d4c9"><rect x="240" y="175" width="44" height="25"/><rect x="300" y="268" width="60" height="32"/></g>
+  <rect x="70" y="420" width="700" height="22" fill="#b98b5a"/><rect x="80" y="442" width="680" height="178" fill="#2f4a5c"/>
+  <path d="M250 442V620M420 442V620M590 442V620" stroke="#23394a" stroke-width="3"/>
+  <g stroke="#c9b27f" stroke-width="4"><path d="M150 470h50M320 470h50M490 470h50M660 470h50"/></g>
+  <g stroke="#1b2530" stroke-width="2"><path d="M300 0V120M480 0V120"/></g><g fill="#1b2530"><path d="M270 150a30 30 0 0 1 60 0z"/><path d="M450 150a30 30 0 0 1 60 0z"/></g>
+  <g fill="#ffe3a3"><ellipse cx="300" cy="152" rx="14" ry="4"/><ellipse cx="480" cy="152" rx="14" ry="4"/></g>
+  <g transform="translate(40 40)"><rect width="120" height="44" rx="22" fill="#1b2530"/><text x="60" y="29" text-anchor="middle" fill="#fff" font-size="20">After</text></g>
+</svg></div>
+        <figcaption>A 1970s kitchen in Leith, opened up to the garden. Scroll to reveal, then drag to compare.</figcaption>
+      </figure>
+    </section>
+
+    <section id="halden" class="brand brand--halden" aria-labelledby="halden-title">
+      <div class="brand__intro">
+        <p class="brand__name">Halden Audio</p>
+        <h2 id="halden-title">Six parts, no glue. Every one of them yours to replace.</h2>
+      </div>
+      <div class="story" data-layout="stage-behind" id="halden-story">
+        <div class="story__stage" aria-hidden="true">
+<svg class="scene-art" viewBox="0 0 820 700" preserveAspectRatio="xMaxYMid meet" focusable="false">
+  <defs>
+    <linearGradient id="h-body" x1="0" x2="1"><stop offset="0" stop-color="#b9c0c8"/><stop offset=".45" stop-color="#eef1f4"/><stop offset="1" stop-color="#a3abb4"/></linearGradient>
+    <radialGradient id="h-cone" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#5b646e"/><stop offset="1" stop-color="#23282e"/></radialGradient>
+    <pattern id="h-holes" width="10" height="6" patternUnits="userSpaceOnUse"><circle cx="5" cy="3" r="1.6" fill="#11151a"/></pattern>
+  </defs>
+  <g data-step="0" data-enter="move" data-from="y:-50"><ellipse cx="300" cy="662" rx="160" ry="34" fill="#7f8891"/><ellipse cx="300" cy="655" rx="160" ry="34" fill="#b08d63"/></g>
+  <g><rect x="150" y="520" width="300" height="84" fill="url(#h-body)"/><ellipse cx="300" cy="604" rx="150" ry="40" fill="#a3abb4"/><ellipse cx="300" cy="520" rx="150" ry="40" fill="#dfe3e7"/><ellipse cx="300" cy="524" rx="136" ry="33" fill="#8c949c"/></g>
+  <g data-step="0" data-enter="move" data-from="y:125"><rect x="210" y="410" width="180" height="30" fill="#d9ad2f"/><ellipse cx="300" cy="440" rx="90" ry="22" fill="#b98f1f"/><ellipse cx="300" cy="410" rx="90" ry="22" fill="#f0c94f"/></g>
+  <g data-step="0" data-enter="move" data-from="y:205"><ellipse cx="300" cy="340" rx="130" ry="34" fill="#16553a"/><ellipse cx="300" cy="335" rx="130" ry="34" fill="#1f6f4a"/>
+    <g fill="#10161c"><rect x="250" y="322" width="34" height="14" rx="2"/><rect x="300" y="330" width="22" height="10" rx="2"/><rect x="332" y="318" width="18" height="10" rx="2"/></g>
+    <path d="M200 338h40M340 346h56M270 350h20" stroke="#d9b45a" stroke-width="2"/></g>
+  <g data-step="0" data-enter="move" data-from="y:295"><ellipse cx="300" cy="240" rx="140" ry="37" fill="#9aa2ab"/><ellipse cx="300" cy="235" rx="140" ry="37" fill="#c9ced4"/><ellipse cx="300" cy="236" rx="108" ry="28" fill="url(#h-cone)"/><ellipse cx="300" cy="236" rx="30" ry="8" fill="#3c444d"/></g>
+  <g data-step="0" data-enter="move" data-from="y:400"><ellipse cx="300" cy="126" rx="152" ry="40" fill="#1a1f25"/><ellipse cx="300" cy="120" rx="152" ry="40" fill="#2b3138"/><ellipse cx="300" cy="120" rx="140" ry="35" fill="url(#h-holes)"/></g>
+  <g class="callouts" font-size="17" fill="#14171a">
+    <g data-step="1" data-enter="slide" data-dir="left" data-order="0"><path d="M456 120H520" stroke="#0a5cad" stroke-width="2"/><text x="530" y="126">Steel grille, 2,400 holes</text></g>
+    <g data-step="1" data-enter="slide" data-dir="left" data-order="1"><path d="M444 235H520" stroke="#0a5cad" stroke-width="2"/><text x="530" y="241">90 mm driver</text></g>
+    <g data-step="2" data-enter="slide" data-dir="left" data-order="0"><path d="M434 335H520" stroke="#0a5cad" stroke-width="2"/><text x="530" y="341">Amp board, screwed not glued</text></g>
+    <g data-step="2" data-enter="slide" data-dir="left" data-order="1"><path d="M394 425H520" stroke="#0a5cad" stroke-width="2"/><text x="530" y="431">Battery, swappable in 2 minutes</text></g>
+    <g data-step="3" data-enter="slide" data-dir="left" data-order="0"><path d="M454 560H520" stroke="#0a5cad" stroke-width="2"/><text x="530" y="566">Recycled aluminium body</text></g>
+    <g data-step="3" data-enter="slide" data-dir="left" data-order="1"><path d="M462 655H520" stroke="#0a5cad" stroke-width="2"/><text x="530" y="661">Cork base</text></g>
+  </g>
+</svg>
+        </div>
+        <ol class="story__steps">
+          <li class="story__step"><div class="story__card"><h3>Halden One, opened up.</h3><p>Four screws hold the whole speaker together. Take them out and it comes apart in the order you see here.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>Sound first.</h3><p>A steel grille over a 90 mm driver: the only two parts that decide how it sounds, and the only two we'll never change between models.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>The parts that wear out.</h3><p>The battery and amp board slide out on rails. A new battery costs less than a dinner out and takes two minutes to fit.</p></div></li>
+          <li class="story__step"><div class="story__card"><h3>A body built to outlast them.</h3><p>Recycled aluminium on a cork base. We'll take it back when you're done and melt it into the next one.</p><p><a class="cta cta--halden" href="#halden">See the repair guides</a></p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="northlight" class="brand brand--northlight" aria-labelledby="northlight-title">
+      <h2 id="northlight-title" class="visually-hidden">Northlight Film Festival</h2>
+      <div class="zt" id="northlight-zoom">
+        <div class="zt__scene">
+          <p class="zt__intro" data-zt-out>Ten nights. One harbour town.</p>
+          <div class="zt__window"><svg viewBox="0 0 1600 900" role="img" aria-label="Film still: a striped lighthouse sweeping its beam across a night harbour." focusable="false">
+  <defs><linearGradient id="n-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1726"/><stop offset="1" stop-color="#253450"/></linearGradient>
+  <linearGradient id="n-beam" x1="0" x2="1"><stop offset="0" stop-color="#ffe7a8" stop-opacity=".75"/><stop offset="1" stop-color="#ffe7a8" stop-opacity="0"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="url(#n-sky)"/><circle cx="120" cy="90" r="2" fill="#e9e4d4"/><circle cx="260" cy="160" r="2" fill="#e9e4d4"/><circle cx="420" cy="60" r="2" fill="#e9e4d4"/><circle cx="610" cy="130" r="2" fill="#e9e4d4"/><circle cx="900" cy="80" r="2" fill="#e9e4d4"/><circle cx="1080" cy="170" r="2" fill="#e9e4d4"/><circle cx="1280" cy="70" r="2" fill="#e9e4d4"/><circle cx="1460" cy="140" r="2" fill="#e9e4d4"/><circle cx="1540" cy="60" r="2" fill="#e9e4d4"/><circle cx="1320" cy="200" r="54" fill="#efe6cf"/>
+  <polygon points="1010,300 40,120 40,420" fill="url(#n-beam)"/>
+  <rect y="600" width="1600" height="300" fill="#0a1220"/>
+  <g stroke="#3b4d6b" stroke-width="3"><path d="M200 660h180M520 700h260M900 650h140M1150 720h220M300 780h300"/></g>
+  <polygon points="960,600 980,300 1040,300 1060,600" fill="#e9e4d4"/>
+  <g fill="#c8372d"><polygon points="975,380 1045,380 1049,440 971,440"/><polygon points="966,510 1054,510 1058,570 962,570"/></g>
+  <rect x="970" y="262" width="80" height="40" fill="#ffd66e"/><polygon points="960,262 1010,226 1060,262" fill="#1d2433"/>
+  <path d="M0 610c200-30 420-20 640 0" stroke="#15203a" stroke-width="40" fill="none"/>
+  <g fill="#0f172a"><path d="M180 598h180l-24 28h-132z"/><rect x="250" y="540" width="6" height="58"/><path d="M256 546l50 40h-50z"/></g>
+</svg></div>
+          <div class="zt__reveal">
+            <p class="brand__name">Northlight Film Festival</p>
+            <p class="zt__headline">9 to 18 October, screened where the films were shot.</p>
+          </div>
+        </div>
+      </div>
+      <div class="chapters" id="northlight-chapters" aria-label="The festival in three parts">
+        <ol class="chapters__rail">
+          <li><a href="#nl-films">The films</a></li>
+          <li><a href="#nl-venues">The venues</a></li>
+          <li><a href="#nl-tickets">The tickets</a></li>
+        </ol>
+        <article class="chapters__panel" id="nl-films"><p class="chapter-num">Part one</p><h3>Forty-one films, most of them made within sight of the sea.</h3></article>
+        <article class="chapters__panel chapters__panel--b" id="nl-venues" data-transition="wipe"><p class="chapter-num">Part two</p><h3>A lighthouse, a ferry deck and a fish market after hours.</h3></article>
+        <article class="chapters__panel chapters__panel--c" id="nl-tickets" data-transition="zoom"><p class="chapter-num">Part three</p><h3>Tickets from £6, and free for anyone under 18.</h3><p><a class="cta cta--northlight" href="#northlight">Get the programme</a></p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="gallery-foot">
+    <p>All brands, places and figures on this page are fictional demo content. Built with the ui-craft story scene modules: story-scroll, scene, path-journey, text-highlight, before-after, zoom-through and chapters.</p>
+  </footer>
+</body>
+</html>

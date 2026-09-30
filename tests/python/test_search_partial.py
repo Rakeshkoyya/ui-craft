@@ -84,8 +84,8 @@ def test_components_stay_strict(data_dir, capsys):
     assert code == 1
 
 
-def test_fonts_are_a_taste_domain():
-    assert {"palettes", "fonts"} == set(search.TASTE_DOMAINS)
+def test_taste_domains_are_partial():
+    assert {"palettes", "fonts", "sections"} == set(search.TASTE_DOMAINS)
 
 
 # --- synonyms ---------------------------------------------------------------------------------

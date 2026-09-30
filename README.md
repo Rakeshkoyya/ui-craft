@@ -2,17 +2,18 @@
 
 # ui-craft
 
-**An agent skill for building websites that look designed, move smoothly, and are checked with real screenshots.**
+**An agent skill for building websites that tell each brand's story in motion, with a structure and look no other brand gets, checked with real screenshots.**
 
 [![CI](https://github.com/rakeshkoyya/ui-craft/actions/workflows/ci.yml/badge.svg)](https://github.com/rakeshkoyya/ui-craft/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-0.1.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.2.0-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-8A2BE2)](https://agentskills.io)
 [![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-D97757)](#claude-code-plugin-recommended)
 
 Works with **Claude Code**, **Codex**, **Cursor**, and any agent that supports the
 [Agent Skills](https://agentskills.io) `SKILL.md` format.<br>
-Stack-agnostic: plain HTML/CSS, React/Next, Vue/Nuxt, Svelte, Angular, Astro, Tailwind.
+Stack-agnostic (plain HTML/CSS, React/Next, Vue/Nuxt, Svelte, Angular, Astro, Tailwind), with
+Next.js as the default for new sites.
 
 [Quick start](#quick-start) · [Install](#install) · [Updating](#updating) · [Using it](#using-it) · [Example](#example) · [Contributing](#contributing)
 
@@ -29,7 +30,9 @@ In Claude Code:
 /plugin install ui-craft@ui-craft
 ```
 
-Then ask for UI as usual: *"Build a landing page for my ceramics studio: calm, crafted, smooth motion."*
+Then ask for UI as usual: *"Build a website for my construction company that tells our story as you scroll."*
+If the brief is thin, the agent asks a few story questions, and every one has a
+**"No story yet — generate one for me"** option.
 
 ## Why
 
@@ -39,9 +42,11 @@ identical cards with emoji icons, Inter for everything, and a fade-up on every e
 
 | | Without ui-craft | With ui-craft |
 |---|---|---|
+| **Story** | Generic copy that fits any company | A Story brief (inferred, asked, or generated) with one central metaphor that drives layout, palette, type and motion together |
+| **Structure** | The same hero → features → testimonials → CTA skeleton, reskinned | Sitemap and chapters designed from the story: 14 story arcs, **55 section archetypes**, a pacing curve, and a local history so new sites vary from recent ones |
 | **Direction** | Generic template look | A one-line direction and dials inferred from the brief, plus tokens that are critiqued before any code |
 | **Components** | Hand-rolled, often inaccessible, or invented package names | Search a verified catalog of **~430 real components** from **67 libraries** (native HTML elements included), with exact install and import lines |
-| **Motion** | `transition: all 0.3s`, fade-up everywhere | Motion tokens, choreography, 30 production recipes, compositor-only properties, reduced motion honored |
+| **Motion** | `transition: all 0.3s`, fade-up everywhere | Each chapter's motion performs what it says: a scroll-story scene engine (sticky scenes that build as you scroll, pinned chapters, before/after, route journeys), seven motion languages, 30+ recipes, reduced motion honored |
 | **Quality** | "Looks good!" (never looked) | Screenshots at mobile and desktop, timed motion frames, a scored rubric, fix-and-recapture loop |
 | **Consistency** | Different every session | Decisions saved to `.ui-craft/design.md` and reused next time |
 
@@ -50,12 +55,16 @@ identical cards with emoji icons, Inter for everything, and a fade-up on every e
 ```
 skills/ui-craft/
 ├── SKILL.md              # the workflow the agent follows (lean; loads the rest on demand)
-├── references/           # direction, tokens, typography, layout, motion, accessibility, copy,
-│                         # anti-patterns, components, visual loop, audit/redesign modes, stacks/*
-├── data/                 # searchable CSV catalog: components, libraries, motion, palettes, fonts
-├── assets/motion/        # 35 motion snippet files (scroll reveal, view transitions, GSAP, Lenis, …)
+├── references/           # story, structure, storytelling motion, direction, tokens, typography,
+│                         # layout, motion, accessibility, copy, anti-patterns, components,
+│                         # visual loop, audit/redesign modes, stacks/*
+├── data/                 # searchable CSV catalog: components, libraries, motion, palettes, fonts,
+│                         # section archetypes
+├── assets/motion/        # motion snippets (scroll reveal, view transitions, GSAP, Lenis, …)
+│   └── story/            # scroll-story scene engine + React/Next wrappers
 └── scripts/
-    ├── search.py         # find components / libraries / motion recipes / palettes / fonts
+    ├── search.py         # find components / libraries / motion / palettes / fonts / sections
+    ├── history.py        # remembers recent site structures so new ones vary
     ├── contrast.py       # WCAG contrast for colors, CSS token files, and palettes
     ├── slop_lint.py      # 18 rules for mechanical anti-patterns (transition: all, 100vh, …)
     └── capture.mjs       # Playwright screenshots, motion frames, and a UI health report

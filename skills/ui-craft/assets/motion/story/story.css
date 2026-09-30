@@ -1,0 +1,167 @@
+/*
+ * Story layout — sticky stage + scrolling steps (companion to story-scroll.js)
+ * ----------------------------------------------------------------------------
+ * Communicates: the page is telling a story; the picture stays in view while
+ *   the words move. The stage is sticky (plain CSS, works without JS); the
+ *   script only decides what the stage shows.
+ * Use:
+ *     <section class="story" data-layout="stage-right">   stage-right (default) |
+ *                                                          stage-left | stage-top | stage-behind
+ *       <div class="story__stage" aria-hidden="true">…</div>
+ *       <ol class="story__steps">
+ *         <li class="story__step"><div class="story__card">…</div></li>
+ *       </ol>
+ *     </section>
+ *   Put the stage first in the DOM when it is decorative (aria-hidden); the
+ *   layout places it. Tune with custom properties on .story or :root:
+ *     --story-bg          page colour behind the mobile/top stage   (inherit)
+ *     --story-surface     card background on mobile / stage-behind  (Canvas)
+ *     --story-text        card text colour                          (inherit)
+ *     --story-radius      card radius                               (12px)
+ *     --story-gap         gap between columns                        (clamp 1.5–4rem)
+ *     --story-stage-top   sticky offset (e.g. header height)         (0px)
+ *     --story-stage-h     stage height on wide screens               (100svh)
+ *     --story-stage-h-sm  stage height on phones / stage-top         (45svh)
+ *     --story-step-min    minimum step height (scroll length)        (80svh)
+ *     --story-dim         opacity of inactive steps (JS only)        (0.4)
+ *     --story-cols        column split for stage-left/right          (5fr 7fr)
+ * Reduced motion: inactive steps still dim (it is a state, not movement)
+ *   but switch instantly instead of fading.
+ * Phones and portrait tablets (< 60rem): one column, the stage sticks to the top at
+ *   --story-stage-h-sm and the steps scroll up beneath it as cards.
+ * Never-invisible: dimming applies only under `.story[data-story-js]`,
+ *   which story-scroll.js sets; without it every step is fully visible.
+ * Support: position: sticky and svh units (Baseline 2023); older engines
+ *   fall back to vh via the declaration order below.
+ */
+
+.story {
+  --story-gap: clamp(1.5rem, 4vw, 4rem);
+  --story-stage-top: 0px;
+  --story-stage-h: 100vh;
+  --story-stage-h: 100svh;
+  --story-stage-h-sm: 45vh;
+  --story-stage-h-sm: 45svh;
+  --story-step-min: 80vh;
+  --story-step-min: 80svh;
+  --story-dim: 0.4;
+  --story-cols: minmax(0, 5fr) minmax(0, 7fr);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--story-gap);
+}
+
+.story__stage {
+  position: sticky;
+  top: var(--story-stage-top);
+  z-index: 1;
+  grid-row: 1;
+  align-self: start;
+  block-size: var(--story-stage-h-sm);
+  display: grid;
+  place-items: center;
+  overflow: clip;
+  background: var(--story-bg, transparent);
+}
+
+.story__stage > :is(svg, canvas, img, video, picture) {
+  inline-size: 100%;
+  block-size: 100%;
+  max-block-size: 100%;
+  object-fit: contain;
+}
+
+.story__steps {
+  grid-row: 2;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 calc(var(--story-stage-h-sm) * 0.5);
+  display: grid;
+  position: relative;
+  z-index: 0;
+}
+
+.story__step {
+  min-block-size: var(--story-step-min);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.story__card {
+  background: var(--story-surface, Canvas);
+  color: var(--story-text, inherit);
+  border-radius: var(--story-radius, 12px);
+  padding: clamp(1rem, 3vw, 1.75rem);
+  max-inline-size: 38rem;
+}
+
+.story[data-story-js] .story__step {
+  opacity: var(--story-dim);
+  transition: opacity var(--dur-base, 260ms) var(--ease-out, ease-out);
+}
+
+.story[data-story-js] .story__step[data-active] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story[data-story-js] .story__step {
+    transition: none;
+  }
+}
+
+/* Wide screens (>= 60rem): two columns with a full-height sticky stage. Tablets in portrait
+   keep the stacked layout — a 50% column is too narrow for most scene art. */
+@media (min-width: 60rem) {
+  .story:not([data-layout="stage-top"]):not([data-layout="stage-behind"]) {
+    grid-template-columns: var(--story-cols);
+  }
+
+  .story:not([data-layout="stage-top"]):not([data-layout="stage-behind"]) .story__stage {
+    block-size: calc(var(--story-stage-h) - var(--story-stage-top));
+    background: none;
+  }
+
+  .story:not([data-layout="stage-top"]):not([data-layout="stage-behind"]) .story__steps {
+    grid-row: 1;
+    padding-block: calc(var(--story-stage-h) * 0.25);
+  }
+
+  .story:not([data-layout="stage-top"]):not([data-layout="stage-behind"]) .story__card {
+    background: none;
+    padding-inline: 0;
+  }
+
+  /* stage-right (default): steps left, stage right */
+  .story:not([data-layout]) .story__steps,
+  .story[data-layout="stage-right"] .story__steps { grid-column: 1; }
+  .story:not([data-layout]) .story__stage,
+  .story[data-layout="stage-right"] .story__stage { grid-column: 2; }
+
+  /* stage-left: stage left, steps right */
+  .story[data-layout="stage-left"] { --story-cols: minmax(0, 7fr) minmax(0, 5fr); }
+  .story[data-layout="stage-left"] .story__stage { grid-column: 1; }
+  .story[data-layout="stage-left"] .story__steps { grid-column: 2; }
+}
+
+/* stage-behind: full-bleed stage, cards scroll over it at every width. */
+.story[data-layout="stage-behind"] .story__stage {
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 0;
+  block-size: calc(var(--story-stage-h) - var(--story-stage-top));
+}
+
+.story[data-layout="stage-behind"] .story__steps {
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 1;
+  padding-block: calc(var(--story-stage-h) * 0.6) calc(var(--story-stage-h) * 0.5);
+  padding-inline: clamp(1rem, 5vw, 4rem);
+}
+
+.story[data-layout="stage-behind"] .story__card {
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 12px 32px rgb(0 0 0 / 0.18);
+}

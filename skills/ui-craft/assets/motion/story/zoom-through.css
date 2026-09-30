@@ -1,0 +1,64 @@
+/*
+ * Zoom through — layout (companion to zoom-through.js)
+ * ----------------------------------------------------------------------------
+ * Default (no JS, reduced motion, phones): intro, window and reveal stack in
+ *   normal flow. Pinned (`.zt--pinned`, added by the script): all three share
+ *   one full-viewport cell; the window sits centred at --zt-window-w and the
+ *   reveal sits over it, ready to fade in once the window fills the screen.
+ * Tokens: --zt-window-w (default min(46vw, 40rem)), --zt-window-ratio (16 / 9),
+ *   --zt-reveal-bg (scrim behind the reveal text; default rgb(0 0 0 / .45)),
+ *   --zt-reveal-text (default #fff).
+ * Never-invisible: nothing is hidden without `.zt--pinned`.
+ */
+
+.zt__scene {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 5vw, 4rem);
+  justify-items: center;
+}
+
+.zt__window {
+  inline-size: min(100%, 56rem);
+  aspect-ratio: var(--zt-window-ratio, 16 / 9);
+  overflow: clip;
+}
+
+.zt__window > :is(img, video, picture, svg) {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.zt--pinned .zt__scene {
+  block-size: 100vh;
+  block-size: 100svh;
+  padding: 0;
+  place-items: center;
+  overflow: clip;
+}
+
+.zt--pinned .zt__scene > * {
+  grid-area: 1 / 1;
+}
+
+.zt--pinned .zt__window {
+  inline-size: var(--zt-window-w, min(46vw, 40rem));
+  will-change: transform;
+}
+
+.zt--pinned .zt__intro {
+  align-self: start;
+  margin-block-start: clamp(2rem, 8vh, 5rem);
+  z-index: 1;
+}
+
+.zt--pinned .zt__reveal {
+  z-index: 2;
+  max-inline-size: min(90vw, 44rem);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--zt-reveal-bg, rgb(0 0 0 / 0.45));
+  color: var(--zt-reveal-text, #fff);
+  border-radius: 8px;
+}

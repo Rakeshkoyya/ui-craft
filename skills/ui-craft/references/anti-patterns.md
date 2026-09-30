@@ -343,6 +343,34 @@ designed mapping with lighter elevated surfaces ([tokens.md](tokens.md)).
 Only the happy path exists: no empty, loading, error, hover, focus, active or disabled states.
 Fix: design every state of every interactive component; write the copy for each.
 
+### UC-J21 · The default skeleton
+
+Hero → logo strip → three feature cards → how-it-works 1-2-3 → testimonial carousel → pricing →
+FAQ → CTA banner, in that order, reskinned for each brand. Three generations with different
+colours still read as one site. Fix: design the structure from the story and the content the
+brand has ([structure.md](structure.md)); replace each default block with its story-shaped
+archetype (`search.py "<need>" --domain sections`).
+
+### UC-J22 · Decoration instead of story
+
+Motion that could sit on any site (floating blobs, generic fade-ups, a particle background)
+while the brand's actual work is never shown. Fix: name each chapter's verb and let the motion
+perform it ([storytelling-motion.md](storytelling-motion.md) §1): a builder's site builds, an
+importer's route draws.
+
+### UC-J23 · Channels out of sync
+
+A weighty construction scene beside springy, playful buttons; a palette unrelated to the
+metaphor; page transitions in a third style. Each channel was decided alone. Fix: one motion
+language sets scene easing and UI tokens; the palette comes from the metaphor's world
+([story.md](story.md) §6–7).
+
+### UC-J24 · Invented story facts
+
+A generated story that states a founding year, awards, client names, numbers or quotes nobody
+supplied. Fix: generate the narrative, never the facts; use bracketed placeholders and list
+them in the hand-off ([story.md](story.md) §4).
+
 ### UC-J20 · Claiming quality without looking
 
 Declaring the page "looks great" or "polished" from reading code. Fix: capture, open the

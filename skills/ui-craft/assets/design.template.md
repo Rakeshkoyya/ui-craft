@@ -8,6 +8,36 @@
   Write "n/a" instead of deleting a section.
 -->
 
+## Story
+
+```
+STORY BRIEF — <brand>
+Vision (founder's voice): "<one sentence>"
+Origin:          <two sentences>
+Tension:         <what we refuse to be>
+Transformation:  <customer before → after>
+Proof on hand:   <real items; placeholders marked [ ]>
+Voice:           <three adjectives> — never <one thing>
+Angle:           <angle> (generated | from interview | from brief)
+Central metaphor: <noun phrase> — <why it's true>
+Motion language:  <weighty | precise | organic | airy | playful | cinematic | mechanical> — <one line>
+Story arc:        <arc>, mutated: <what changed>
+```
+
+- **Open placeholders:** <[founding year], [client quote — needs approval], …>
+
+## Structure
+
+- **Sitemap:** <routes and page titles; plain nav labels>
+- **History check:** <closest similarity and entry, date checked; recorded with history.py add? yes/no>
+
+| # | Chapter (brand words) | Archetype | Layout family | Scene / motion | Intensity |
+|---|---|---|---|---|---|
+| 1 | | | | | |
+
+- **Showpiece:** <scene, chapter> · **Echoes:** <divider, icons, hover…>
+- **Interior page arcs:** <page → arc>
+
 ## Direction
 
 - **Reading this as:** <page kind> for <audience>, <tone in 3–5 words> — <signature element>, <motion character>.
@@ -67,11 +97,13 @@ variance <1–10> · motion <1–10> · density <1–10>
 
 ## Motion
 
+- **Motion language:** <preset from assets/motion/story/languages.js; any tuning>
 - **Tokens file:** <path; names from assets/motion/tokens.css>
 - **What moves:** <component → effect → duration/easing token>
 - **What never moves:** <e.g. body text, nav, data tables>
 - **Page / route transitions:** <none | View Transitions | framework transition | library>
 - **Scroll effects:** <none | reveals on sections X, Y | scroll-driven progress…>
+- **Scenes:** <chapter → module (story-scroll, chapters, before-after…) · medium (SVG, photo, image sequence, Lottie, 3D) · scrub | play>
 - **Libraries:** <e.g. motion, gsap, lenis — or none>
 - **Reduced motion:** <what happens instead>
 

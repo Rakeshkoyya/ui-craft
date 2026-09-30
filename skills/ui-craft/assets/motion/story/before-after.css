@@ -1,0 +1,98 @@
+/*
+ * Before / after — layout (companion to before-after.js)
+ * ----------------------------------------------------------------------------
+ * Communicates: see before-after.js. Both layers share one grid cell; the
+ *   "after" layer is clipped to the left `--ba-pos` of the width.
+ * Tokens: --ba-line (divider colour, default white), --ba-handle-bg,
+ *   --ba-focus (focus ring colour), --ba-radius.
+ * Reduced motion: nothing here animates; the script moves --ba-pos.
+ * Never-invisible: default --ba-pos is 50%, so without JS both halves show.
+ */
+
+.ba {
+  --ba-pos: 50%;
+  position: relative;
+  display: grid;
+  margin: 0;
+  border-radius: var(--ba-radius, 0);
+  overflow: clip;
+  isolation: isolate;
+}
+
+.ba > .ba__before,
+.ba > .ba__after {
+  grid-area: 1 / 1;
+}
+
+.ba :is(.ba__before, .ba__after) :is(img, picture, video, svg) {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.ba__after {
+  clip-path: inset(0 calc(100% - var(--ba-pos)) 0 0);
+}
+
+.ba > figcaption {
+  grid-area: 2 / 1;
+}
+
+/* The divider spans the full width and is shifted by --ba-pos, so only transform moves. */
+.ba__divider {
+  grid-area: 1 / 1;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateX(var(--ba-pos));
+}
+
+.ba__divider::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: -1px;
+  inline-size: 2px;
+  background: var(--ba-line, #fff);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.25);
+}
+
+.ba__handle {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 0;
+  inline-size: 44px;
+  block-size: 44px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--ba-handle-bg, #fff);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.3);
+}
+
+.ba__handle::before,
+.ba__handle::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  border: 6px solid transparent;
+  translate: 0 -50%;
+}
+
+.ba__handle::before { inset-inline-start: 6px; border-inline-end-color: #222; }
+.ba__handle::after { inset-inline-end: 6px; border-inline-start-color: #222; }
+
+/* The range covers the image: drag anywhere, keyboard-operable, visually hidden. */
+.ba__range {
+  grid-area: 1 / 1;
+  z-index: 3;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.ba:has(.ba__range:focus-visible) .ba__handle {
+  outline: 3px solid var(--ba-focus, #1a5fff);
+  outline-offset: 3px;
+}

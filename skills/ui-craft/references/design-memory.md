@@ -17,11 +17,13 @@ Sections, in this order, all required (write "n/a" rather than deleting a sectio
 
 | Section | Contents |
 |---|---|
+| **Story** | The Story brief ([story.md](story.md) §5): vision, origin, tension, transformation, proof, voice, angle, central metaphor, motion language, arc; whether it was inferred, asked or generated; open placeholders |
+| **Structure** | Sitemap; the home page chapter table (chapter, archetype id, layout family, scene, intensity); interior page arcs; the showpiece and its echoes; history check result |
 | **Direction** | The "Reading this as:" line; audience; tone; the signature element; the defaults rejected (default → replacement) |
 | **Dials** | `variance N · motion N · density N`, with one line on why |
 | **Tokens** | Where tokens live (file path); color roles with values for each theme; spacing base and scale; radius personality and values; depth strategy (borders / subtle shadows / layered shadows); z-index scale |
 | **Typography** | Families and roles (display, body, mono) with source and loading method; scale ratio and the size tokens; line heights; tracking rules; numeral settings |
-| **Motion** | Motion tokens file; what moves and what doesn't (by component); page/route transition approach; the reduced-motion behavior |
+| **Motion** | Motion language preset; motion tokens file; scenes per chapter (module, medium, scrub or play); what moves and what doesn't (by component); page/route transition approach; the reduced-motion behavior |
 | **Components & libraries** | Installed UI libraries with version and why; which components come from where; theming method (variables mapped); components that are hand-rolled |
 | **Patterns** | Reusable patterns with measured values, e.g. "Primary button — 44px h · 12px 20px padding · radius-md · text-sm/600 · hover accent-hover · press scale 0.98". Only patterns used twice or more, or deliberately unusual |
 | **Decisions log** | Table of `Date (YYYY-MM-DD) · Decision · Rationale`, newest last. Includes rejected options when the reason matters |

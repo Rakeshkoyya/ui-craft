@@ -1,0 +1,166 @@
+/* Story scenes demo — each brand scopes its own tokens on its section. */
+
+:root {
+  --page-bg: #f6f6f4;
+  --page-text: #16181b;
+  --page-muted: #4d5259;
+  --page-accent: #1f4fd1;
+  --gutter: clamp(16px, 4vw, 48px);
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font: 400 1.0625rem/1.6 "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+}
+
+h1, h2, h3 { line-height: 1.12; margin: 0 0 0.5em; text-wrap: balance; }
+p { margin: 0 0 1em; }
+svg { display: block; }
+
+.skip {
+  position: absolute;
+  inset-inline-start: 1rem;
+  inset-block-start: -4rem;
+  padding: 0.5rem 1rem;
+  background: var(--page-text);
+  color: var(--page-bg);
+  z-index: 200;
+}
+.skip:focus-visible { inset-block-start: 1rem; }
+
+.visually-hidden {
+  position: absolute !important;
+  inline-size: 1px; block-size: 1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+a:focus-visible, .cta:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+
+/* ---------------------------------------------------------------- gallery chrome */
+.gallery-head {
+  padding: clamp(3rem, 10vw, 7rem) var(--gutter) clamp(2rem, 6vw, 4rem);
+  max-inline-size: 72rem;
+}
+.gallery-kicker { color: var(--page-muted); font-weight: 600; }
+.gallery-head h1 { font-size: clamp(2.1rem, 1.2rem + 4vw, 4.2rem); max-inline-size: 18ch; letter-spacing: -0.02em; }
+.gallery-lede { max-inline-size: 60ch; color: var(--page-muted); font-size: 1.125rem; }
+.gallery-nav { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.gallery-nav a { color: var(--page-accent); display: inline-block; padding-block: 0.25rem; }
+.gallery-foot { padding: 3rem var(--gutter); color: var(--page-muted); font-size: 0.9375rem; max-inline-size: 72ch; }
+
+.brand { padding-inline: var(--gutter); }
+.brand__intro { padding-block: clamp(4rem, 10vw, 8rem) clamp(1rem, 3vw, 2rem); max-inline-size: 60rem; }
+.brand__intro h2 { font-size: clamp(1.8rem, 1.1rem + 3vw, 3.4rem); max-inline-size: 22ch; }
+.brand__name { font-weight: 700; letter-spacing: 0.02em; margin-block-end: 0.75rem; }
+.story__card h3 { font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem); }
+.cta { display: inline-block; padding: 0.8rem 1.3rem; border-radius: 4px; font-weight: 700; text-decoration: none; min-block-size: 44px; }
+
+/* ---------------------------------------------------------------- 1. Stonebridge: weighty, blueprint night */
+.brand--build {
+  --b-bg: #0f1c2e;
+  --b-text: #e8edf3;
+  --b-muted: #b3c0cf;
+  --b-accent: #f2a93b;
+  --story-bg: var(--b-bg);
+  --story-surface: #16273e;
+  background: var(--b-bg);
+  color: var(--b-text);
+  font-family: Bahnschrift, "DIN Alternate", "Roboto Condensed", "Arial Narrow", sans-serif;
+}
+.brand--build .brand__name { color: var(--b-accent); text-transform: uppercase; letter-spacing: 0.12em; }
+.brand--build .story__card p { color: var(--b-muted); }
+.cta--build { background: var(--b-accent); color: #1a1206; }
+
+/* ---------------------------------------------------------------- 2. Kettle Road: organic, map */
+.brand--tea {
+  --t-bg: #f3f5ee;
+  --t-text: #1c2b1f;
+  --t-muted: #46574a;
+  --t-accent: #2f6b3f;
+  --story-bg: var(--t-bg);
+  --story-surface: #ffffff;
+  background: var(--t-bg);
+  color: var(--t-text);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+.brand--tea .brand__name { color: var(--t-accent); font-style: italic; letter-spacing: 0; }
+.brand--tea .story__card p { color: var(--t-muted); }
+.journey text { font: 600 20px "Iowan Old Style", "Palatino Linotype", Georgia, serif; fill: #1c2b1f; paint-order: stroke; stroke: #dde8e0; stroke-width: 4px; }
+.cta--tea { background: var(--t-accent); color: #fff; border-radius: 999px; }
+
+/* ---------------------------------------------------------------- 3. Canopy: airy, one statement */
+.brand--canopy {
+  --c-bg: #10231a;
+  --c-text: #e6efe6;
+  --c-muted: #a9bfae;
+  background: var(--c-bg);
+  color: var(--c-text);
+  padding-block: clamp(6rem, 18vh, 12rem);
+  font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+}
+.brand--canopy .brand__name { color: var(--c-muted); font-family: "Segoe UI", "Helvetica Neue", sans-serif; }
+.brand--canopy .th { --th-measure: 24ch; margin-block: 1rem 2rem; }
+.canopy-note { color: var(--c-muted); font-style: italic; }
+
+/* ---------------------------------------------------------------- 4. Dovetail: before / after */
+.brand--dovetail {
+  --d-bg: #e9edf1;
+  --d-text: #1b2530;
+  --d-muted: #4a5663;
+  background: var(--d-bg);
+  color: var(--d-text);
+  padding-block-end: clamp(4rem, 10vw, 8rem);
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+}
+.brand--dovetail .ba { max-inline-size: 72rem; --ba-radius: 6px; --ba-focus: #1f5f8b; }
+.brand--dovetail figcaption { padding-block-start: 0.75rem; color: var(--d-muted); font-size: 0.9375rem; }
+
+/* ---------------------------------------------------------------- 5. Halden: precise, exploded view */
+.brand--halden {
+  --h-bg: #eef1f4;
+  --h-text: #14171a;
+  --h-muted: #4b535c;
+  --story-surface: #ffffff;
+  --story-cols: minmax(0, 1fr);
+  background: var(--h-bg);
+  color: var(--h-text);
+  font-family: "Segoe UI Variable Display", "Helvetica Neue", Helvetica, sans-serif;
+}
+.brand--halden .brand__name { color: #0a5cad; }
+.brand--halden .story__card { border: 1px solid #d5dbe1; max-inline-size: 26rem; }
+.brand--halden .story__card p { color: var(--h-muted); }
+.brand--halden .story__stage .scene-art { padding: 3vh 2vw; }
+.cta--halden { background: #14171a; color: #fff; border-radius: 2px; }
+
+/* ---------------------------------------------------------------- 6. Northlight: cinematic */
+.brand--northlight {
+  --n-bg: #0b0c10;
+  --n-text: #f2efe8;
+  --n-muted: #b3ada2;
+  --n-accent: #ff6a4d;
+  --chapters-bg: var(--n-bg);
+  --chapters-rail-text: var(--n-muted);
+  --chapters-rail-active: var(--n-text);
+  padding-inline: 0;
+  background: var(--n-bg);
+  color: var(--n-text);
+  font-family: Didot, "Bodoni 72", "Bodoni MT", "Playfair Display", Georgia, serif;
+}
+.brand--northlight .zt__intro { font-size: clamp(1.4rem, 1rem + 2vw, 2.4rem); font-style: italic; margin: 0; }
+.brand--northlight .zt__window { box-shadow: 0 30px 80px rgb(0 0 0 / 0.6); }
+.brand--northlight .brand__name { color: var(--n-accent); font-family: "Segoe UI", sans-serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.875rem; }
+.zt__headline { font-size: clamp(1.6rem, 1rem + 2.4vw, 3rem); line-height: 1.1; margin: 0; }
+.chapters__panel h3 { font-size: clamp(2rem, 1rem + 4.4vw, 5rem); max-inline-size: 16ch; font-weight: 400; }
+.chapter-num { color: var(--n-accent); font-family: "Segoe UI", sans-serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.875rem; }
+.chapters__panel--b { --chapters-bg: #1d1311; }
+.chapters__panel--c { --chapters-bg: #0d1a20; }
+.cta--northlight { background: var(--n-accent); color: #1a0703; }

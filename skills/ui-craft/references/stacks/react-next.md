@@ -1,7 +1,64 @@
 # Stack: React and Next.js
 
 Covers React SPAs (Vite) and Next.js (App Router). Tailwind specifics are in
-[tailwind.md](tailwind.md).
+[tailwind.md](tailwind.md). Next.js is ui-craft's default for new sites when no stack is named.
+
+## New site scaffold
+
+Create the app (flags change between releases; check `npx create-next-app@latest --help`):
+
+```
+npx create-next-app@latest <site> --ts --app --src-dir --eslint --import-alias "@/*"
+npm i gsap @gsap/react        # scenes: ScrollTrigger, MotionPath, SplitText all ship in gsap
+npm i motion                  # only if the site uses Motion for UI/layout animation instead
+npm i lenis                   # only for motion dial 8+ storytelling pages (motion.md §7)
+```
+
+Tailwind is optional: take it if the user or project wants it; tokens stay CSS variables either
+way. Pick **one** scene engine (GSAP by default, Motion if the project is already on it).
+
+Layout that keeps the story visible in the code: one component per chapter, named in the
+brand's words, rendered on the server; only the scene wrappers are client components.
+
+```
+src/
+  app/
+    layout.tsx               fonts (next/font), tokens, header/footer, one client MotionProvider if needed
+    page.tsx                 home: the chapters in the order of the Structure plan
+    projects/page.tsx        interior pages, each with its own arc (structure.md §6)
+    projects/[slug]/page.tsx
+  components/
+    chapters/                ColdOpen.tsx, HowWeBuild.tsx, FieldLog.tsx … (server components)
+    scenes/                  BuildingScene.tsx: the SVG, authored in its finished state (server-renderable)
+    story/                   StoryScroll.tsx, use-story-scroll.tsx (client) + the .js engine files
+  styles/
+    tokens.css               colour/type/space tokens + the motion language's cssTokens
+    story.css                from assets/motion/story/story.css
+  content/                   chapter copy as TS objects or MDX, in the founder's voice
+```
+
+Wiring a sticky scene (the scene is passed in as server-rendered markup):
+
+```tsx
+// src/components/chapters/HowWeBuild.tsx — server component
+import { StoryScroll } from '@/components/story/StoryScroll';
+import { BuildingScene } from '@/components/scenes/BuildingScene';
+import { steps } from '@/content/how-we-build';
+
+export function HowWeBuild() {
+  return (
+    <StoryScroll label="How we build" layout="stage-right" language="weighty" mode="scrub"
+      stage={<BuildingScene />}
+      steps={steps.map((s) => ({ id: s.id, content: <><h3>{s.title}</h3><p>{s.body}</p></> }))} />
+  );
+}
+```
+
+Copy the engine files from `assets/motion/story/` into `src/components/story/` (they are plain
+ES modules; GSAP is passed in, so no bundler config is needed). `useGSAP` from `@gsap/react`
+scopes selectors and reverts every tween and ScrollTrigger on unmount, so App Router navigation
+doesn't leak triggers. After fonts load or a route changes the layout, `ScrollTrigger.refresh()`
+runs inside the wrapper.
 
 ## Where tokens live
 
